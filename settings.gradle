@@ -1,0 +1,6 @@
+rootProject.name = 'jcoinche'
+include 'Client'
+findProject(':Client')?.name = 'jcoinche.client'
+include 'Server'
+findProject(':Server')?.name = 'jcoinche.server'
+
