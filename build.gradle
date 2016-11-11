@@ -22,7 +22,7 @@ allprojects {
 
 task copyJars(type: Copy, dependsOn: subprojects.jar) {
     from(subprojects.jar)
-    into project.file('.')
+    into project.file('./out')
 }
 
 task copyFiles(dependsOn: [copyJars])
