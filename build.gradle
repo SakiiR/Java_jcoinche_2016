@@ -26,3 +26,7 @@ task copyJars(type: Copy, dependsOn: subprojects.jar) {
 }
 
 task copyFiles(dependsOn: [copyJars])
+
+clean {
+    delete './out/'
+}
