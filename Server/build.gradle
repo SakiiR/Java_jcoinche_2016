@@ -16,6 +16,11 @@ buildscript {
     }
 }
 
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
+}
+
+
 dependencies {
     compile 'com.google.protobuf:protobuf-java:3.0.0'
     compile group: 'io.netty', name: 'netty-transport', version: '4.1.6.Final'
@@ -26,9 +31,25 @@ dependencies {
 archivesBaseName = 'jcoinche-server'
 version = ''
 
+task "jcdeps"(type: Copy) {
+    from configurations.runtime
+    into "../out/deps"
+}
+
+build.dependsOn(jcdeps)
+
 jar {
+    into('lib') {
+        from configurations.compile
+    }
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'Main',
+                'Class-path': 'deps/netty-buffer-4.1.6.Final.jar' +
+                        'deps/netty-codec-4.1.6.Final.jar ' +
+                        'deps/netty-common-4.1.6.Final.jar ' +
+                        'deps/netty-handler-4.1.6.Final.jar ' +
+                        'deps/netty-resolver-4.1.6.Final.jar ' +
+                        'deps/netty-transport-4.1.6.Final.jar'
     }
 }
 
