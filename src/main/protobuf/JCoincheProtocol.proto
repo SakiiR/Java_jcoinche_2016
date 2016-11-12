@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+option java_outer_classname = "JCoincheProtocol";
+
+message Card {
+    required CardColor  color = 1;
+    required CardId     id = 2;
+
+    enum CardColor {
+        SPADE = 0;
+        HEART = 1;
+        DIAMOND = 2;
+        CLUB = 3;
+    }
+
+    enum CardId {
+        ACE   = 0;
+        SEVEN = 1;
+        EIGHT = 2;
+        NINE  = 3;
+        TEN   = 4;
+        JACK  = 5;
+        QUEEN = 6;
+        KING  = 7;
+    }
+}
