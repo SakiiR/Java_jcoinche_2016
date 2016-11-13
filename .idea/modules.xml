@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1672991849/Client_main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1672991849/Client_main.iml" group="Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1672991849/Client_test.iml" filepath="$PROJECT_DIR$/.idea/modules/-1672991849/Client_test.iml" group="Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jcoinche.iml" filepath="$PROJECT_DIR$/.idea/modules/jcoinche.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client/jcoinche.client.iml" filepath="$PROJECT_DIR$/.idea/modules/Client/jcoinche.client.iml" group="jcoinche.client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client/jcoinche.client_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Client/jcoinche.client_main.iml" group="jcoinche.client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Client/jcoinche.client_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Client/jcoinche.client_test.iml" group="jcoinche.client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Server/jcoinche.server.iml" filepath="$PROJECT_DIR$/.idea/modules/Server/jcoinche.server.iml" group="jcoinche.server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Server/jcoinche.server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Server/jcoinche.server_main.iml" group="jcoinche.server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Server/jcoinche.server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Server/jcoinche.server_test.iml" group="jcoinche.server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jcoinche_main.iml" filepath="$PROJECT_DIR$/.idea/modules/jcoinche_main.iml" group="jcoinche" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jcoinche_test.iml" filepath="$PROJECT_DIR$/.idea/modules/jcoinche_test.iml" group="jcoinche" />
+    </modules>
+  </component>
+</project>
