@@ -1,11 +1,10 @@
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+
+import java.net.BindException;
 
 /**
  * Created by sakiir on 12/11/16.
@@ -38,15 +37,19 @@ public class                        JCoincheServer implements Runnable{
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             try {
-                // Bind and start to accept incoming connections.
-                ChannelFuture f = b.bind(port).sync(); // (7)
-
-                // Wait until the server socket is closed.
-                // In this example, this does not happen, but you can do that to gracefully
-                // shut down your server.
+                ChannelFuture f = b.bind(this.port).addListener(new ChannelFutureListener() {
+                    @Override
+                    public void operationComplete(ChannelFuture future) throws Exception {
+                        if (!future.isSuccess()) {
+                            if (future.cause() instanceof BindException) {
+                                System.err.println("[-] Failed to bind port  [" + port + "]");
+                            }
+                        }
+                    }
+                }).sync();
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
-                System.out.println("Fuck ! :(");
+                e.printStackTrace();
             }
         } finally {
             workerGroup.shutdownGracefully();
