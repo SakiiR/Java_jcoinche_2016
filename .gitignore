@@ -1,6 +1,6 @@
 .gradle
 build/
-
+.idea/
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -11,7 +11,6 @@ gradle-app.setting
 .gradletasknamecache
 gradlew
 gradlew.bat
-
 *.class
 
 # Mobile Tools for Java (J2ME)
