@@ -6,8 +6,8 @@ public class Main {
     public static void main(String []args) {
         System.out.println("Hey I am the server!");
 
-        JCoincheServer server = new JCoincheServer(1337);
+        Thread mainServerThread = new Thread(new JCoincheServer(1337));
 
-        server.run();
+        mainServerThread.start();
     }
 }

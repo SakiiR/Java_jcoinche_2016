@@ -1,22 +1,24 @@
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 /**
- * Created by sakiir on 12/11/16.
+ * Created by sakiir on 13/11/16.
  */
-public class JCoincheServerHandler extends SimpleChannelInboundHandler<Object>{
+
+public class JCoincheServerHandler extends ChannelInboundHandlerAdapter{
+
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ctx.write(msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        try {
+            // Message Handling ...
+        } finally {
+            ReferenceCountUtil.release(msg);
+        }
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.flush();
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) { // (4)
         cause.printStackTrace();
         ctx.close();
     }
