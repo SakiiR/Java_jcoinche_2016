@@ -44,7 +44,7 @@ public class JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String in = (String) msg;
-        System.out.println(in);
+        System.out.println("[>] Received : [" + in + "]");
     }
 
     @Override
