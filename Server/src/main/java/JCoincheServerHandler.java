@@ -1,7 +1,10 @@
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.DefaultMaxBytesRecvByteBufAllocator;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
@@ -16,7 +19,7 @@ public class JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
-        System.out.println("Clients :" + (channels.size() )+ "/4");
+        System.out.println("Clients :" + (channels.size())+ "/4");
     }
 
     @Override
@@ -34,15 +37,19 @@ public class JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        String in = (String) msg;
+    public void channelRead0(ChannelHandlerContext ctx, String msg) {
+        System.out.println("Received [" + msg.toLowerCase() + "]");
+    }
 
-        try {
-            // Message Handling ...
-            System.out.println("Received [" + in + "]");
-        } finally {
-            ReferenceCountUtil.release(msg);
-        }
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        String in = (String) msg;
+        System.out.println(in);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) {
+        ctx.flush();
     }
 
     @Override

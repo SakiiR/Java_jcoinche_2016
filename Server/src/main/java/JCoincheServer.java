@@ -3,6 +3,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.util.CharsetUtil;
 
 import java.net.BindException;
 
@@ -30,6 +32,7 @@ public class                        JCoincheServer implements Runnable{
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
                             ch.pipeline().addLast(new JCoincheServerHandler());
                         }
                     })
@@ -47,6 +50,7 @@ public class                        JCoincheServer implements Runnable{
                         }
                     }
                 }).sync();
+                System.out.println("[>] Listenning on port " + this.port);
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
