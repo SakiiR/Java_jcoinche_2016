@@ -1,3 +1,4 @@
+import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 
 /**
@@ -7,6 +8,7 @@ import io.netty.channel.group.ChannelGroup;
 public class                GameHandle {
     protected Thread        thread = null;
     protected GameThread    gameThread = null;
+    protected ChannelGroup  channels = null;
 
     public                  GameHandle() {
 
@@ -16,6 +18,17 @@ public class                GameHandle {
         return (this.gameThread != null);
     }
 
+    public GameHandle       setChannels(ChannelGroup channels) {
+        this.channels = channels;
+        return this;
+    }
+
+    public void                 sendToAllChannel(String message) {
+        for (Channel ch : this.channels) {
+            ch.writeAndFlush(message);
+        }
+    }
+
     public void             stopGame() {
         System.out.println("[>] Stopping game..");
         this.gameThread.stopGame();
@@ -23,9 +36,9 @@ public class                GameHandle {
         this.thread = null;
     }
 
-    public void             startGame(ChannelGroup channelGroup) {
+    public void             startGame() {
         System.out.println("[>] Starting game..");
-        this.gameThread = new GameThread(channelGroup);
+        this.gameThread = new GameThread(this.channels, this);
         this.thread = new Thread(this.gameThread);
         this.thread.start();
     }

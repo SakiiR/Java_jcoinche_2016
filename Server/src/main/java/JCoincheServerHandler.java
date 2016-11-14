@@ -1,6 +1,4 @@
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.DefaultMaxBytesRecvByteBufAllocator;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -17,6 +15,7 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
 
     public                      JCoincheServerHandler(GameHandle gameHandle) {
         this.gameHandle = gameHandle;
+        this.gameHandle.setChannels(channels);
     }
     @Override
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -35,7 +34,7 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
             channels.add(ctx.channel());
             if (channels.size() == 4) {
                 System.out.println("Starting Game Process ! :D");
-                this.gameHandle.startGame(channels);
+                this.gameHandle.startGame();
             }
         } else {
             ctx.writeAndFlush("Sorry there is a game in progress ..");

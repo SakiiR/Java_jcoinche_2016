@@ -1,4 +1,3 @@
-import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 
 import java.util.ArrayList;
@@ -11,23 +10,19 @@ public class                    GameThread implements Runnable {
 
     private boolean             isRunning = true;
     private ChannelGroup        channelGroup = null;
-    private List<String>        messages;
+    private List<String>        messages = null;
+    private GameHandle          gameHandle = null;
 
-    public                      GameThread(ChannelGroup channelGroup) {
+    public                      GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
         this.channelGroup = channelGroup;
+        this.gameHandle = gameHandle;
         this.messages = new ArrayList<String>();
-    }
-
-    public void                 sendToAllChannel(String message) {
-        for (Channel ch : this.channelGroup) {
-            ch.writeAndFlush(message);
-        }
     }
 
     @Override
     public void                 run() {
         // Game Start
-        this.sendToAllChannel("Game is Starting !\r\n");
+        this.gameHandle.sendToAllChannel("Game is Starting !\r\n");
         while (this.isRunning) {
             try {
                 System.out.println("[>] Game Thread .. with " + this.channelGroup.size() + " clients .. Reading Queue ..");
@@ -46,7 +41,7 @@ public class                    GameThread implements Runnable {
     public void                 stopGame() {
         this.isRunning = false;
         this.messages.clear();
-        this.sendToAllChannel("[+] Game stopped !\r\nYou are in the waiting queue ..");
+        this.gameHandle.sendToAllChannel("[+] Game stopped !\r\nYou are in the waiting queue ..\r\n");
     }
 
     public GameThread           addMessage(String message) {
