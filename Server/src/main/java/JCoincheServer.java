@@ -4,6 +4,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
 import java.net.BindException;
@@ -12,12 +13,14 @@ import java.net.BindException;
  * Created by sakiir on 12/11/16.
  */
 
-public class                        JCoincheServer implements Runnable{
+public class                        JCoincheServer implements Runnable {
 
     protected int                   port;
+    protected GameHandle            gameHandle = null;
 
     public                          JCoincheServer(int port){
         this.port = port;
+        this.gameHandle = new GameHandle();
     }
 
     public void                     run() {
@@ -33,7 +36,8 @@ public class                        JCoincheServer implements Runnable{
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
-                            ch.pipeline().addLast(new JCoincheServerHandler());
+                            ch.pipeline().addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
+                            ch.pipeline().addLast(new JCoincheServerHandler(gameHandle));
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)

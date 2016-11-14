@@ -4,8 +4,6 @@ import io.netty.channel.DefaultMaxBytesRecvByteBufAllocator;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 /**
@@ -16,31 +14,27 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
 
     static final ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private GameHandle          gameHandle = null;
-    private static Thread       gameThread = null;
 
+    public                      JCoincheServerHandler(GameHandle gameHandle) {
+        this.gameHandle = gameHandle;
+    }
     @Override
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
-        System.out.println("Clients :" + (channels.size())+ "/4");
-        if (this.gameHandle != null) {
-            System.out.println("[+] Stopping Game !");
-            this.gameHandle.stopGameBrutally();
-            this.gameHandle = null;
-            gameThread = null;
+        System.out.println("Clients : " + (channels.size()) + "/4");
+        if (this.gameHandle.isRunning()) {
+            this.gameHandle.stopGame();
         }
     }
 
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
-            System.out.println("Clients :" + (channels.size() + 1 )+ "/4");
+            System.out.println("Clients : " + (channels.size() + 1 )+ "/4");
             channels.add(ctx.channel());
             if (channels.size() == 4) {
-                // Start Game Process !
-                this.gameHandle = new GameHandle();
-                gameThread = new Thread(this.gameHandle);
-                gameThread.start();
                 System.out.println("Starting Game Process ! :D");
+                this.gameHandle.startGame(channels);
             }
         } else {
             System.out.println("Sorry there is a game in progress ..");
@@ -55,10 +49,9 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     @Override
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
         String in = (String) msg;
-        if (this.gameHandle != null) {
-            System.out.println("[+] Sending " + in + " to gameHandle !");
-            this.gameHandle.addMessage(in);
-        }
+        in = in.trim();
+        System.out.println("[>] Sending to game Thread : " + in);
+        this.gameHandle.getGameThread().addMessage(in);
     }
 
     @Override
