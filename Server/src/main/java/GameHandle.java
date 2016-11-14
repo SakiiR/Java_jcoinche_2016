@@ -7,9 +7,11 @@ import java.util.List;
 
 public class                GameHandle implements Runnable {
     protected List<String>  messages;
+    protected boolean       gameRunning;
 
     public                  GameHandle() {
         this.messages = new ArrayList<String>();
+        this.gameRunning = true;
     }
 
     public void             addMessage(String message) {
@@ -20,14 +22,20 @@ public class                GameHandle implements Runnable {
         this.messages.remove(message);
     }
 
+    public void             stopGameBrutally() {
+        this.messages.clear();
+        this.gameRunning = false;
+        // do other things
+    }
+
     @Override
     public void             run() {
-        while (true) {
+        while (this.gameRunning) {
             try {
                 System.out.println("[>] Reading Queue ...");
                 if (this.messages.size() > 0) {
                     String lastMessage = this.messages.get(this.messages.size() - 1);
-                    System.out.println(lastMessage);
+                    System.out.println("[>] Game Handle Message : " + lastMessage.replace('\n', '\0'));
                     this.removeMessage(lastMessage);
                 }
                 Thread.sleep(1000);
@@ -35,5 +43,6 @@ public class                GameHandle implements Runnable {
                 e.printStackTrace();
             }
         }
+        System.out.println("[+] Finishing Thread ..");
     }
 }

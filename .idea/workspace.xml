@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="063f844e-f4c8-4d94-9ae7-ddbd968041c3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/GameHandle.java" afterPath="$PROJECT_DIR$/Server/src/main/java/GameHandle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/JCoincheServerHandler.java" afterPath="$PROJECT_DIR$/Server/src/main/java/JCoincheServerHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/main/java/Main.java" afterPath="$PROJECT_DIR$/Server/src/main/java/Main.java" />
     </list>
     <ignored path="JCoinche.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,7 +54,7 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
+            <state relative-caret-position="1248">
               <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
               <folding />
             </state>
@@ -64,8 +64,8 @@
       <file leaf-file-name="JCoincheServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-282">
-              <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+            <state relative-caret-position="1008">
+              <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#JCoincheServer#0" expanded="false" />
@@ -77,10 +77,26 @@
       <file leaf-file-name="JCoincheServerHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+            <state relative-caret-position="278">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameHandle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Server/src/main/java/GameHandle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-295">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#423#424#0" expanded="true" />
+                <element signature="e#465#466#0" expanded="true" />
+                <element signature="e#526#527#0" expanded="true" />
+                <element signature="e#571#572#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,7 +105,7 @@
       <file leaf-file-name="SimpleChannelInboundHandler.java" pinned="false" current-in-tab="false">
         <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.6.Final/3096d909759112f07ef15063d3ed31a65d87e537/netty-transport-4.1.6.Final-sources.jar!/io/netty/channel/SimpleChannelInboundHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
+            <state relative-caret-position="2040">
               <caret line="104" column="28" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="28" />
               <folding />
             </state>
@@ -99,8 +115,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="192">
+              <caret line="8" column="68" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -806,8 +822,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Server/build.gradle" />
-        <option value="$PROJECT_DIR$/Server/src/main/java/JCoincheServer.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Server/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/Server/src/main/java/JCoincheServer.java" />
+        <option value="$PROJECT_DIR$/Server/src/main/java/GameHandle.java" />
         <option value="$PROJECT_DIR$/Server/src/main/java/JCoincheServerHandler.java" />
       </list>
     </option>
@@ -822,7 +840,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="-1" />
     <option name="width" value="1920" />
-    <option name="height" value="1056" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -849,9 +867,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -934,6 +949,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1294,7 +1312,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1920" height="1056" extended-state="6" />
+    <frame x="0" y="-1" width="1920" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1304,8 +1322,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897604" sideWeight="0.5047872" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33660132" sideWeight="0.4968085" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3278867" sideWeight="0.49521276" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33515283" sideWeight="0.4968085" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.49521276" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12659575" sideWeight="0.4957627" order="0" side_tool="false" content_ui="combo" />
@@ -1341,18 +1359,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="32" column="59" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#JCoincheServer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle" />
     <entry file="file://$PROJECT_DIR$/Server/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1380,13 +1386,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheProtocol.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheProtocol.java" />
     <entry file="file://$PROJECT_DIR$/build.gradle" />
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1501,14 +1501,7 @@
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/server/Main.java" />
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/Server.java" />
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.5.0/7a27a7fc815e481b367ead5df19b4a71ace4a419/protobuf-java-2.5.0-sources.jar!/com/google/protobuf/Descriptors.java" />
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheProtocol.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheProtocol.java" />
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheChannelInitializer.java" />
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.0.6.Final/81bed8ae4f1c6b347398641a80d0e0ffee160ac0/netty-transport-4.0.6.Final-sources.jar!/io/netty/channel/EventLoopGroup.java" />
     <entry file="jar:///lib/jvm/java-8-openjdk/jre/lib/rt.jar!/java/net/URLClassLoader.class">
@@ -1546,7 +1539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1554,7 +1546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1562,7 +1553,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1080">
           <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1570,13 +1560,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="52" column="15" selection-start-line="52" selection-start-column="7" selection-end-line="52" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
+        <state relative-caret-position="1248">
           <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
           <folding />
         </state>
@@ -1586,7 +1575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="689">
           <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1594,17 +1582,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
-          <folding>
-            <element signature="e#1713#1714#0" expanded="false" />
-            <element signature="e#1736#1737#0" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.6.Final/3096d909759112f07ef15063d3ed31a65d87e537/netty-transport-4.1.6.Final-sources.jar!/io/netty/channel/SimpleChannelInboundHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="104" column="28" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="8" column="68" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.6.Final/913bf371729cc4b177e4ddb332a3b73167479254/netty-common-4.1.6.Final-sources.jar!/io/netty/util/CharsetUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-282">
-          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+        <state relative-caret-position="1008">
+          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#JCoincheServer#0" expanded="false" />
@@ -1612,26 +1627,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/main/java/Main.java">
+    <entry file="file://$PROJECT_DIR$/Server/src/main/java/GameHandle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.6.Final/3096d909759112f07ef15063d3ed31a65d87e537/netty-transport-4.1.6.Final-sources.jar!/io/netty/channel/SimpleChannelInboundHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="104" column="28" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="-295">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
+            <element signature="e#465#466#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#571#572#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/main/java/JCoincheServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+        <state relative-caret-position="278">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
