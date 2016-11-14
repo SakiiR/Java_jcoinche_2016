@@ -1,6 +1,10 @@
 /**
  * Created by sakiir on 14/11/16.
  */
+
+/**
+ * Static const variables like display string and others
+ */
 public class                        JCoincheConstants {
     public static String            project_name = "JCoincheServer";
     public static String            msg_game_started = "[>] Game Started !";

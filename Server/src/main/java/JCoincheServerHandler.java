@@ -14,10 +14,20 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     static final ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private GameHandle          gameHandle = null;
 
+    /**
+     * Channel handler consrcutor : store gameHandle and give it channels list
+     * @param gameHandle
+     */
     public                      JCoincheServerHandler(GameHandle gameHandle) {
         this.gameHandle = gameHandle;
         this.gameHandle.setChannels(channels);
     }
+
+    /**
+     * A channel has been disconnected
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
@@ -27,6 +37,10 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
         }
     }
 
+    /**
+     * A channel has just been connected
+     * @param ctx
+     */
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
@@ -43,9 +57,19 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
         }
     }
 
+    /**
+     * When a String is read directly
+     * @param ctx
+     * @param msg
+     */
     @Override
     public void                 channelRead0(ChannelHandlerContext ctx, String msg) {  }
 
+    /**
+     * When an objected is read
+     * @param ctx
+     * @param msg
+     */
     @Override
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
         String in = (String) msg;
@@ -58,11 +82,20 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
         }
     }
 
+    /**
+     * When a channel finished to read
+     * @param ctx
+     */
     @Override
     public void                 channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
     }
 
+    /**
+     * When an exception is caught
+     * @param ctx
+     * @param cause
+     */
     @Override
     public void                 exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();

@@ -22,11 +22,18 @@ public class                        JCoincheServer implements Runnable {
     protected int                   port;
     protected GameHandle            gameHandle = null;
 
-    public                          JCoincheServer(int port){
+    /**
+     * JCoincheServer Constructor
+     * @param port
+     */
+    public JCoincheServer(int port){
         this.port = port;
         this.gameHandle = new GameHandle();
     }
 
+    /**
+     * Run Method : for the main Thread
+     */
     public void                     run() {
         System.out.println(JCoincheConstants.log_server_starting);
         EventLoopGroup bossGroup = new NioEventLoopGroup();

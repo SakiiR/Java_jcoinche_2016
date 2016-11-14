@@ -12,12 +12,20 @@ public class                    GameThread implements Runnable {
     private List<String>        messages = null;
     private GameHandle          gameHandle = null;
 
+    /**
+     * GameThread Constructor
+     * @param channelGroup
+     * @param gameHandle
+     */
     public                      GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
         this.channelGroup = channelGroup;
         this.gameHandle = gameHandle;
         this.messages = new ArrayList<>();
     }
 
+    /**
+     * run() method for the game thread
+     */
     @Override
     public void                 run() {
         this.gameHandle.sendToAllChannel("[>] Game is Starting !\r\n");
@@ -36,6 +44,10 @@ public class                    GameThread implements Runnable {
         }
     }
 
+    /**
+     * stop the game thread
+     * @return GameThread
+     */
     public GameThread           stopGame() {
         this.isRunning = false;
         this.messages.clear();
@@ -43,11 +55,21 @@ public class                    GameThread implements Runnable {
         return this;
     }
 
+    /**
+     * Add a message to the game thread queue
+     * @param message
+     * @return GameThread
+     */
     public GameThread           addMessage(String message) {
         this.messages.add(message);
         return this;
     }
 
+    /**
+     * Remove a message to the game thread queue
+     * @param message
+     * @return GameThread
+     */
     public GameThread           removeMessage(String message) {
         this.messages.remove(message);
         return this;
