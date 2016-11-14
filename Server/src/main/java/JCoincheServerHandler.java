@@ -51,8 +51,12 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
         String in = (String) msg;
         in = in.trim();
-        System.out.println("[>] Sending to game Thread : " + in);
-        this.gameHandle.getGameThread().addMessage(in);
+        if (this.gameHandle.getGameThread() != null) {
+            System.out.println("[>] Sending to game Thread : " + in);
+            this.gameHandle.getGameThread().addMessage(in);
+        } else {
+            ctx.writeAndFlush("You Can't send message right about now\r\n");
+        }
     }
 
     @Override

@@ -43,7 +43,7 @@ public class                        JCoincheServer implements Runnable {
                             ch.pipeline().addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
 
                             ch.pipeline().addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
-                            ch.pipeline().addLast("probufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
+                            ch.pipeline().addLast("protobufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
 
                             ch.pipeline().addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
                             ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
