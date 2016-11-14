@@ -8,6 +8,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  * Created by sakiir on 13/11/16.
  */
 
+// Todo: Use JCoincheConstants to log info in the console (System.out.println)
 public class                    JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
 
     static final ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);

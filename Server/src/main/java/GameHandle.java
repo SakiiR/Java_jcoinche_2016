@@ -26,13 +26,13 @@ public class                GameHandle {
     }
 
     public void             stopGame() {
-        System.out.println("[>] Stopping game..");
+        System.out.println(JCoincheConstants.log_game_stopped);
         this.gameThread.stopGame();
         this.gameThread = null;
     }
 
     public void             startGame() {
-        System.out.println("[>] Starting game..");
+        System.out.println(JCoincheConstants.log_game_started);
         this.gameThread = new GameThread(this.channels, this);
         Thread t  = new Thread(this.gameThread);
         t.start();

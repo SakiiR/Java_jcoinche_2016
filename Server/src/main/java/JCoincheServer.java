@@ -28,8 +28,7 @@ public class                        JCoincheServer implements Runnable {
     }
 
     public void                     run() {
-        System.out.println("Starting the Server process ...");
-
+        System.out.println(JCoincheConstants.log_server_starting);
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -60,12 +59,12 @@ public class                        JCoincheServer implements Runnable {
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
                             if (future.cause() instanceof BindException) {
-                                System.err.println("[-] Failed to bind port  [" + port + "]");
+                                System.err.println(String.format(JCoincheConstants.log_failed_bind, port));
                             }
                         }
                     }
                 }).sync();
-                System.out.println("[>] Listenning on port " + this.port);
+                System.out.println(String.format(JCoincheConstants.log_server_started, this.port));
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
