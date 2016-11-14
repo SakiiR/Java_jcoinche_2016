@@ -18,8 +18,16 @@ public class                    GameThread implements Runnable {
         this.messages = new ArrayList<String>();
     }
 
+    public void                 sendToAllChannel(String message) {
+        for (Channel ch : this.channelGroup) {
+            ch.writeAndFlush(message);
+        }
+    }
+
     @Override
     public void                 run() {
+        // Game Start
+        this.sendToAllChannel("Game is Starting !\r\n");
         while (this.isRunning) {
             try {
                 System.out.println("[>] Game Thread .. with " + this.channelGroup.size() + " clients .. Reading Queue ..");
@@ -28,7 +36,6 @@ public class                    GameThread implements Runnable {
                     System.out.println("[>] Found Message : " + lastMessage);
                     this.removeMessage(lastMessage);
                 }
-
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -39,6 +46,7 @@ public class                    GameThread implements Runnable {
     public void                 stopGame() {
         this.isRunning = false;
         this.messages.clear();
+        this.sendToAllChannel("[+] Game stopped !\r\nYou are in the waiting queue ..");
     }
 
     public GameThread           addMessage(String message) {

@@ -21,8 +21,8 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     @Override
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
-        System.out.println("Clients : " + (channels.size()) + "/4");
-        if (this.gameHandle.isRunning()) {
+        if (this.gameHandle.isRunning() && channels.size() < 4) {
+            System.out.println("Clients : " + (channels.size()) + "/4");
             this.gameHandle.stopGame();
         }
     }
@@ -31,13 +31,15 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
             System.out.println("Clients : " + (channels.size() + 1 )+ "/4");
+            ctx.writeAndFlush("Welcome!\r\nYou are in the waiting queue\r\n");
             channels.add(ctx.channel());
             if (channels.size() == 4) {
                 System.out.println("Starting Game Process ! :D");
                 this.gameHandle.startGame(channels);
             }
         } else {
-            System.out.println("Sorry there is a game in progress ..");
+            ctx.writeAndFlush("Sorry there is a game in progress ..");
+            ctx.close();
         }
     }
 

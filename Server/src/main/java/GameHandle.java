@@ -1,8 +1,5 @@
 import io.netty.channel.group.ChannelGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by sakiir on 14/11/16.
  */
