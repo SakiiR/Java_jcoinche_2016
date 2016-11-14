@@ -4,15 +4,11 @@ import io.netty.channel.group.ChannelGroup;
 /**
  * Created by sakiir on 14/11/16.
  */
-
 public class                GameHandle {
-    protected Thread        thread = null;
     protected GameThread    gameThread = null;
     protected ChannelGroup  channels = null;
 
-    public                  GameHandle() {
-
-    }
+    public                  GameHandle() {  }
 
     public boolean          isRunning() {
         return (this.gameThread != null);
@@ -23,7 +19,7 @@ public class                GameHandle {
         return this;
     }
 
-    public void                 sendToAllChannel(String message) {
+    public void             sendToAllChannel(String message) {
         for (Channel ch : this.channels) {
             ch.writeAndFlush(message);
         }
@@ -33,14 +29,13 @@ public class                GameHandle {
         System.out.println("[>] Stopping game..");
         this.gameThread.stopGame();
         this.gameThread = null;
-        this.thread = null;
     }
 
     public void             startGame() {
         System.out.println("[>] Starting game..");
         this.gameThread = new GameThread(this.channels, this);
-        this.thread = new Thread(this.gameThread);
-        this.thread.start();
+        Thread t  = new Thread(this.gameThread);
+        t.start();
     }
 
     public GameThread       getGameThread() {
