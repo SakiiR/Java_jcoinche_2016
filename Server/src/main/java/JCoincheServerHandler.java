@@ -22,7 +22,7 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
         if (this.gameHandle.isRunning() && channels.size() < 4) {
-            System.out.println("Clients : " + (channels.size()) + "/4");
+            System.out.println(String.format(JCoincheConstants.log_client_count, channels.size()));
             this.gameHandle.stopGame();
         }
     }
@@ -30,11 +30,11 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
-            System.out.println("Clients : " + (channels.size() + 1 )+ "/4");
+            System.out.println(String.format(JCoincheConstants.log_client_count, channels.size() + 1));
             ctx.writeAndFlush("Welcome!\r\nYou are in the waiting queue\r\n");
             channels.add(ctx.channel());
             if (channels.size() == 4) {
-                System.out.println("Starting Game Process ! :D");
+                System.out.println(JCoincheConstants.log_game_process_starting);
                 this.gameHandle.startGame();
             }
         } else {
@@ -44,16 +44,14 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     }
 
     @Override
-    public void                 channelRead0(ChannelHandlerContext ctx, String msg) {
-        System.out.println("channelRead0 : " + msg);
-    }
+    public void                 channelRead0(ChannelHandlerContext ctx, String msg) {  }
 
     @Override
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
         String in = (String) msg;
         in = in.trim();
         if (this.gameHandle.getGameThread() != null) {
-            System.out.println("[>] Sending to game Thread : " + in);
+            System.out.println(String.format(JCoincheConstants.log_sending_data_to_game_process, in));
             this.gameHandle.getGameThread().addMessage(in);
         } else {
             ctx.writeAndFlush("You Can't send message right about now\r\n");

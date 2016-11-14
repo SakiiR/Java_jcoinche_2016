@@ -14,4 +14,7 @@ public class                        JCoincheConstants {
     public static String            log_server_starting = "[>] Starting Server ..";
     public static String            log_server_started = "[>] Server Listenning on port %d";
     public static String            log_failed_bind = "[-] Failed to bind port %d";
+    public static String            log_client_count = "[>] Connected Clients %d";
+    public static String            log_game_process_starting = "[>] Starting Game Process ! (:";
+    public static String            log_sending_data_to_game_process = "[>] Sending [%s] To Game Process !";
 }
