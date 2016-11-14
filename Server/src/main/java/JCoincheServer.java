@@ -3,6 +3,10 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
@@ -37,6 +41,13 @@ public class                        JCoincheServer implements Runnable {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
                             ch.pipeline().addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
+
+                            ch.pipeline().addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
+                            ch.pipeline().addLast("probufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
+
+                            ch.pipeline().addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
+                            ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
+
                             ch.pipeline().addLast(new JCoincheServerHandler(gameHandle));
                         }
                     })

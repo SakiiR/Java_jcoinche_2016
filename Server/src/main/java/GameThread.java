@@ -37,10 +37,11 @@ public class                    GameThread implements Runnable {
         }
     }
 
-    public void                 stopGame() {
+    public GameThread           stopGame() {
         this.isRunning = false;
         this.messages.clear();
         this.gameHandle.sendToAllChannel("[+] Game stopped !\r\nYou are in the waiting queue ..\r\n");
+        return this;
     }
 
     public GameThread           addMessage(String message) {
