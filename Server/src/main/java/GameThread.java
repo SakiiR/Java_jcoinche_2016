@@ -7,7 +7,6 @@ import java.util.List;
  * Created by sakiir on 14/11/16.
  */
 public class                    GameThread implements Runnable {
-
     private boolean             isRunning = true;
     private ChannelGroup        channelGroup = null;
     private List<String>        messages = null;
@@ -16,7 +15,7 @@ public class                    GameThread implements Runnable {
     public                      GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
         this.channelGroup = channelGroup;
         this.gameHandle = gameHandle;
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
     }
 
     @Override

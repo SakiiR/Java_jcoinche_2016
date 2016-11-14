@@ -23,9 +23,9 @@ allprojects {
  */
 task "package"(type: Copy, dependsOn: [subprojects.jar, build, subprojects.build]) {
     from(subprojects.jar)
-    into project.file('./out')
+    into project.file('./target')
 }
 
 clean {
-    delete './out/'
+    delete './target/'
 }

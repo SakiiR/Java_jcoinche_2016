@@ -33,7 +33,7 @@ version = ''
 
 task "jcdeps"(type: Copy) {
     from configurations.runtime
-    into "../out/deps"
+    into "../target/deps"
 }
 
 build.dependsOn(jcdeps)
