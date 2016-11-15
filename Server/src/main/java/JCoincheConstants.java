@@ -7,10 +7,6 @@
  */
 public class                                JCoincheConstants {
     public static final String              project_name = "JCoincheServer";
-    public static final String              msg_game_started = "[>] Game Started !";
-    public static final String              msg_game_stopped = "[>] Game Stopped !";
-    public static final String              msg_game_waiting_queue = "[>] You Are In The Waiting Queue ..";
-    public static final String              msg_welcome = "[>] Welcome !";
     public static final String              log_game_thread_status = "[>] Game Thread .. with %d clients .. Reading Queue ..";
     public static final String              log_message_found = "[>] Found Message : %s";
     public static final String              log_game_started = "[>] Game Started !";
