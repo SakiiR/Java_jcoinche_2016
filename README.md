@@ -10,3 +10,9 @@ gradle package
 java -jar ./target/jcoinche-server.jar
 java -jar ./target/jcoinche-client.jar
 ```
+
+## Authors
+```
+Erwan Dupard (EPITECH)
+Karine Aknin (EPITECH)
+```
