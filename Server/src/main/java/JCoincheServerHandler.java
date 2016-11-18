@@ -11,7 +11,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 // Todo: Use JCoincheConstants to log info in the console (System.out.println)
 public class                    JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
 
-    static final ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    static final private ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private GameHandle          gameHandle = null;
 
     /**
@@ -38,7 +38,7 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     }
 
     /**
-     * A channel has just been connected
+     * A channel has been connected
      * @param ctx
      */
     @Override
