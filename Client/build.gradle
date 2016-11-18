@@ -1,24 +1,56 @@
+//noinspection GroovyAssignabilityCheck
 group 'jcoinche'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'application'
-
-mainClassName = "Main"
+apply plugin: 'idea'
 
 repositories {
-    mavenCentral()
 }
 
-dependencies {
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
+    }
+}
+
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
+}
+
+project.dependencies {
+    compile 'com.google.protobuf:protobuf-java:3.0.0'
+    compile group: 'io.netty', name: 'netty-transport', version: '4.1.6.Final'
+    compile group: 'io.netty', name: 'netty-handler', version: '4.1.6.Final'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 archivesBaseName = 'jcoinche-client'
 version = ''
 
+task "jcdeps"(type: Copy) {
+    from configurations.runtime
+    into "../target/client_deps"
+}
+
+build.dependsOn(jcdeps)
+
 jar {
+    into('lib') {
+        from configurations.compile
+    }
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'Main',
+                'Class-Path': 'client_deps/netty-buffer-4.1.6.Final.jar ' +
+                        'client_deps/netty-codec-4.1.6.Final.jar ' +
+                        'client_deps/netty-common-4.1.6.Final.jar ' +
+                        'client_deps/netty-handler-4.1.6.Final.jar ' +
+                        'client_deps/netty-resolver-4.1.6.Final.jar ' +
+                        'client_deps/netty-transport-4.1.6.Final.jar ' +
+                        'client_deps/protobuf-java-3.0.0.jar '
     }
 }
+

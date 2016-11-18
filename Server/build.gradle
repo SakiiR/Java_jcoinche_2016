@@ -1,3 +1,5 @@
+//noinspection GroovyAssignabilityCheck
+
 group 'jcoinche'
 version '1.0-SNAPSHOT'
 
@@ -21,7 +23,7 @@ task listJars << {
 }
 
 
-dependencies {
+project.dependencies {
     compile 'com.google.protobuf:protobuf-java:3.0.0'
     compile group: 'io.netty', name: 'netty-transport', version: '4.1.6.Final'
     compile group: 'io.netty', name: 'netty-handler', version: '4.1.6.Final'
@@ -33,7 +35,7 @@ version = ''
 
 task "jcdeps"(type: Copy) {
     from configurations.runtime
-    into "../target/deps"
+    into "../target/server_deps"
 }
 
 build.dependsOn(jcdeps)
@@ -44,13 +46,13 @@ jar {
     }
     manifest {
         attributes 'Main-Class': 'Main',
-                'Class-path': 'deps/netty-buffer-4.1.6.Final.jar ' +
-                        'deps/netty-codec-4.1.6.Final.jar ' +
-                        'deps/netty-common-4.1.6.Final.jar ' +
-                        'deps/netty-handler-4.1.6.Final.jar ' +
-                        'deps/netty-resolver-4.1.6.Final.jar ' +
-                        'deps/netty-transport-4.1.6.Final.jar ' +
-                        'deps/protobuf-java-3.0.0.jar '
+                'Class-Path': 'server_deps/netty-buffer-4.1.6.Final.jar ' +
+                        'server_deps/netty-codec-4.1.6.Final.jar ' +
+                        'server_deps/netty-common-4.1.6.Final.jar ' +
+                        'server_deps/netty-handler-4.1.6.Final.jar ' +
+                        'server_deps/netty-resolver-4.1.6.Final.jar ' +
+                        'server_deps/netty-transport-4.1.6.Final.jar ' +
+                        'server_deps/protobuf-java-3.0.0.jar '
     }
 }
 
