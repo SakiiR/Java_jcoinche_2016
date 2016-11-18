@@ -16,7 +16,7 @@ import java.net.BindException;
  * Created by sakiir on 12/11/16.
  */
 
-public class                        JCoincheServer implements Runnable {
+public class                        JCoincheServer {
 
     protected int                   port;
     protected GameHandle            gameHandle = null;
