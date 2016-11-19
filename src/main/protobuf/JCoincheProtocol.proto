@@ -9,14 +9,14 @@ message                         JCoincheMessage {
         TYPE3 = 2;
     }
 
-    required Type               type = 1;
+    required Type               type                = 1;
 
-    required WelcomeMessage     messageWelcome = 2;
-    required GameStartMessage   gameStartMessage= 3;
+    required WelcomeMessage     messageWelcome      = 2;
+    required GameStartMessage   gameStartMessage    = 3;
 }
 
 message                         WelcomeMessage {
-    optional string             message   = 1;
+    optional string             message    = 1;
 }
 
 message                         GameStartMessage {
