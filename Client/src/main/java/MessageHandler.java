@@ -14,6 +14,8 @@ public class                MessageHandler {
             case WELCOME:
                 handleWelcomeMessage(message.getWelcomeMessage());
                 break;
+            case GAME_START:
+                break;
             default:
                 System.out.println("[>] Unknow message type ..");
                 break;
@@ -22,5 +24,12 @@ public class                MessageHandler {
 
     private void    handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
         System.out.println(String.format("[>] Handling welcome Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage()));
+    }
+
+    private void    handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
+        this.clientProcess.getPlayerInformations()
+                .setToken(message.getToken())
+                .setPlayerId(message.getPlayerId())
+                .setTeamId(message.getTeamId());
     }
 }
