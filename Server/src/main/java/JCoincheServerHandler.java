@@ -8,17 +8,16 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  * Created by sakiir on 13/11/16.
  */
 
-// Todo: Use JCoincheConstants to log info in the console (System.out.println)
-public class                    JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
+public class                            JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
 
     static final private ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    private GameHandle          gameHandle = null;
+    private GameHandle                  gameHandle = null;
 
     /**
      * Channel handler consrcutor : store gameHandle and give it channels list
      * @param gameHandle
      */
-    public                      JCoincheServerHandler(GameHandle gameHandle) {
+    public                              JCoincheServerHandler(GameHandle gameHandle) {
         this.gameHandle = gameHandle;
         this.gameHandle.setChannels(channels);
     }
@@ -45,7 +44,14 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
             System.out.println(String.format(JCoincheConstants.log_client_count, channels.size() + 1));
-            ctx.writeAndFlush("Welcome!\r\nYou are in the waiting queue\r\n"); // change to protobuf
+            ctx.writeAndFlush(JCoincheProtocol
+                    .JCoincheMessage
+                    .newBuilder()
+                    .setType(JCoincheProtocol
+                            .JCoincheMessage
+                            .Type
+                            .WELCOME)
+                    .build());
             channels.add(ctx.channel());
             if (channels.size() == 4) {
                 System.out.println(JCoincheConstants.log_game_process_starting);

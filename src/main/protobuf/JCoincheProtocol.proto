@@ -4,12 +4,13 @@ option java_outer_classname = "JCoincheProtocol";
 
 message JCoincheMessage {
     enum Type {
-        TYPE1 = 1;
-        TYPE2 = 2;
-        TYPE3 = 3;
+        WELCOME = 0;
+        TYPE2 = 1;
+        TYPE3 = 2;
     }
 
     required Type type = 1;
+    optional string message = 2;
 }
 
 /*
