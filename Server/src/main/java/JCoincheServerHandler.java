@@ -44,31 +44,14 @@ public class                            JCoincheServerHandler extends SimpleChan
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
             System.out.println(String.format(JCoincheConstants.log_client_count, channels.size() + 1));
-            ctx.writeAndFlush(JCoincheProtocol
-                    .JCoincheMessage
-                    .newBuilder()
-                    .setType(JCoincheProtocol
-                            .JCoincheMessage
-                            .Type
-                            .WELCOME)
-                    .setMessage("Welcome to \"La Doudoune Coinchée\" ! Waiting for others players !")
-                    .build());
+            ctx.writeAndFlush(MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
             channels.add(ctx.channel());
             if (channels.size() == 4) {
                 System.out.println(JCoincheConstants.log_game_process_starting);
                 this.gameHandle.startGame();
             }
         } else {
-            ctx.writeAndFlush(JCoincheProtocol
-                    .JCoincheMessage
-                    .newBuilder()
-                    .setType(JCoincheProtocol
-                            .JCoincheMessage
-                            .Type
-                            .WELCOME)
-                    .setMessage("Welcome to \"La Doudoune Coinchée\" ! A game is in progress, wait for a new game !")
-                    .build());
-            ctx.writeAndFlush("Sorry there is a game in progress ..");
+            //todo: ctx.writeAndFlush();
             ctx.close();
         }
     }
