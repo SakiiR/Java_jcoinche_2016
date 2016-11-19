@@ -13,6 +13,8 @@ gradlew
 gradlew.bat
 *.class
 
+JCoincheProtocol.java
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
