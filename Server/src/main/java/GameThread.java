@@ -33,7 +33,6 @@ public class                            GameThread implements Runnable {
      */
     @Override
     public void                         run() {
-        this.gameHandle.sendToAllChannel("[>] Game is Starting !\r\n");
         this.initializeTeams();
         while (this.isRunning) {
             try {
@@ -64,7 +63,7 @@ public class                            GameThread implements Runnable {
 
         this.allPlayers = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
-            JCoinchePlayer  player = new JCoinchePlayer(n_channels.get(i), i);
+            JCoinchePlayer  player = new JCoinchePlayer(n_channels.get(i), i + 1);
             allPlayers.add(player);
         }
 
