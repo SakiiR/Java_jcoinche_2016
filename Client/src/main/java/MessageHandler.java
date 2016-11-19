@@ -15,6 +15,7 @@ public class                MessageHandler {
                 handleWelcomeMessage(message.getWelcomeMessage());
                 break;
             case GAME_START:
+                handleGameStartMessage(message.getGameStartMessage());
                 break;
             default:
                 System.out.println("[>] Unknow message type ..");
@@ -27,6 +28,7 @@ public class                MessageHandler {
     }
 
     private void    handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
+        System.out.println(String.format("[>] Game Start message : %s %d %d", message.getToken(), message.getPlayerId(), message.getTeamId()));
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
                 .setPlayerId(message.getPlayerId())
