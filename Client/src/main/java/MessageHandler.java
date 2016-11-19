@@ -1,10 +1,12 @@
 /**
  * Created by sakiir on 19/11/16.
  */
-public class        MessageHandler {
+public class                MessageHandler {
 
-    public          MessageHandler() {
+    private ClientProcess   clientProcess;
 
+    public          MessageHandler(ClientProcess clientProcess) {
+        this.clientProcess = clientProcess;
     }
 
     public void     parseMessage(JCoincheProtocol.JCoincheMessage message) {
@@ -19,6 +21,6 @@ public class        MessageHandler {
     }
 
     private void    handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
-        System.out.println("[>] Handling welcome Message");
+        System.out.println(String.format("[>] Handling welcome Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage()));
     }
 }

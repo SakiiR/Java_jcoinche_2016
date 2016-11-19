@@ -12,7 +12,7 @@ public class                                                    ClientProcess im
 
     public          ClientProcess() {
         this.messages = new ArrayList<JCoincheProtocol.JCoincheMessage>();
-        this.messageHandler = new MessageHandler();
+        this.messageHandler = new MessageHandler(this);
     }
 
     @Override
