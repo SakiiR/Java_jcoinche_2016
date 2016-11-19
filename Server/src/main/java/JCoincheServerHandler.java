@@ -45,7 +45,7 @@ public class                    JCoincheServerHandler extends SimpleChannelInbou
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
             System.out.println(String.format(JCoincheConstants.log_client_count, channels.size() + 1));
-            ctx.writeAndFlush("Welcome!\r\nYou are in the waiting queue\r\n");
+            ctx.writeAndFlush("Welcome!\r\nYou are in the waiting queue\r\n"); // change to protobuf
             channels.add(ctx.channel());
             if (channels.size() == 4) {
                 System.out.println(JCoincheConstants.log_game_process_starting);
