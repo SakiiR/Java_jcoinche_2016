@@ -51,6 +51,7 @@ public class                            JCoincheServerHandler extends SimpleChan
                             .JCoincheMessage
                             .Type
                             .WELCOME)
+                    .setMessage("Welcome to \"La Doudoune Coinchée\" ! Waiting for others players !")
                     .build());
             channels.add(ctx.channel());
             if (channels.size() == 4) {
@@ -58,6 +59,15 @@ public class                            JCoincheServerHandler extends SimpleChan
                 this.gameHandle.startGame();
             }
         } else {
+            ctx.writeAndFlush(JCoincheProtocol
+                    .JCoincheMessage
+                    .newBuilder()
+                    .setType(JCoincheProtocol
+                            .JCoincheMessage
+                            .Type
+                            .WELCOME)
+                    .setMessage("Welcome to \"La Doudoune Coinchée\" ! A game is in progress, wait for a new game !")
+                    .build());
             ctx.writeAndFlush("Sorry there is a game in progress ..");
             ctx.close();
         }
