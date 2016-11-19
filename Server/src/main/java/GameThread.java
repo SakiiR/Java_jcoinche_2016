@@ -64,20 +64,21 @@ public class                            GameThread implements Runnable {
 
         this.allPlayers = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
-            JCoinchePlayer  player = new JCoinchePlayer(n_channels.get(i));
+            JCoinchePlayer  player = new JCoinchePlayer(n_channels.get(i), i);
             allPlayers.add(player);
         }
 
         // todo: may you can review this
         this.teams = new ArrayList<JCoincheTeam>();
+
         ArrayList<JCoinchePlayer> team1 = new ArrayList<>();
         team1.add(allPlayers.get(0));
         team1.add(allPlayers.get(1));
-        this.teams.add(new JCoincheTeam(team1));
+        this.teams.add(new JCoincheTeam(team1, 1));
         ArrayList<JCoinchePlayer> team2 = new ArrayList<>();
         team2.add(allPlayers.get(2));
         team2.add(allPlayers.get(3));
-        this.teams.add(new JCoincheTeam(team2));
+        this.teams.add(new JCoincheTeam(team2, 2));
         //todo: Broadcast GAME_START to all players
         for (JCoinchePlayer p : this.allPlayers) {
             JCoinchePlayer partner;

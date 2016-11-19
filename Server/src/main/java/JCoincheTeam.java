@@ -10,15 +10,13 @@ public class                                JCoincheTeam {
     private int                             trickScore;
     private int                             teamId;
 
-    public static int                       gTeamId = 1;
-
-    public                                  JCoincheTeam (ArrayList<JCoinchePlayer> players) {
+    public                                  JCoincheTeam (ArrayList<JCoinchePlayer> players, int teamId) {
         this.players = players;
         this.players.get(0).setTeam(this).setPartner(this.players.get(1));
         this.players.get(1).setTeam(this).setPartner(this.players.get(0));
         this.score = 0;
         this.trickScore = 0;
-        this.teamId = JCoincheTeam.gTeamId++;
+        this.teamId = teamId;
     }
 
     public int                              getId() {

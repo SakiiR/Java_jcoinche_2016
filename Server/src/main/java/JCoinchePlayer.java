@@ -12,12 +12,10 @@ public class                    JCoinchePlayer {
     private int                 playerId;
     private JCoinchePlayer      partner;
 
-    public static int           gPlayerId = 1;
-
-    public                      JCoinchePlayer(Channel channel) {
+    public                      JCoinchePlayer(Channel channel, int playerId) {
         this.channel = channel;
         this.generateToken();
-        this.playerId = JCoinchePlayer.gPlayerId++;
+        this.playerId = playerId;
     }
 
     public JCoincheTeam         getTeam() {
