@@ -52,6 +52,7 @@ public class                            JCoincheServerHandler extends SimpleChan
             }
         } else {
             //todo: ctx.writeAndFlush();
+            ctx.writeAndFlush(MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
             ctx.close();
         }
     }

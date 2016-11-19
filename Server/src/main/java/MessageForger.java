@@ -11,7 +11,7 @@ public class                                                        MessageForge
                         .Type
                         .WELCOME
                 )
-                .setMessageWelcome(
+                .setWelcomeMessage(
                         JCoincheProtocol
                         .WelcomeMessage
                         .newBuilder()

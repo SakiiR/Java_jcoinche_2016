@@ -4,13 +4,7 @@
 public final class JCoincheProtocol {
   private JCoincheProtocol() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface JCoincheMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:JCoincheMessage)
@@ -26,17 +20,17 @@ public final class JCoincheProtocol {
     JCoincheProtocol.JCoincheMessage.Type getType();
 
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    boolean hasMessageWelcome();
+    boolean hasWelcomeMessage();
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    JCoincheProtocol.WelcomeMessage getMessageWelcome();
+    JCoincheProtocol.WelcomeMessage getWelcomeMessage();
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    JCoincheProtocol.WelcomeMessageOrBuilder getMessageWelcomeOrBuilder();
+    JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder();
 
     /**
      * <code>required .GameStartMessage gameStartMessage = 3;</code>
@@ -54,28 +48,37 @@ public final class JCoincheProtocol {
   /**
    * Protobuf type {@code JCoincheMessage}
    */
-  public  static final class JCoincheMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
+  public static final class JCoincheMessage extends
+      com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:JCoincheMessage)
       JCoincheMessageOrBuilder {
     // Use JCoincheMessage.newBuilder() to construct.
-    private JCoincheMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private JCoincheMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private JCoincheMessage() {
-      type_ = 0;
+    private JCoincheMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final JCoincheMessage defaultInstance;
+    public static JCoincheMessage getDefaultInstance() {
+      return defaultInstance;
     }
 
+    public JCoincheMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+        getUnknownFields() {
       return this.unknownFields;
     }
     private JCoincheMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
+      initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -101,19 +104,19 @@ public final class JCoincheProtocol {
                 unknownFields.mergeVarintField(1, rawValue);
               } else {
                 bitField0_ |= 0x00000001;
-                type_ = rawValue;
+                type_ = value;
               }
               break;
             }
             case 18: {
               JCoincheProtocol.WelcomeMessage.Builder subBuilder = null;
               if (((bitField0_ & 0x00000002) == 0x00000002)) {
-                subBuilder = messageWelcome_.toBuilder();
+                subBuilder = welcomeMessage_.toBuilder();
               }
-              messageWelcome_ = input.readMessage(JCoincheProtocol.WelcomeMessage.PARSER, extensionRegistry);
+              welcomeMessage_ = input.readMessage(JCoincheProtocol.WelcomeMessage.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(messageWelcome_);
-                messageWelcome_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(welcomeMessage_);
+                welcomeMessage_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000002;
               break;
@@ -137,7 +140,7 @@ public final class JCoincheProtocol {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+            e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -148,11 +151,26 @@ public final class JCoincheProtocol {
       return JCoincheProtocol.internal_static_JCoincheMessage_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return JCoincheProtocol.internal_static_JCoincheMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               JCoincheProtocol.JCoincheMessage.class, JCoincheProtocol.JCoincheMessage.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<JCoincheMessage> PARSER =
+        new com.google.protobuf.AbstractParser<JCoincheMessage>() {
+      public JCoincheMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new JCoincheMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<JCoincheMessage> getParserForType() {
+      return PARSER;
     }
 
     /**
@@ -163,15 +181,15 @@ public final class JCoincheProtocol {
       /**
        * <code>WELCOME = 0;</code>
        */
-      WELCOME(0),
+      WELCOME(0, 0),
       /**
-       * <code>TYPE2 = 1;</code>
+       * <code>GAME_START = 1;</code>
        */
-      TYPE2(1),
+      GAME_START(1, 1),
       /**
        * <code>TYPE3 = 2;</code>
        */
-      TYPE3(2),
+      TYPE3(2, 2),
       ;
 
       /**
@@ -179,31 +197,21 @@ public final class JCoincheProtocol {
        */
       public static final int WELCOME_VALUE = 0;
       /**
-       * <code>TYPE2 = 1;</code>
+       * <code>GAME_START = 1;</code>
        */
-      public static final int TYPE2_VALUE = 1;
+      public static final int GAME_START_VALUE = 1;
       /**
        * <code>TYPE3 = 2;</code>
        */
       public static final int TYPE3_VALUE = 2;
 
 
-      public final int getNumber() {
-        return value;
-      }
+      public final int getNumber() { return value; }
 
-      /**
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @java.lang.Deprecated
       public static Type valueOf(int value) {
-        return forNumber(value);
-      }
-
-      public static Type forNumber(int value) {
         switch (value) {
           case 0: return WELCOME;
-          case 1: return TYPE2;
+          case 1: return GAME_START;
           case 2: return TYPE3;
           default: return null;
         }
@@ -213,17 +221,17 @@ public final class JCoincheProtocol {
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static final com.google.protobuf.Internal.EnumLiteMap<
-          Type> internalValueMap =
+      private static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalValueMap =
             new com.google.protobuf.Internal.EnumLiteMap<Type>() {
               public Type findValueByNumber(int number) {
-                return Type.forNumber(number);
+                return Type.valueOf(number);
               }
             };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
-        return getDescriptor().getValues().get(ordinal());
+        return getDescriptor().getValues().get(index);
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptorForType() {
@@ -245,9 +253,11 @@ public final class JCoincheProtocol {
         return VALUES[desc.getIndex()];
       }
 
+      private final int index;
       private final int value;
 
-      private Type(int value) {
+      private Type(int index, int value) {
+        this.index = index;
         this.value = value;
       }
 
@@ -256,7 +266,7 @@ public final class JCoincheProtocol {
 
     private int bitField0_;
     public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
+    private JCoincheProtocol.JCoincheMessage.Type type_;
     /**
      * <code>required .JCoincheMessage.Type type = 1;</code>
      */
@@ -267,29 +277,28 @@ public final class JCoincheProtocol {
      * <code>required .JCoincheMessage.Type type = 1;</code>
      */
     public JCoincheProtocol.JCoincheMessage.Type getType() {
-      JCoincheProtocol.JCoincheMessage.Type result = JCoincheProtocol.JCoincheMessage.Type.valueOf(type_);
-      return result == null ? JCoincheProtocol.JCoincheMessage.Type.WELCOME : result;
+      return type_;
     }
 
-    public static final int MESSAGEWELCOME_FIELD_NUMBER = 2;
-    private JCoincheProtocol.WelcomeMessage messageWelcome_;
+    public static final int WELCOMEMESSAGE_FIELD_NUMBER = 2;
+    private JCoincheProtocol.WelcomeMessage welcomeMessage_;
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    public boolean hasMessageWelcome() {
+    public boolean hasWelcomeMessage() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    public JCoincheProtocol.WelcomeMessage getMessageWelcome() {
-      return messageWelcome_ == null ? JCoincheProtocol.WelcomeMessage.getDefaultInstance() : messageWelcome_;
+    public JCoincheProtocol.WelcomeMessage getWelcomeMessage() {
+      return welcomeMessage_;
     }
     /**
-     * <code>required .WelcomeMessage messageWelcome = 2;</code>
+     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
      */
-    public JCoincheProtocol.WelcomeMessageOrBuilder getMessageWelcomeOrBuilder() {
-      return messageWelcome_ == null ? JCoincheProtocol.WelcomeMessage.getDefaultInstance() : messageWelcome_;
+    public JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder() {
+      return welcomeMessage_;
     }
 
     public static final int GAMESTARTMESSAGE_FIELD_NUMBER = 3;
@@ -304,15 +313,20 @@ public final class JCoincheProtocol {
      * <code>required .GameStartMessage gameStartMessage = 3;</code>
      */
     public JCoincheProtocol.GameStartMessage getGameStartMessage() {
-      return gameStartMessage_ == null ? JCoincheProtocol.GameStartMessage.getDefaultInstance() : gameStartMessage_;
+      return gameStartMessage_;
     }
     /**
      * <code>required .GameStartMessage gameStartMessage = 3;</code>
      */
     public JCoincheProtocol.GameStartMessageOrBuilder getGameStartMessageOrBuilder() {
-      return gameStartMessage_ == null ? JCoincheProtocol.GameStartMessage.getDefaultInstance() : gameStartMessage_;
+      return gameStartMessage_;
     }
 
+    private void initFields() {
+      type_ = JCoincheProtocol.JCoincheMessage.Type.WELCOME;
+      welcomeMessage_ = JCoincheProtocol.WelcomeMessage.getDefaultInstance();
+      gameStartMessage_ = JCoincheProtocol.GameStartMessage.getDefaultInstance();
+    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -323,7 +337,7 @@ public final class JCoincheProtocol {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasMessageWelcome()) {
+      if (!hasWelcomeMessage()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -337,92 +351,47 @@ public final class JCoincheProtocol {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, type_);
+        output.writeEnum(1, type_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, getMessageWelcome());
+        output.writeMessage(2, welcomeMessage_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, getGameStartMessage());
+        output.writeMessage(3, gameStartMessage_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, type_);
+          .computeEnumSize(1, type_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getMessageWelcome());
+          .computeMessageSize(2, welcomeMessage_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getGameStartMessage());
+          .computeMessageSize(3, gameStartMessage_);
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof JCoincheProtocol.JCoincheMessage)) {
-        return super.equals(obj);
-      }
-      JCoincheProtocol.JCoincheMessage other = (JCoincheProtocol.JCoincheMessage) obj;
-
-      boolean result = true;
-      result = result && (hasType() == other.hasType());
-      if (hasType()) {
-        result = result && type_ == other.type_;
-      }
-      result = result && (hasMessageWelcome() == other.hasMessageWelcome());
-      if (hasMessageWelcome()) {
-        result = result && getMessageWelcome()
-            .equals(other.getMessageWelcome());
-      }
-      result = result && (hasGameStartMessage() == other.hasGameStartMessage());
-      if (hasGameStartMessage()) {
-        result = result && getGameStartMessage()
-            .equals(other.getGameStartMessage());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasType()) {
-        hash = (37 * hash) + TYPE_FIELD_NUMBER;
-        hash = (53 * hash) + type_;
-      }
-      if (hasMessageWelcome()) {
-        hash = (37 * hash) + MESSAGEWELCOME_FIELD_NUMBER;
-        hash = (53 * hash) + getMessageWelcome().hashCode();
-      }
-      if (hasGameStartMessage()) {
-        hash = (37 * hash) + GAMESTARTMESSAGE_FIELD_NUMBER;
-        hash = (53 * hash) + getGameStartMessage().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
 
     public static JCoincheProtocol.JCoincheMessage parseFrom(
@@ -448,57 +417,46 @@ public final class JCoincheProtocol {
     }
     public static JCoincheProtocol.JCoincheMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.JCoincheMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.JCoincheMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      return PARSER.parseDelimitedFrom(input);
     }
     public static JCoincheProtocol.JCoincheMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.JCoincheMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.JCoincheMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
 
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(JCoincheProtocol.JCoincheMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
+    public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -506,7 +464,7 @@ public final class JCoincheProtocol {
      * Protobuf type {@code JCoincheMessage}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:JCoincheMessage)
         JCoincheProtocol.JCoincheMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -514,7 +472,7 @@ public final class JCoincheProtocol {
         return JCoincheProtocol.internal_static_JCoincheMessage_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return JCoincheProtocol.internal_static_JCoincheMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -527,34 +485,41 @@ public final class JCoincheProtocol {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getMessageWelcomeFieldBuilder();
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getWelcomeMessageFieldBuilder();
           getGameStartMessageFieldBuilder();
         }
       }
+      private static Builder create() {
+        return new Builder();
+      }
+
       public Builder clear() {
         super.clear();
-        type_ = 0;
+        type_ = JCoincheProtocol.JCoincheMessage.Type.WELCOME;
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (messageWelcomeBuilder_ == null) {
-          messageWelcome_ = null;
+        if (welcomeMessageBuilder_ == null) {
+          welcomeMessage_ = JCoincheProtocol.WelcomeMessage.getDefaultInstance();
         } else {
-          messageWelcomeBuilder_.clear();
+          welcomeMessageBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         if (gameStartMessageBuilder_ == null) {
-          gameStartMessage_ = null;
+          gameStartMessage_ = JCoincheProtocol.GameStartMessage.getDefaultInstance();
         } else {
           gameStartMessageBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -585,10 +550,10 @@ public final class JCoincheProtocol {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (messageWelcomeBuilder_ == null) {
-          result.messageWelcome_ = messageWelcome_;
+        if (welcomeMessageBuilder_ == null) {
+          result.welcomeMessage_ = welcomeMessage_;
         } else {
-          result.messageWelcome_ = messageWelcomeBuilder_.build();
+          result.welcomeMessage_ = welcomeMessageBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
@@ -603,32 +568,6 @@ public final class JCoincheProtocol {
         return result;
       }
 
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof JCoincheProtocol.JCoincheMessage) {
           return mergeFrom((JCoincheProtocol.JCoincheMessage)other);
@@ -643,25 +582,27 @@ public final class JCoincheProtocol {
         if (other.hasType()) {
           setType(other.getType());
         }
-        if (other.hasMessageWelcome()) {
-          mergeMessageWelcome(other.getMessageWelcome());
+        if (other.hasWelcomeMessage()) {
+          mergeWelcomeMessage(other.getWelcomeMessage());
         }
         if (other.hasGameStartMessage()) {
           mergeGameStartMessage(other.getGameStartMessage());
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasType()) {
+          
           return false;
         }
-        if (!hasMessageWelcome()) {
+        if (!hasWelcomeMessage()) {
+          
           return false;
         }
         if (!hasGameStartMessage()) {
+          
           return false;
         }
         return true;
@@ -676,7 +617,7 @@ public final class JCoincheProtocol {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (JCoincheProtocol.JCoincheMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
+          throw e;
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -686,7 +627,7 @@ public final class JCoincheProtocol {
       }
       private int bitField0_;
 
-      private int type_ = 0;
+      private JCoincheProtocol.JCoincheMessage.Type type_ = JCoincheProtocol.JCoincheMessage.Type.WELCOME;
       /**
        * <code>required .JCoincheMessage.Type type = 1;</code>
        */
@@ -697,8 +638,7 @@ public final class JCoincheProtocol {
        * <code>required .JCoincheMessage.Type type = 1;</code>
        */
       public JCoincheProtocol.JCoincheMessage.Type getType() {
-        JCoincheProtocol.JCoincheMessage.Type result = JCoincheProtocol.JCoincheMessage.Type.valueOf(type_);
-        return result == null ? JCoincheProtocol.JCoincheMessage.Type.WELCOME : result;
+        return type_;
       }
       /**
        * <code>required .JCoincheMessage.Type type = 1;</code>
@@ -708,7 +648,7 @@ public final class JCoincheProtocol {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000001;
-        type_ = value.getNumber();
+        type_ = value;
         onChanged();
         return this;
       }
@@ -717,131 +657,129 @@ public final class JCoincheProtocol {
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = 0;
+        type_ = JCoincheProtocol.JCoincheMessage.Type.WELCOME;
         onChanged();
         return this;
       }
 
-      private JCoincheProtocol.WelcomeMessage messageWelcome_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder> messageWelcomeBuilder_;
+      private JCoincheProtocol.WelcomeMessage welcomeMessage_ = JCoincheProtocol.WelcomeMessage.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder> welcomeMessageBuilder_;
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public boolean hasMessageWelcome() {
+      public boolean hasWelcomeMessage() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public JCoincheProtocol.WelcomeMessage getMessageWelcome() {
-        if (messageWelcomeBuilder_ == null) {
-          return messageWelcome_ == null ? JCoincheProtocol.WelcomeMessage.getDefaultInstance() : messageWelcome_;
+      public JCoincheProtocol.WelcomeMessage getWelcomeMessage() {
+        if (welcomeMessageBuilder_ == null) {
+          return welcomeMessage_;
         } else {
-          return messageWelcomeBuilder_.getMessage();
+          return welcomeMessageBuilder_.getMessage();
         }
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public Builder setMessageWelcome(JCoincheProtocol.WelcomeMessage value) {
-        if (messageWelcomeBuilder_ == null) {
+      public Builder setWelcomeMessage(JCoincheProtocol.WelcomeMessage value) {
+        if (welcomeMessageBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          messageWelcome_ = value;
+          welcomeMessage_ = value;
           onChanged();
         } else {
-          messageWelcomeBuilder_.setMessage(value);
+          welcomeMessageBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public Builder setMessageWelcome(
+      public Builder setWelcomeMessage(
           JCoincheProtocol.WelcomeMessage.Builder builderForValue) {
-        if (messageWelcomeBuilder_ == null) {
-          messageWelcome_ = builderForValue.build();
+        if (welcomeMessageBuilder_ == null) {
+          welcomeMessage_ = builderForValue.build();
           onChanged();
         } else {
-          messageWelcomeBuilder_.setMessage(builderForValue.build());
+          welcomeMessageBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000002;
         return this;
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public Builder mergeMessageWelcome(JCoincheProtocol.WelcomeMessage value) {
-        if (messageWelcomeBuilder_ == null) {
+      public Builder mergeWelcomeMessage(JCoincheProtocol.WelcomeMessage value) {
+        if (welcomeMessageBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              messageWelcome_ != null &&
-              messageWelcome_ != JCoincheProtocol.WelcomeMessage.getDefaultInstance()) {
-            messageWelcome_ =
-              JCoincheProtocol.WelcomeMessage.newBuilder(messageWelcome_).mergeFrom(value).buildPartial();
+              welcomeMessage_ != JCoincheProtocol.WelcomeMessage.getDefaultInstance()) {
+            welcomeMessage_ =
+              JCoincheProtocol.WelcomeMessage.newBuilder(welcomeMessage_).mergeFrom(value).buildPartial();
           } else {
-            messageWelcome_ = value;
+            welcomeMessage_ = value;
           }
           onChanged();
         } else {
-          messageWelcomeBuilder_.mergeFrom(value);
+          welcomeMessageBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public Builder clearMessageWelcome() {
-        if (messageWelcomeBuilder_ == null) {
-          messageWelcome_ = null;
+      public Builder clearWelcomeMessage() {
+        if (welcomeMessageBuilder_ == null) {
+          welcomeMessage_ = JCoincheProtocol.WelcomeMessage.getDefaultInstance();
           onChanged();
         } else {
-          messageWelcomeBuilder_.clear();
+          welcomeMessageBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public JCoincheProtocol.WelcomeMessage.Builder getMessageWelcomeBuilder() {
+      public JCoincheProtocol.WelcomeMessage.Builder getWelcomeMessageBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
-        return getMessageWelcomeFieldBuilder().getBuilder();
+        return getWelcomeMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      public JCoincheProtocol.WelcomeMessageOrBuilder getMessageWelcomeOrBuilder() {
-        if (messageWelcomeBuilder_ != null) {
-          return messageWelcomeBuilder_.getMessageOrBuilder();
+      public JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder() {
+        if (welcomeMessageBuilder_ != null) {
+          return welcomeMessageBuilder_.getMessageOrBuilder();
         } else {
-          return messageWelcome_ == null ?
-              JCoincheProtocol.WelcomeMessage.getDefaultInstance() : messageWelcome_;
+          return welcomeMessage_;
         }
       }
       /**
-       * <code>required .WelcomeMessage messageWelcome = 2;</code>
+       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
+      private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder> 
-          getMessageWelcomeFieldBuilder() {
-        if (messageWelcomeBuilder_ == null) {
-          messageWelcomeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          getWelcomeMessageFieldBuilder() {
+        if (welcomeMessageBuilder_ == null) {
+          welcomeMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder>(
-                  getMessageWelcome(),
+                  getWelcomeMessage(),
                   getParentForChildren(),
                   isClean());
-          messageWelcome_ = null;
+          welcomeMessage_ = null;
         }
-        return messageWelcomeBuilder_;
+        return welcomeMessageBuilder_;
       }
 
-      private JCoincheProtocol.GameStartMessage gameStartMessage_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
+      private JCoincheProtocol.GameStartMessage gameStartMessage_ = JCoincheProtocol.GameStartMessage.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.GameStartMessage, JCoincheProtocol.GameStartMessage.Builder, JCoincheProtocol.GameStartMessageOrBuilder> gameStartMessageBuilder_;
       /**
        * <code>required .GameStartMessage gameStartMessage = 3;</code>
@@ -854,7 +792,7 @@ public final class JCoincheProtocol {
        */
       public JCoincheProtocol.GameStartMessage getGameStartMessage() {
         if (gameStartMessageBuilder_ == null) {
-          return gameStartMessage_ == null ? JCoincheProtocol.GameStartMessage.getDefaultInstance() : gameStartMessage_;
+          return gameStartMessage_;
         } else {
           return gameStartMessageBuilder_.getMessage();
         }
@@ -895,7 +833,6 @@ public final class JCoincheProtocol {
       public Builder mergeGameStartMessage(JCoincheProtocol.GameStartMessage value) {
         if (gameStartMessageBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              gameStartMessage_ != null &&
               gameStartMessage_ != JCoincheProtocol.GameStartMessage.getDefaultInstance()) {
             gameStartMessage_ =
               JCoincheProtocol.GameStartMessage.newBuilder(gameStartMessage_).mergeFrom(value).buildPartial();
@@ -914,7 +851,7 @@ public final class JCoincheProtocol {
        */
       public Builder clearGameStartMessage() {
         if (gameStartMessageBuilder_ == null) {
-          gameStartMessage_ = null;
+          gameStartMessage_ = JCoincheProtocol.GameStartMessage.getDefaultInstance();
           onChanged();
         } else {
           gameStartMessageBuilder_.clear();
@@ -937,18 +874,17 @@ public final class JCoincheProtocol {
         if (gameStartMessageBuilder_ != null) {
           return gameStartMessageBuilder_.getMessageOrBuilder();
         } else {
-          return gameStartMessage_ == null ?
-              JCoincheProtocol.GameStartMessage.getDefaultInstance() : gameStartMessage_;
+          return gameStartMessage_;
         }
       }
       /**
        * <code>required .GameStartMessage gameStartMessage = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
+      private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.GameStartMessage, JCoincheProtocol.GameStartMessage.Builder, JCoincheProtocol.GameStartMessageOrBuilder> 
           getGameStartMessageFieldBuilder() {
         if (gameStartMessageBuilder_ == null) {
-          gameStartMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          gameStartMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               JCoincheProtocol.GameStartMessage, JCoincheProtocol.GameStartMessage.Builder, JCoincheProtocol.GameStartMessageOrBuilder>(
                   getGameStartMessage(),
                   getParentForChildren(),
@@ -957,53 +893,16 @@ public final class JCoincheProtocol {
         }
         return gameStartMessageBuilder_;
       }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
 
       // @@protoc_insertion_point(builder_scope:JCoincheMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:JCoincheMessage)
-    private static final JCoincheProtocol.JCoincheMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new JCoincheProtocol.JCoincheMessage();
+      defaultInstance = new JCoincheMessage(true);
+      defaultInstance.initFields();
     }
 
-    public static JCoincheProtocol.JCoincheMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<JCoincheMessage>
-        PARSER = new com.google.protobuf.AbstractParser<JCoincheMessage>() {
-      public JCoincheMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new JCoincheMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<JCoincheMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<JCoincheMessage> getParserForType() {
-      return PARSER;
-    }
-
-    public JCoincheProtocol.JCoincheMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(class_scope:JCoincheMessage)
   }
 
   public interface WelcomeMessageOrBuilder extends
@@ -1027,28 +926,37 @@ public final class JCoincheProtocol {
   /**
    * Protobuf type {@code WelcomeMessage}
    */
-  public  static final class WelcomeMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
+  public static final class WelcomeMessage extends
+      com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:WelcomeMessage)
       WelcomeMessageOrBuilder {
     // Use WelcomeMessage.newBuilder() to construct.
-    private WelcomeMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private WelcomeMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private WelcomeMessage() {
-      message_ = "";
+    private WelcomeMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final WelcomeMessage defaultInstance;
+    public static WelcomeMessage getDefaultInstance() {
+      return defaultInstance;
     }
 
+    public WelcomeMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+        getUnknownFields() {
       return this.unknownFields;
     }
     private WelcomeMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
+      initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1079,7 +987,7 @@ public final class JCoincheProtocol {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+            e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1090,16 +998,31 @@ public final class JCoincheProtocol {
       return JCoincheProtocol.internal_static_WelcomeMessage_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return JCoincheProtocol.internal_static_WelcomeMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               JCoincheProtocol.WelcomeMessage.class, JCoincheProtocol.WelcomeMessage.Builder.class);
     }
 
+    public static com.google.protobuf.Parser<WelcomeMessage> PARSER =
+        new com.google.protobuf.AbstractParser<WelcomeMessage>() {
+      public WelcomeMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new WelcomeMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WelcomeMessage> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     public static final int MESSAGE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object message_;
+    private java.lang.Object message_;
     /**
      * <code>optional string message = 1;</code>
      */
@@ -1140,6 +1063,9 @@ public final class JCoincheProtocol {
       }
     }
 
+    private void initFields() {
+      message_ = "";
+    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1152,60 +1078,33 @@ public final class JCoincheProtocol {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
+        output.writeBytes(1, getMessageBytes());
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getMessageBytes());
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof JCoincheProtocol.WelcomeMessage)) {
-        return super.equals(obj);
-      }
-      JCoincheProtocol.WelcomeMessage other = (JCoincheProtocol.WelcomeMessage) obj;
-
-      boolean result = true;
-      result = result && (hasMessage() == other.hasMessage());
-      if (hasMessage()) {
-        result = result && getMessage()
-            .equals(other.getMessage());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasMessage()) {
-        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-        hash = (53 * hash) + getMessage().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
 
     public static JCoincheProtocol.WelcomeMessage parseFrom(
@@ -1231,57 +1130,46 @@ public final class JCoincheProtocol {
     }
     public static JCoincheProtocol.WelcomeMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.WelcomeMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.WelcomeMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      return PARSER.parseDelimitedFrom(input);
     }
     public static JCoincheProtocol.WelcomeMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.WelcomeMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.WelcomeMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
 
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(JCoincheProtocol.WelcomeMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
+    public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1289,7 +1177,7 @@ public final class JCoincheProtocol {
      * Protobuf type {@code WelcomeMessage}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:WelcomeMessage)
         JCoincheProtocol.WelcomeMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -1297,7 +1185,7 @@ public final class JCoincheProtocol {
         return JCoincheProtocol.internal_static_WelcomeMessage_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return JCoincheProtocol.internal_static_WelcomeMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1310,20 +1198,27 @@ public final class JCoincheProtocol {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
+      private static Builder create() {
+        return new Builder();
+      }
+
       public Builder clear() {
         super.clear();
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -1356,32 +1251,6 @@ public final class JCoincheProtocol {
         return result;
       }
 
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof JCoincheProtocol.WelcomeMessage) {
           return mergeFrom((JCoincheProtocol.WelcomeMessage)other);
@@ -1398,8 +1267,7 @@ public final class JCoincheProtocol {
           message_ = other.message_;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
@@ -1416,7 +1284,7 @@ public final class JCoincheProtocol {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (JCoincheProtocol.WelcomeMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
+          throw e;
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1501,53 +1369,16 @@ public final class JCoincheProtocol {
         onChanged();
         return this;
       }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
 
       // @@protoc_insertion_point(builder_scope:WelcomeMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:WelcomeMessage)
-    private static final JCoincheProtocol.WelcomeMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new JCoincheProtocol.WelcomeMessage();
+      defaultInstance = new WelcomeMessage(true);
+      defaultInstance.initFields();
     }
 
-    public static JCoincheProtocol.WelcomeMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<WelcomeMessage>
-        PARSER = new com.google.protobuf.AbstractParser<WelcomeMessage>() {
-      public WelcomeMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new WelcomeMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<WelcomeMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<WelcomeMessage> getParserForType() {
-      return PARSER;
-    }
-
-    public JCoincheProtocol.WelcomeMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(class_scope:WelcomeMessage)
   }
 
   public interface GameStartMessageOrBuilder extends
@@ -1598,31 +1429,37 @@ public final class JCoincheProtocol {
   /**
    * Protobuf type {@code GameStartMessage}
    */
-  public  static final class GameStartMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
+  public static final class GameStartMessage extends
+      com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:GameStartMessage)
       GameStartMessageOrBuilder {
     // Use GameStartMessage.newBuilder() to construct.
-    private GameStartMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private GameStartMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private GameStartMessage() {
-      token_ = "";
-      playerId_ = 0;
-      teamId_ = 0;
-      partnerId_ = 0;
+    private GameStartMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final GameStartMessage defaultInstance;
+    public static GameStartMessage getDefaultInstance() {
+      return defaultInstance;
     }
 
+    public GameStartMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+        getUnknownFields() {
       return this.unknownFields;
     }
     private GameStartMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
+      initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1668,7 +1505,7 @@ public final class JCoincheProtocol {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+            e.getMessage()).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1679,16 +1516,31 @@ public final class JCoincheProtocol {
       return JCoincheProtocol.internal_static_GameStartMessage_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return JCoincheProtocol.internal_static_GameStartMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               JCoincheProtocol.GameStartMessage.class, JCoincheProtocol.GameStartMessage.Builder.class);
     }
 
+    public static com.google.protobuf.Parser<GameStartMessage> PARSER =
+        new com.google.protobuf.AbstractParser<GameStartMessage>() {
+      public GameStartMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GameStartMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GameStartMessage> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     public static final int TOKEN_FIELD_NUMBER = 1;
-    private volatile java.lang.Object token_;
+    private java.lang.Object token_;
     /**
      * <code>optional string token = 1;</code>
      */
@@ -1774,6 +1626,12 @@ public final class JCoincheProtocol {
       return partnerId_;
     }
 
+    private void initFields() {
+      token_ = "";
+      playerId_ = 0;
+      teamId_ = 0;
+      partnerId_ = 0;
+    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1786,8 +1644,9 @@ public final class JCoincheProtocol {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, token_);
+        output.writeBytes(1, getTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, playerId_);
@@ -1798,16 +1657,18 @@ public final class JCoincheProtocol {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, partnerId_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, token_);
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getTokenBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1821,73 +1682,16 @@ public final class JCoincheProtocol {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, partnerId_);
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof JCoincheProtocol.GameStartMessage)) {
-        return super.equals(obj);
-      }
-      JCoincheProtocol.GameStartMessage other = (JCoincheProtocol.GameStartMessage) obj;
-
-      boolean result = true;
-      result = result && (hasToken() == other.hasToken());
-      if (hasToken()) {
-        result = result && getToken()
-            .equals(other.getToken());
-      }
-      result = result && (hasPlayerId() == other.hasPlayerId());
-      if (hasPlayerId()) {
-        result = result && (getPlayerId()
-            == other.getPlayerId());
-      }
-      result = result && (hasTeamId() == other.hasTeamId());
-      if (hasTeamId()) {
-        result = result && (getTeamId()
-            == other.getTeamId());
-      }
-      result = result && (hasPartnerId() == other.hasPartnerId());
-      if (hasPartnerId()) {
-        result = result && (getPartnerId()
-            == other.getPartnerId());
-      }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasToken()) {
-        hash = (37 * hash) + TOKEN_FIELD_NUMBER;
-        hash = (53 * hash) + getToken().hashCode();
-      }
-      if (hasPlayerId()) {
-        hash = (37 * hash) + PLAYERID_FIELD_NUMBER;
-        hash = (53 * hash) + getPlayerId();
-      }
-      if (hasTeamId()) {
-        hash = (37 * hash) + TEAMID_FIELD_NUMBER;
-        hash = (53 * hash) + getTeamId();
-      }
-      if (hasPartnerId()) {
-        hash = (37 * hash) + PARTNERID_FIELD_NUMBER;
-        hash = (53 * hash) + getPartnerId();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
 
     public static JCoincheProtocol.GameStartMessage parseFrom(
@@ -1913,57 +1717,46 @@ public final class JCoincheProtocol {
     }
     public static JCoincheProtocol.GameStartMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.GameStartMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.GameStartMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      return PARSER.parseDelimitedFrom(input);
     }
     public static JCoincheProtocol.GameStartMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static JCoincheProtocol.GameStartMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static JCoincheProtocol.GameStartMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
 
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(JCoincheProtocol.GameStartMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
+    public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1971,7 +1764,7 @@ public final class JCoincheProtocol {
      * Protobuf type {@code GameStartMessage}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:GameStartMessage)
         JCoincheProtocol.GameStartMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -1979,7 +1772,7 @@ public final class JCoincheProtocol {
         return JCoincheProtocol.internal_static_GameStartMessage_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return JCoincheProtocol.internal_static_GameStartMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1992,15 +1785,18 @@ public final class JCoincheProtocol {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
+      private static Builder create() {
+        return new Builder();
+      }
+
       public Builder clear() {
         super.clear();
         token_ = "";
@@ -2012,6 +1808,10 @@ public final class JCoincheProtocol {
         partnerId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -2056,32 +1856,6 @@ public final class JCoincheProtocol {
         return result;
       }
 
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof JCoincheProtocol.GameStartMessage) {
           return mergeFrom((JCoincheProtocol.GameStartMessage)other);
@@ -2107,8 +1881,7 @@ public final class JCoincheProtocol {
         if (other.hasPartnerId()) {
           setPartnerId(other.getPartnerId());
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
@@ -2125,7 +1898,7 @@ public final class JCoincheProtocol {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (JCoincheProtocol.GameStartMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
+          throw e;
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2306,88 +2079,51 @@ public final class JCoincheProtocol {
         onChanged();
         return this;
       }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
 
       // @@protoc_insertion_point(builder_scope:GameStartMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:GameStartMessage)
-    private static final JCoincheProtocol.GameStartMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new JCoincheProtocol.GameStartMessage();
+      defaultInstance = new GameStartMessage(true);
+      defaultInstance.initFields();
     }
 
-    public static JCoincheProtocol.GameStartMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<GameStartMessage>
-        PARSER = new com.google.protobuf.AbstractParser<GameStartMessage>() {
-      public GameStartMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GameStartMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GameStartMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GameStartMessage> getParserForType() {
-      return PARSER;
-    }
-
-    public JCoincheProtocol.GameStartMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(class_scope:GameStartMessage)
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_JCoincheMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_JCoincheMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_WelcomeMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_WelcomeMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_GameStartMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_GameStartMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
+  private static com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\026JCoincheProtocol.proto\"\267\001\n\017JCoincheMes" +
+      "\n\026JCoincheProtocol.proto\"\274\001\n\017JCoincheMes" +
       "sage\022#\n\004type\030\001 \002(\0162\025.JCoincheMessage.Typ" +
-      "e\022\'\n\016messageWelcome\030\002 \002(\0132\017.WelcomeMessa" +
+      "e\022\'\n\016welcomeMessage\030\002 \002(\0132\017.WelcomeMessa" +
       "ge\022+\n\020gameStartMessage\030\003 \002(\0132\021.GameStart" +
-      "Message\")\n\004Type\022\013\n\007WELCOME\020\000\022\t\n\005TYPE2\020\001\022" +
-      "\t\n\005TYPE3\020\002\"!\n\016WelcomeMessage\022\017\n\007message\030" +
-      "\001 \001(\t\"V\n\020GameStartMessage\022\r\n\005token\030\001 \001(\t" +
-      "\022\020\n\010playerId\030\002 \001(\005\022\016\n\006teamId\030\003 \001(\005\022\021\n\tpa" +
-      "rtnerId\030\004 \001(\005B\022B\020JCoincheProtocol"
+      "Message\".\n\004Type\022\013\n\007WELCOME\020\000\022\016\n\nGAME_STA" +
+      "RT\020\001\022\t\n\005TYPE3\020\002\"!\n\016WelcomeMessage\022\017\n\007mes" +
+      "sage\030\001 \001(\t\"V\n\020GameStartMessage\022\r\n\005token\030" +
+      "\001 \001(\t\022\020\n\010playerId\030\002 \001(\005\022\016\n\006teamId\030\003 \001(\005\022" +
+      "\021\n\tpartnerId\030\004 \001(\005B\022B\020JCoincheProtocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2404,19 +2140,19 @@ public final class JCoincheProtocol {
     internal_static_JCoincheMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_JCoincheMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_JCoincheMessage_descriptor,
-        new java.lang.String[] { "Type", "MessageWelcome", "GameStartMessage", });
+        new java.lang.String[] { "Type", "WelcomeMessage", "GameStartMessage", });
     internal_static_WelcomeMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_WelcomeMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_WelcomeMessage_descriptor,
         new java.lang.String[] { "Message", });
     internal_static_GameStartMessage_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_GameStartMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_GameStartMessage_descriptor,
         new java.lang.String[] { "Token", "PlayerId", "TeamId", "PartnerId", });
   }

@@ -10,7 +10,7 @@ public class        MessageHandler {
     public void     parseMessage(JCoincheProtocol.JCoincheMessage message) {
         switch (message.getType()) {
             case WELCOME:
-                handleWelcomeMessage(message.getMessageWelcome());
+                handleWelcomeMessage(message.getWelcomeMessage());
                 break;
             default:
                 System.out.println("[>] Unknow message type ..");
