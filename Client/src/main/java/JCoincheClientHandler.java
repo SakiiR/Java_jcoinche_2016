@@ -8,8 +8,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class                JCoincheClientHandler extends ChannelInboundHandlerAdapter{
 
-    public                  JCoincheClientHandler() {
+    ClientProcess           clientProcess = null;
 
+    public                  JCoincheClientHandler(ClientProcess clientProcess) {
+        this.clientProcess = clientProcess;
     }
 
     @Override
@@ -19,6 +21,11 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
 
     public void             channelRead(ChannelHandlerContext ctx, JCoincheProtocol.JCoincheMessage req) {
         System.out.println(String.format("[>] Message Received {type : \"%s\"}", req.getType()));
+        /*
+        if (req.getType() === TYPE_GAME_START) {
+            StartClient(Process)
+         }
+         */
     }
 
     @Override
