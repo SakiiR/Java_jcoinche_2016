@@ -58,7 +58,7 @@ public class                            JCoincheServerHandler extends SimpleChan
     }
 
     /**
-     * When a String is read directly
+     * When a String is read
      * @param ctx
      * @param msg
      */
@@ -66,7 +66,7 @@ public class                            JCoincheServerHandler extends SimpleChan
     public void                 channelRead0(ChannelHandlerContext ctx, String msg) {  }
 
     /**
-     * When an objected is read
+     * When an Object is read
      * @param ctx
      * @param msg
      */
