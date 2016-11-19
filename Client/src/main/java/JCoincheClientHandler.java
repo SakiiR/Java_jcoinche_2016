@@ -19,7 +19,10 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
         System.out.println("[>] Connected!");
     }
 
-    public void             channelRead(ChannelHandlerContext ctx, JCoincheProtocol.JCoincheMessage req) {
+    @Override
+    public void             channelRead(ChannelHandlerContext ctx, Object msg) {
+        JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
+
         System.out.println(String.format("[>] Message Received {type : \"%s\"}", req.getType()));
         /*
         if (req.getType() === TYPE_GAME_START) {

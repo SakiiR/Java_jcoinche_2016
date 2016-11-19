@@ -30,8 +30,8 @@ public class                            JCoincheServerHandler extends SimpleChan
     @Override
     public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
+        System.out.println(String.format(JCoincheConstants.log_client_count, channels.size()));
         if (this.gameHandle.isRunning() && channels.size() < 4) {
-            System.out.println(String.format(JCoincheConstants.log_client_count, channels.size()));
             this.gameHandle.stopGame();
         }
     }

@@ -24,6 +24,20 @@ public final class JCoincheProtocol {
      * <code>required .JCoincheMessage.Type type = 1;</code>
      */
     JCoincheProtocol.JCoincheMessage.Type getType();
+
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    boolean hasMessage();
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
   }
   /**
    * Protobuf type {@code JCoincheMessage}
@@ -37,7 +51,8 @@ public final class JCoincheProtocol {
       super(builder);
     }
     private JCoincheMessage() {
-      type_ = 1;
+      type_ = 0;
+      message_ = "";
     }
 
     @java.lang.Override
@@ -79,6 +94,12 @@ public final class JCoincheProtocol {
               }
               break;
             }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              message_ = bs;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -109,31 +130,31 @@ public final class JCoincheProtocol {
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>TYPE1 = 1;</code>
+       * <code>WELCOME = 0;</code>
        */
-      TYPE1(1),
+      WELCOME(0),
       /**
-       * <code>TYPE2 = 2;</code>
+       * <code>TYPE2 = 1;</code>
        */
-      TYPE2(2),
+      TYPE2(1),
       /**
-       * <code>TYPE3 = 3;</code>
+       * <code>TYPE3 = 2;</code>
        */
-      TYPE3(3),
+      TYPE3(2),
       ;
 
       /**
-       * <code>TYPE1 = 1;</code>
+       * <code>WELCOME = 0;</code>
        */
-      public static final int TYPE1_VALUE = 1;
+      public static final int WELCOME_VALUE = 0;
       /**
-       * <code>TYPE2 = 2;</code>
+       * <code>TYPE2 = 1;</code>
        */
-      public static final int TYPE2_VALUE = 2;
+      public static final int TYPE2_VALUE = 1;
       /**
-       * <code>TYPE3 = 3;</code>
+       * <code>TYPE3 = 2;</code>
        */
-      public static final int TYPE3_VALUE = 3;
+      public static final int TYPE3_VALUE = 2;
 
 
       public final int getNumber() {
@@ -150,9 +171,9 @@ public final class JCoincheProtocol {
 
       public static Type forNumber(int value) {
         switch (value) {
-          case 1: return TYPE1;
-          case 2: return TYPE2;
-          case 3: return TYPE3;
+          case 0: return WELCOME;
+          case 1: return TYPE2;
+          case 2: return TYPE3;
           default: return null;
         }
       }
@@ -216,7 +237,49 @@ public final class JCoincheProtocol {
      */
     public JCoincheProtocol.JCoincheMessage.Type getType() {
       JCoincheProtocol.JCoincheMessage.Type result = JCoincheProtocol.JCoincheMessage.Type.valueOf(type_);
-      return result == null ? JCoincheProtocol.JCoincheMessage.Type.TYPE1 : result;
+      return result == null ? JCoincheProtocol.JCoincheMessage.Type.WELCOME : result;
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object message_;
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          message_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -238,6 +301,9 @@ public final class JCoincheProtocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeEnum(1, type_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -249,6 +315,9 @@ public final class JCoincheProtocol {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, type_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -271,6 +340,11 @@ public final class JCoincheProtocol {
       if (hasType()) {
         result = result && type_ == other.type_;
       }
+      result = result && (hasMessage() == other.hasMessage());
+      if (hasMessage()) {
+        result = result && getMessage()
+            .equals(other.getMessage());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -285,6 +359,10 @@ public final class JCoincheProtocol {
       if (hasType()) {
         hash = (37 * hash) + TYPE_FIELD_NUMBER;
         hash = (53 * hash) + type_;
+      }
+      if (hasMessage()) {
+        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getMessage().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -404,8 +482,10 @@ public final class JCoincheProtocol {
       }
       public Builder clear() {
         super.clear();
-        type_ = 1;
+        type_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -434,6 +514,10 @@ public final class JCoincheProtocol {
           to_bitField0_ |= 0x00000001;
         }
         result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.message_ = message_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -479,6 +563,11 @@ public final class JCoincheProtocol {
         if (other.hasType()) {
           setType(other.getType());
         }
+        if (other.hasMessage()) {
+          bitField0_ |= 0x00000002;
+          message_ = other.message_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -510,7 +599,7 @@ public final class JCoincheProtocol {
       }
       private int bitField0_;
 
-      private int type_ = 1;
+      private int type_ = 0;
       /**
        * <code>required .JCoincheMessage.Type type = 1;</code>
        */
@@ -522,7 +611,7 @@ public final class JCoincheProtocol {
        */
       public JCoincheProtocol.JCoincheMessage.Type getType() {
         JCoincheProtocol.JCoincheMessage.Type result = JCoincheProtocol.JCoincheMessage.Type.valueOf(type_);
-        return result == null ? JCoincheProtocol.JCoincheMessage.Type.TYPE1 : result;
+        return result == null ? JCoincheProtocol.JCoincheMessage.Type.WELCOME : result;
       }
       /**
        * <code>required .JCoincheMessage.Type type = 1;</code>
@@ -541,7 +630,83 @@ public final class JCoincheProtocol {
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = 1;
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public boolean hasMessage() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            message_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder clearMessage() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        message_ = value;
         onChanged();
         return this;
       }
@@ -608,10 +773,10 @@ public final class JCoincheProtocol {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\026JCoincheProtocol.proto\"_\n\017JCoincheMess" +
+      "\n\026JCoincheProtocol.proto\"r\n\017JCoincheMess" +
       "age\022#\n\004type\030\001 \002(\0162\025.JCoincheMessage.Type" +
-      "\"\'\n\004Type\022\t\n\005TYPE1\020\001\022\t\n\005TYPE2\020\002\022\t\n\005TYPE3\020" +
-      "\003B\022B\020JCoincheProtocol"
+      "\022\017\n\007message\030\002 \001(\t\")\n\004Type\022\013\n\007WELCOME\020\000\022\t" +
+      "\n\005TYPE2\020\001\022\t\n\005TYPE3\020\002B\022B\020JCoincheProtocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -630,7 +795,7 @@ public final class JCoincheProtocol {
     internal_static_JCoincheMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JCoincheMessage_descriptor,
-        new java.lang.String[] { "Type", });
+        new java.lang.String[] { "Type", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
