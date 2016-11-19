@@ -9,10 +9,11 @@ public class                                                    ClientProcess im
     private boolean                                             isRunning = true;
     private ArrayList<JCoincheProtocol.JCoincheMessage>         messages;
     private MessageHandler                                      messageHandler;
+    private PlayerInformations                                  playerInformations;
 
     public          ClientProcess() {
         this.messages = new ArrayList<JCoincheProtocol.JCoincheMessage>();
-        this.messageHandler = new MessageHandler();
+        this.messageHandler = new MessageHandler(this);
     }
 
     @Override
@@ -45,5 +46,9 @@ public class                                                    ClientProcess im
     public ClientProcess                        removeMessage(JCoincheProtocol.JCoincheMessage message) {
         this.messages.remove(message);
         return this;
+    }
+
+    public PlayerInformations                   getPlayerInformations() {
+        return this.playerInformations;
     }
 }
