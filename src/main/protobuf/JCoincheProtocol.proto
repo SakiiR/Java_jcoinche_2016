@@ -11,8 +11,8 @@ message                         JCoincheMessage {
 
     required Type               type                = 1;
 
-    required WelcomeMessage     welcomeMessage      = 2;
-    required GameStartMessage   gameStartMessage    = 3;
+    optional WelcomeMessage     welcomeMessage      = 2;
+    optional GameStartMessage   gameStartMessage    = 3;
 }
 
 message                         WelcomeMessage {

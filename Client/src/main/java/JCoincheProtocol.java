@@ -20,28 +20,28 @@ public final class JCoincheProtocol {
     JCoincheProtocol.JCoincheMessage.Type getType();
 
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     boolean hasWelcomeMessage();
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     JCoincheProtocol.WelcomeMessage getWelcomeMessage();
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder();
 
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     boolean hasGameStartMessage();
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     JCoincheProtocol.GameStartMessage getGameStartMessage();
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     JCoincheProtocol.GameStartMessageOrBuilder getGameStartMessageOrBuilder();
   }
@@ -283,19 +283,19 @@ public final class JCoincheProtocol {
     public static final int WELCOMEMESSAGE_FIELD_NUMBER = 2;
     private JCoincheProtocol.WelcomeMessage welcomeMessage_;
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     public boolean hasWelcomeMessage() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     public JCoincheProtocol.WelcomeMessage getWelcomeMessage() {
       return welcomeMessage_;
     }
     /**
-     * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+     * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
      */
     public JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder() {
       return welcomeMessage_;
@@ -304,19 +304,19 @@ public final class JCoincheProtocol {
     public static final int GAMESTARTMESSAGE_FIELD_NUMBER = 3;
     private JCoincheProtocol.GameStartMessage gameStartMessage_;
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     public boolean hasGameStartMessage() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     public JCoincheProtocol.GameStartMessage getGameStartMessage() {
       return gameStartMessage_;
     }
     /**
-     * <code>required .GameStartMessage gameStartMessage = 3;</code>
+     * <code>optional .GameStartMessage gameStartMessage = 3;</code>
      */
     public JCoincheProtocol.GameStartMessageOrBuilder getGameStartMessageOrBuilder() {
       return gameStartMessage_;
@@ -334,14 +334,6 @@ public final class JCoincheProtocol {
       if (isInitialized == 0) return false;
 
       if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasWelcomeMessage()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasGameStartMessage()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -597,14 +589,6 @@ public final class JCoincheProtocol {
           
           return false;
         }
-        if (!hasWelcomeMessage()) {
-          
-          return false;
-        }
-        if (!hasGameStartMessage()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -666,13 +650,13 @@ public final class JCoincheProtocol {
       private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder> welcomeMessageBuilder_;
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public boolean hasWelcomeMessage() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public JCoincheProtocol.WelcomeMessage getWelcomeMessage() {
         if (welcomeMessageBuilder_ == null) {
@@ -682,7 +666,7 @@ public final class JCoincheProtocol {
         }
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public Builder setWelcomeMessage(JCoincheProtocol.WelcomeMessage value) {
         if (welcomeMessageBuilder_ == null) {
@@ -698,7 +682,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public Builder setWelcomeMessage(
           JCoincheProtocol.WelcomeMessage.Builder builderForValue) {
@@ -712,7 +696,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public Builder mergeWelcomeMessage(JCoincheProtocol.WelcomeMessage value) {
         if (welcomeMessageBuilder_ == null) {
@@ -731,7 +715,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public Builder clearWelcomeMessage() {
         if (welcomeMessageBuilder_ == null) {
@@ -744,7 +728,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public JCoincheProtocol.WelcomeMessage.Builder getWelcomeMessageBuilder() {
         bitField0_ |= 0x00000002;
@@ -752,7 +736,7 @@ public final class JCoincheProtocol {
         return getWelcomeMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       public JCoincheProtocol.WelcomeMessageOrBuilder getWelcomeMessageOrBuilder() {
         if (welcomeMessageBuilder_ != null) {
@@ -762,7 +746,7 @@ public final class JCoincheProtocol {
         }
       }
       /**
-       * <code>required .WelcomeMessage welcomeMessage = 2;</code>
+       * <code>optional .WelcomeMessage welcomeMessage = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.WelcomeMessage, JCoincheProtocol.WelcomeMessage.Builder, JCoincheProtocol.WelcomeMessageOrBuilder> 
@@ -782,13 +766,13 @@ public final class JCoincheProtocol {
       private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.GameStartMessage, JCoincheProtocol.GameStartMessage.Builder, JCoincheProtocol.GameStartMessageOrBuilder> gameStartMessageBuilder_;
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public boolean hasGameStartMessage() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public JCoincheProtocol.GameStartMessage getGameStartMessage() {
         if (gameStartMessageBuilder_ == null) {
@@ -798,7 +782,7 @@ public final class JCoincheProtocol {
         }
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public Builder setGameStartMessage(JCoincheProtocol.GameStartMessage value) {
         if (gameStartMessageBuilder_ == null) {
@@ -814,7 +798,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public Builder setGameStartMessage(
           JCoincheProtocol.GameStartMessage.Builder builderForValue) {
@@ -828,7 +812,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public Builder mergeGameStartMessage(JCoincheProtocol.GameStartMessage value) {
         if (gameStartMessageBuilder_ == null) {
@@ -847,7 +831,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public Builder clearGameStartMessage() {
         if (gameStartMessageBuilder_ == null) {
@@ -860,7 +844,7 @@ public final class JCoincheProtocol {
         return this;
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public JCoincheProtocol.GameStartMessage.Builder getGameStartMessageBuilder() {
         bitField0_ |= 0x00000004;
@@ -868,7 +852,7 @@ public final class JCoincheProtocol {
         return getGameStartMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       public JCoincheProtocol.GameStartMessageOrBuilder getGameStartMessageOrBuilder() {
         if (gameStartMessageBuilder_ != null) {
@@ -878,7 +862,7 @@ public final class JCoincheProtocol {
         }
       }
       /**
-       * <code>required .GameStartMessage gameStartMessage = 3;</code>
+       * <code>optional .GameStartMessage gameStartMessage = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           JCoincheProtocol.GameStartMessage, JCoincheProtocol.GameStartMessage.Builder, JCoincheProtocol.GameStartMessageOrBuilder> 
@@ -2117,8 +2101,8 @@ public final class JCoincheProtocol {
     java.lang.String[] descriptorData = {
       "\n\026JCoincheProtocol.proto\"\274\001\n\017JCoincheMes" +
       "sage\022#\n\004type\030\001 \002(\0162\025.JCoincheMessage.Typ" +
-      "e\022\'\n\016welcomeMessage\030\002 \002(\0132\017.WelcomeMessa" +
-      "ge\022+\n\020gameStartMessage\030\003 \002(\0132\021.GameStart" +
+      "e\022\'\n\016welcomeMessage\030\002 \001(\0132\017.WelcomeMessa" +
+      "ge\022+\n\020gameStartMessage\030\003 \001(\0132\021.GameStart" +
       "Message\".\n\004Type\022\013\n\007WELCOME\020\000\022\016\n\nGAME_STA" +
       "RT\020\001\022\t\n\005TYPE3\020\002\"!\n\016WelcomeMessage\022\017\n\007mes" +
       "sage\030\001 \001(\t\"V\n\020GameStartMessage\022\r\n\005token\030" +
