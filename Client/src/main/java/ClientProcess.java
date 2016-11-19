@@ -19,8 +19,7 @@ public class                                                    ClientProcess im
     @Override
     public void                                 run() {
         while (this.isRunning) {
-            System.out.println(JCoincheConstants.log_checking_last_message);
-
+            // System.out.println(JCoincheConstants.log_checking_last_message);
             for (JCoincheProtocol.JCoincheMessage message : this.messages) {
                 System.out.println(String.format(JCoincheConstants.log_last_message_handling, message.getType()));
                 // send message to handler
