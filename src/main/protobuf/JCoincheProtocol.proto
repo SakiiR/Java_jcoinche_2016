@@ -2,37 +2,26 @@ syntax = "proto2";
 
 option java_outer_classname = "JCoincheProtocol";
 
-message JCoincheMessage {
-    enum Type {
+message                         JCoincheMessage {
+    enum                        Type {
         WELCOME = 0;
         TYPE2 = 1;
         TYPE3 = 2;
     }
 
-    required Type type = 1;
-    optional string message = 2;
+    required Type               type = 1;
+
+    required WelcomeMessage     messageWelcome = 2;
+    required GameStartMessage   gameStartMessage= 3;
 }
 
-/*
-message Card {
-    required CardColor  color = 1;
-    required CardId     id = 2;
+message                         WelcomeMessage {
+    optional string             message   = 1;
+}
 
-    enum CardColor {
-        SPADE = 0;
-        HEART = 1;
-        DIAMOND = 2;
-        CLUB = 3;
-    }
-
-    enum CardId {
-        ACE   = 0;
-        SEVEN = 1;
-        EIGHT = 2;
-        NINE  = 3;
-        TEN   = 4;
-        JACK  = 5;
-        QUEEN = 6;
-        KING  = 7;
-    }
-}*/
+message                         GameStartMessage {
+    optional string             token      = 1;
+    optional int32              playerId   = 2;
+    optional int32              teamId     = 3;
+    optional int32              partnerId  = 4;
+}

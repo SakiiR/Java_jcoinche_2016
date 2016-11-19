@@ -12,7 +12,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
 
     public                  JCoincheClientHandler(ClientProcess clientProcess) {
         this.clientProcess = clientProcess;
-        Thread t = new Thread(this.clientProcess);
+        new Thread(this.clientProcess).start();
     }
 
     @Override
@@ -23,8 +23,9 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     @Override
     public void             channelRead(ChannelHandlerContext ctx, Object msg) {
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
+
         System.out.println(String.format(JCoincheConstants.log_message_received, req.getType()));
-        this.clientProcess.setLastMessage(req);
+        this.clientProcess.addMessage(req);
     }
 
     @Override

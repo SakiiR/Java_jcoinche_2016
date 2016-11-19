@@ -1,23 +1,49 @@
+import java.util.ArrayList;
+import java.util.Stack;
+
 /**
  * Created by sakiir on 19/11/16.
  */
-public class                                    ClientProcess implements Runnable {
+public class                                                    ClientProcess implements Runnable {
 
-    private JCoincheProtocol.JCoincheMessage    lastMessage = null;
+    private boolean                                             isRunning = true;
+    private ArrayList<JCoincheProtocol.JCoincheMessage>         messages;
+    private MessageHandler                                      messageHandler;
 
-    public          ClientProcess() {  }
+    public          ClientProcess() {
+        this.messages = new ArrayList<JCoincheProtocol.JCoincheMessage>();
+        this.messageHandler = new MessageHandler();
+    }
 
     @Override
     public void                                 run() {
+        while (this.isRunning) {
+            System.out.println(JCoincheConstants.log_checking_last_message);
 
+            for (JCoincheProtocol.JCoincheMessage message : this.messages) {
+                System.out.println(String.format(JCoincheConstants.log_last_message_handling, message.getType()));
+                // send message to handler
+                this.messageHandler.parseMessage(message);
+            }
+            if (this.messages.size() > 0) {
+                this.messages.clear();
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public ClientProcess                        setLastMessage(JCoincheProtocol.JCoincheMessage lastMessage) {
-        this.lastMessage = lastMessage;
+    public ClientProcess                        addMessage(JCoincheProtocol.JCoincheMessage message) {
+        this.messages.add(message);
         return this;
     }
 
-    public JCoincheProtocol.JCoincheMessage     getLastMessage() {
-        return this.lastMessage;
+    public ClientProcess                        removeMessage(JCoincheProtocol.JCoincheMessage message) {
+        this.messages.remove(message);
+        return this;
     }
 }
