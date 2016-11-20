@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by sakiir on 19/11/16.
  */
@@ -37,6 +39,19 @@ public class                                                        MessageForge
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetCardsMessage(JCoinchePlayer player) {
+        ArrayList<JCoincheCard>                                     cards = player.getCards();
+        JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
+        JCoincheProtocol.GetCardsMessage.Builder                    cardsMessage = JCoincheProtocol.GetCardsMessage.newBuilder();
 
+        int i = 0;
+        for (JCoincheCard c : cards) {
+            cardsMessage.setColors(i, c.getColor().ordinal())
+                        .setIds(i, c.getId().ordinal());
+            ++i;
+        }
+
+        builder.setType(JCoincheProtocol.JCoincheMessage.Type.GET_CARDS)
+                .setGetCardsMessage(cardsMessage);
+        return builder;
     }
 }
