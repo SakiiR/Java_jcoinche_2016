@@ -4,9 +4,10 @@ option java_outer_classname = "JCoincheProtocol";
 
 message                         JCoincheMessage {
     enum                        Type {
-        WELCOME = 0;
-        GAME_START = 1;
-        GET_CARDS = 2;
+        WELCOME     = 0;
+        GAME_START  = 1;
+        GET_CARDS   = 2;
+        GET_BID     = 3;
     }
 
     required Type               type                = 1;
@@ -15,6 +16,7 @@ message                         JCoincheMessage {
     optional WelcomeMessage     welcomeMessage      = 3;
     optional GameStartMessage   gameStartMessage    = 4;
     optional GetCardsMessage    getCardsMessage     = 5;
+    optional GetBidMessage      getBidMessage       = 6;
 }
 
 message                         WelcomeMessage {
@@ -31,4 +33,8 @@ message                         GameStartMessage {
 message                         GetCardsMessage {
     repeated int32              colors     = 1 [packed=true];
     repeated int32              ids        = 2 [packed=true];
+}
+
+message                         GetBidMessage {
+    required int32              value      = 1;
 }

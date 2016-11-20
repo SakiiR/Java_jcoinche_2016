@@ -30,6 +30,11 @@ public class                            JCoincheBid {
     }
 
     private boolean                     suggestBid(JCoinchePlayer player) {
+        //générer message get_bid avec values ajournée par rapport au bideInfo
+        int                             bidValue = (this.bidInformations.getBidValue() == 0 ? 80 : this.bidInformations.getBidValue() + 10);
+        JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
+        //lecture du dernier message reçu => boucle tant que message invalide (set_bid + bonne value si enchère + envoi erreur
+        //message reçu valide => si pass return false, sinon enchère fait => set bidInfo return true
         return false;
     }
     public void                         runBid()

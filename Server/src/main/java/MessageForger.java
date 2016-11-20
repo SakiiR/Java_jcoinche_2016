@@ -52,4 +52,16 @@ public class                                                        MessageForge
                 .setGetCardsMessage(cardsMessage);
         return builder;
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetBidMessage(int value) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol
+                        .JCoincheMessage
+                        .Type.GET_BID)
+                .setGetBidMessage(JCoincheProtocol
+                        .GetBidMessage.newBuilder()
+                        .setValue(value)));
+    }
 }
