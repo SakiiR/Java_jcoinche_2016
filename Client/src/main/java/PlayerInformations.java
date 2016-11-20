@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by sakiir on 19/11/16.
  */
@@ -6,7 +8,11 @@ public class                        PlayerInformations {
     private int                     teamId;
     private int                     playerId;
 
-    public                          PlayerInformations() {  }
+    private ArrayList<JCoincheCard> cards;
+
+    public                          PlayerInformations() {
+        this.cards = new ArrayList<>();
+    }
 
     public String                   getToken() {
         return this.token;
