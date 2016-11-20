@@ -20,6 +20,9 @@ public class                MessageHandler {
             case GET_CARDS:
                 handleGetCardsMessage(message.getGetCardsMessage());
                 break;
+            case GET_BID:
+                handleGetBidMessage(message.getGetBidMessage());
+                break;
             default:
                 System.out.println("[>] Unknow message type ..");
                 break;
@@ -45,5 +48,9 @@ public class                MessageHandler {
         for (int i = 0 ; i < message.getColorsCount() ; ++i) {
             System.out.println(String.format("{id : %d, color : %d}", message.getIds(i), message.getColors(i)));
         }
+    }
+
+    private void    handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
+        
     }
 }
