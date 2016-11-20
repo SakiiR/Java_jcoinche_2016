@@ -19,7 +19,7 @@ public class                            GameThread implements Runnable {
     private ArrayList<JCoincheTeam>     teams = null;
     private ArrayList<JCoinchePlayer>   allPlayers = null;
     private CardGenerator               cardGenerator =null;
-    private Bid                         bid = null;
+    private JCoincheBid                         bid = null;
     private JCoinchePlayer              generalBeginner = null;
     /**
      * GameThread Constructor
@@ -41,7 +41,7 @@ public class                            GameThread implements Runnable {
     public void                         run() {
         this.initializeTeams();
         this.generalBeginner = this.allPlayers.get(0);
-        this.bid = new Bid(teams, allPlayers, generalBeginner, cardGenerator);
+        this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
         while (this.isRunning) {
             while(!this.checkScoreTeams()) {
                 System.out.println("inside boucle jeu");
