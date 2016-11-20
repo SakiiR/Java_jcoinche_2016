@@ -19,4 +19,6 @@ public class                                JCoincheConstants {
     public static final String              log_sending_data_to_game_process = "[>] Sending [%s] To Game Process !";
     public static final String              log_generating_cards = "[>] Generating Cards ..";
     public static final String              log_generated_cards = "[>] Cards Generated !";
+    public static final String              log_spreading_cards = "[>] Spreading Cards ..";
+    public static final String              log_spreaded_cards = "[>] Cards Spreaded !";
 }

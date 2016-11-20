@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,22 @@ public class                        CardGenerator {
     public                          CardGenerator() {
         this.cards = new ArrayList<>();
         this.generate32Cards();
+    }
+
+    public void                     spreadCards(ArrayList<JCoinchePlayer> players) {
+        SecureRandom                r = new SecureRandom();
+
+        System.out.println(JCoincheConstants.log_spreading_cards);
+        for (JCoinchePlayer p : players) {
+            p.getCards().clear();
+        }
+        for (JCoincheCard c : this.cards) {
+            int randomPlayerIndex = r.nextInt(3);
+            JCoincheCard newCard = new JCoincheCard(c);
+            newCard.setPlayer(players.get(randomPlayerIndex));
+            players.get(randomPlayerIndex).getCards().add(newCard);
+        }
+        System.out.println(JCoincheConstants.log_spreaded_cards);
     }
 
     private void                    generate32Cards() {
