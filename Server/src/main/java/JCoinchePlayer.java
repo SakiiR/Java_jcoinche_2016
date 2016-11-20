@@ -59,9 +59,9 @@ public class                                    JCoinchePlayer {
     }
 
     public void                                 dumpCards() {
-        System.out.println(String.format("[>] Player[%d]'s  Cards :"));
+        JCoincheUtils.log(JCoincheConstants.log_each_player_card_infos);
         for (JCoincheCard c : this.cards) {
-            System.out.println(String.format("{color : %d, id : %d}", c.getColor().ordinal(), c.getId().ordinal()));
+            JCoincheUtils.log(JCoincheConstants.log_card_info, c.getColor().ordinal(), c.getId().ordinal());
         }
     }
 

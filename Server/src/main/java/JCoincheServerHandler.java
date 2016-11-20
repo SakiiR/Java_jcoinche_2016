@@ -30,9 +30,10 @@ public class                            JCoincheServerHandler extends SimpleChan
      * @throws Exception
      */
     @Override
-    public void                 channelInactive(ChannelHandlerContext ctx) throws Exception {
+    public void                         channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
-        System.out.println(String.format(JCoincheConstants.log_client_count, channels.size()));
+        JCoincheUtils.log(JCoincheConstants.log_client_disconnected);
+        JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size());
         if (this.gameHandle.isRunning() && channels.size() < 4) {
             this.gameHandle.stopGame();
         }
@@ -45,16 +46,15 @@ public class                            JCoincheServerHandler extends SimpleChan
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
         if (channels.size() < 4) {
-            System.out.println(String.format(JCoincheConstants.log_client_count, channels.size() + 1));
-            ctx.writeAndFlush(MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
+            JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size() + 1);
+            JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
             channels.add(ctx.channel());
             if (channels.size() == 4) {
-                System.out.println(JCoincheConstants.log_game_process_starting);
+                JCoincheUtils.log(JCoincheConstants.log_game_process_starting);
                 this.gameHandle.startGame();
             }
         } else {
-            //todo: ctx.writeAndFlush();
-            ctx.writeAndFlush(MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
+            JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
             ctx.close();
         }
     }

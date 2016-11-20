@@ -12,28 +12,25 @@ import java.util.Set;
  * Created by sakiir on 14/11/16.
  */
 public class                            GameThread implements Runnable {
-    private boolean isRunning = true;
-    private ChannelGroup channelGroup = null;
-    private GameHandle gameHandle = null;
-    private ArrayList<JCoincheTeam> teams = null;
-    private ArrayList<JCoinchePlayer> allPlayers = null;
-    private CardGenerator cardGenerator = null;
-    private JCoincheBid bid = null;
-    private JCoinchePlayer generalBeginner = null;
+    public static boolean               isRunning = true;
+    private ChannelGroup                channelGroup = null;
+    private ArrayList<JCoincheTeam>     teams = null;
+    private ArrayList<JCoinchePlayer>   allPlayers = null;
+    private CardGenerator               cardGenerator = null;
+    private JCoincheBid                 bid = null;
+    private JCoinchePlayer              generalBeginner = null;
 
     /**
      * GameThread Constructor
      *
      * @param channelGroup
-     * @param gameHandle
      */
-    public GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
+    public GameThread(ChannelGroup channelGroup) {
         this.channelGroup = channelGroup;
-        this.gameHandle = gameHandle;
         this.teams = new ArrayList<JCoincheTeam>();
         this.cardGenerator = new CardGenerator();
+        GameThread.isRunning = true;
     }
-
 
     /**
      * run() method for the game thread
@@ -43,20 +40,16 @@ public class                            GameThread implements Runnable {
         this.initializeTeams();
         this.generalBeginner = this.allPlayers.get(0);
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
-        while (this.isRunning) {
-            while (!this.checkScoreTeams()) {
-                this.bid.setBeginner(this.generalBeginner).runBid();
-                if (this.generalBeginner.getId() == 4)
-                    this.generalBeginner = this.allPlayers.get(0);
-                else
-                    this.generalBeginner = this.allPlayers.get(generalBeginner.getId());
-                System.out.println("inside boucle jeu");
-                try {
-                    Thread.sleep(500);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        while (!this.checkScoreTeams() && GameThread.isRunning) {
+            this.bid.setBeginner(this.generalBeginner).runBid();
+            if (this.generalBeginner.getId() == 4)
+                this.generalBeginner = this.allPlayers.get(0);
+            else
+                this.generalBeginner = this.allPlayers.get(generalBeginner.getId());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -97,8 +90,7 @@ public class                            GameThread implements Runnable {
         this.teams.add(new JCoincheTeam(team2, 2));
         //todo: Broadcast GAME_START to all players
         for (JCoinchePlayer p : this.allPlayers) {
-            JCoinchePlayer partner;
-            p.getChannel().writeAndFlush(MessageForger.forgeGameStartMessage(
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStartMessage(
                     p.getToken(),
                     p.getId(),
                     p.getTeam().getId(),

@@ -16,7 +16,7 @@ public class                        CardGenerator {
     public void                     spreadCards(ArrayList<JCoinchePlayer> players) {
         SecureRandom                r = new SecureRandom();
 
-        System.out.println(JCoincheConstants.log_spreading_cards);
+        JCoincheUtils.log(JCoincheConstants.log_spreading_cards);
         for (JCoinchePlayer p : players) {
             p.getCards().clear();
         }
@@ -30,11 +30,11 @@ public class                        CardGenerator {
             newCard.setPlayer(players.get(randomPlayerIndex));
             players.get(randomPlayerIndex).getCards().add(newCard);
         }
-        System.out.println(JCoincheConstants.log_spreaded_cards);
+        JCoincheUtils.log(JCoincheConstants.log_spreaded_cards);
     }
 
     private void                    generate32Cards() {
-        System.out.println(JCoincheConstants.log_generating_cards);
+        JCoincheUtils.log(JCoincheConstants.log_generating_cards);
         for (int i = 0 ; i < JCoincheCard.Color.values().length ; ++i) {
             for (int j = 0 ; j < JCoincheCard.Id.values().length ; ++j) {
                 JCoincheCard c = new JCoincheCard(
@@ -42,10 +42,9 @@ public class                        CardGenerator {
                         JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[j].name())
                 );
                 this.cards.add(c);
-                System.out.println(String.format("[>] {Color : %s, Id : %s}", c.getColor(), c.getId()));
+                JCoincheUtils.log(JCoincheConstants.log_card_info, c.getColor(), c.getId());
             }
         }
-        System.out.println(String.format("[>] Card size : %d", this.cards.size()));
-        System.out.println(JCoincheConstants.log_generated_cards);
+        JCoincheUtils.log(JCoincheConstants.log_generated_cards);
     }
 }

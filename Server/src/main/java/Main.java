@@ -7,7 +7,7 @@ public class                Main {
         int                 port = 1337;
 
         if (args.length < 1) {
-            System.out.println("[>] No Arguments .. Using Default Port [1337]");
+            JCoincheUtils.log(JCoincheConstants.log_using_default_port);
         }
 
         try {
@@ -15,8 +15,8 @@ public class                Main {
                 port = Integer.parseInt(args[0]);
             }
         } catch (NumberFormatException e) {
-            System.err.println("[-] Failed to parse int : " + args[0]);
-            System.out.println("[>] No Arguments .. Using Default Port [1337]");
+            JCoincheUtils.logErr(JCoincheConstants.log_failed_parse_int, args[0]);
+            JCoincheUtils.log(JCoincheConstants.log_using_default_port);
             port = 1337;
         }
         JCoincheServer server = new JCoincheServer(port);

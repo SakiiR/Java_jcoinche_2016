@@ -39,24 +39,21 @@ public class                            JCoincheBid {
         int                             pass = 0;
 
         this.bidInformations = new JCoincheBidInformations();
-        while (!hasBid) {
+        while (!hasBid && GameThread.isRunning) {
             this.cardGenerator.spreadCards(allPlayers);
             this.sendCardsToAllPlayers();
             this.bidBeginner = this.beginner;
             pass = 0;
-            while (pass < 4 && !hasBid) {
+            while (pass < 4 && !hasBid && GameThread.isRunning) {
                 if (!(takebid = this.suggestBid(this.bidBeginner))) {
                     pass++;
                     if (this.bidBeginner.getId() == 4)
                         this.bidBeginner = this.allPlayers.get(0);
                     else
                         this.bidBeginner = this.allPlayers.get(this.bidBeginner.getId());
-                }
-                else{
+                } else {
                     hasBid = this.resuggerBid(this.bidBeginner);
-
                 }
-
             }
             try {
                 Thread.sleep(500);
@@ -78,7 +75,7 @@ public class                            JCoincheBid {
             actualPlayerDemand = allPlayers.get(0);
         else
             actualPlayerDemand = allPlayers.get(bidder.getId());
-        while (pass < 3) {
+        while (pass < 3 && GameThread.isRunning) {
             if (!(takebid = suggestBid(actualPlayerDemand))) {
                 if (actualPlayerDemand.getId() == 4)
                     actualPlayerDemand = allPlayers.get(0);
@@ -92,12 +89,15 @@ public class                            JCoincheBid {
         if (pass == 3) {
             return true;
         }
+        if (!GameThread.isRunning) {
+            return false;
+        }
         return (this.resuggerBid(actualPlayerDemand));
     }
 
     private void                        sendCardsToAllPlayers() {
         for (JCoinchePlayer p : this.allPlayers) {
-            p.getChannel().writeAndFlush(MessageForger.forgeGetCardsMessage(p));
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCardsMessage(p));
         }
     }
 }

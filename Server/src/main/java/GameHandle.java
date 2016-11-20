@@ -36,7 +36,7 @@ public class                GameHandle {
      * Stop the game thread
      */
     public void             stopGame() {
-        System.out.println(JCoincheConstants.log_game_stopped);
+        JCoincheUtils.log(JCoincheConstants.log_game_stopped);
         this.getGameThread();
         this.gameThread.stopGame();
         this.gameThread = null;
@@ -46,8 +46,8 @@ public class                GameHandle {
      * Start the game thread
      */
     public void             startGame() {
-        System.out.println(JCoincheConstants.log_game_started);
-        this.gameThread = new GameThread(this.channels, this);
+        JCoincheUtils.log(JCoincheConstants.log_game_started);
+        this.gameThread = new GameThread(this.channels);
         Thread t  = new Thread(this.gameThread);
         t.start();
     }

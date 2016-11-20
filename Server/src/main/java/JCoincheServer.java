@@ -34,7 +34,7 @@ public class                        JCoincheServer {
      * Run Method : for the main Thread
      */
     public void                     run() {
-        System.out.println(JCoincheConstants.log_server_starting);
+        JCoincheUtils.log(JCoincheConstants.log_server_starting);
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -62,12 +62,12 @@ public class                        JCoincheServer {
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
                             if (future.cause() instanceof BindException) {
-                                System.err.println(String.format(JCoincheConstants.log_failed_bind, port));
+                                JCoincheUtils.logErr(JCoincheConstants.log_failed_bind, port);
                             }
                         }
                     }
                 }).sync();
-                System.out.println(String.format(JCoincheConstants.log_server_started, this.port));
+                JCoincheUtils.log(JCoincheConstants.log_server_started, this.port);
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
