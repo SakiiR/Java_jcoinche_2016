@@ -44,9 +44,6 @@ public class                        JCoincheServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
-                            ch.pipeline().addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
-
                             ch.pipeline().addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
                             ch.pipeline().addLast("protobufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
 
