@@ -85,6 +85,7 @@ public class                            GameThread implements Runnable {
             allPlayers.add(player);
         }
 
+        // todo: Be careful with Player ( cross table  1 with 3 && 2 with 4)
         // todo: may you can review this
         this.teams = new ArrayList<JCoincheTeam>();
 
