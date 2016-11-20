@@ -33,16 +33,6 @@ public class                GameHandle {
     }
 
     /**
-     * Send a message to all channel/clients
-     * @param message
-     */
-    public void             sendToAllChannel(String message) {
-        for (Channel ch : this.channels) {
-            ch.writeAndFlush(message);
-        }
-    }
-
-    /**
      * Stop the game thread
      */
     public void             stopGame() {

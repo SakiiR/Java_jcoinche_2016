@@ -22,4 +22,8 @@ public class                                JCoincheTeam {
     public int                              getId() {
         return this.teamId;
     }
+
+    public int                              getScore() { return this.score; }
+
+    public int                              getTrickScore() { return this.trickScore; }
 }
