@@ -17,4 +17,6 @@ public class                                JCoincheConstants {
     public static final String              log_client_count = "[>] Connected Clients %d";
     public static final String              log_game_process_starting = "[>] Starting Game Process ! (:";
     public static final String              log_sending_data_to_game_process = "[>] Sending [%s] To Game Process !";
+    public static final String              log_generating_cards = "[>] Generating Cards ..";
+    public static final String              log_generated_cards = "[>] Cards Generated !";
 }
