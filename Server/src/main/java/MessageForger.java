@@ -43,11 +43,9 @@ public class                                                        MessageForge
         JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
         JCoincheProtocol.GetCardsMessage.Builder                    cardsMessage = JCoincheProtocol.GetCardsMessage.newBuilder();
 
-        int i = 0;
         for (JCoincheCard c : cards) {
-            cardsMessage.setColors(i, c.getColor().ordinal())
-                        .setIds(i, c.getId().ordinal());
-            ++i;
+            cardsMessage.addColors(c.getColor().ordinal())
+                        .addIds(c.getId().ordinal());
         }
 
         builder.setType(JCoincheProtocol.JCoincheMessage.Type.GET_CARDS)
