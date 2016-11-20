@@ -29,6 +29,12 @@ public class                JCoincheCard {
         this.id = id;
     }
 
+    public                  JCoincheCard(JCoincheCard other) {
+        this.color = other.getColor();
+        this.id = other.getId();
+        this.player = other.getPlayer();
+    }
+
     public                  JCoincheCard(Color color, Id id, JCoinchePlayer player) {
         this(color, id);
         this.setPlayer(player);
