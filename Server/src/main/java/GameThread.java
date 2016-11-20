@@ -29,10 +29,10 @@ public class                            GameThread implements Runnable {
     public                              GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
         this.channelGroup = channelGroup;
         this.gameHandle = gameHandle;
-        this.messages = new ArrayList<>();
         this.teams = new ArrayList<JCoincheTeam>();
         this.cardGenerator = new CardGenerator();
     }
+
 
     /**
      * run() method for the game thread
@@ -43,31 +43,26 @@ public class                            GameThread implements Runnable {
         this.generalBeginner = this.allPlayers.get(0);
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
         while (this.isRunning) {
-            while(!this.checkScoreTeams()) {
-                this.bid.runBid();
+            while (!this.checkScoreTeams()) {
+                this.bid.setBeginner(this.generalBeginner).runBid();
+                if (this.generalBeginner.getId() == 4)
+                    this.generalBeginner = this.allPlayers.get(0);
+                else
+                    this.generalBeginner = this.allPlayers.get(generalBeginner.getId());
                 System.out.println("inside boucle jeu");
                 try {
-                Thread.sleep(500);
+                    Thread.sleep(500);
 
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-/*            try {
-                System.out.println(String.format(JCoincheConstants.log_game_thread_status, this.channelGroup.size()));
-                if (this.messages.size() > 0) {
-                    String lastMessage = this.messages.get(this.messages.size() - 1);
-                    System.out.println(String.format(JCoincheConstants.log_message_found, lastMessage));
-                    this.removeMessage(lastMessage);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } */
             }
         }
     }
 
+    public ArrayList<JCoinchePlayer>    getAllPlayers() {
+        return allPlayers;
+    }
     private ArrayList<Channel>          channelGroupToArrayList() {
         ArrayList<Channel> channels = new ArrayList<>();
 

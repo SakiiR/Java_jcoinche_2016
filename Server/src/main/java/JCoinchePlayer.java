@@ -13,6 +13,8 @@ public class                                    JCoinchePlayer {
     private int                                 playerId;
     private JCoinchePlayer                      partner;
     private ArrayList<JCoincheCard>             cards;
+    private JCoincheProtocol.JCoincheMessage    message;
+
 
     public                                      JCoinchePlayer(Channel channel, int playerId) {
         this.channel = channel;
@@ -61,6 +63,14 @@ public class                                    JCoinchePlayer {
         for (JCoincheCard c : this.cards) {
             System.out.println(String.format("{color : %d, id : %d}", c.getColor().ordinal(), c.getId().ordinal()));
         }
+    }
+
+    public JCoincheProtocol.JCoincheMessage     getMessage() {
+        return message;
+    }
+
+    public void                                 setMessage(JCoincheProtocol.JCoincheMessage message) {
+        this.message = message;
     }
 
     public Channel              getChannel() {

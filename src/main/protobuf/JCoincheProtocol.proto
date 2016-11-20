@@ -10,10 +10,11 @@ message                         JCoincheMessage {
     }
 
     required Type               type                = 1;
+    optional string             token               = 2;
 
-    optional WelcomeMessage     welcomeMessage      = 2;
-    optional GameStartMessage   gameStartMessage    = 3;
-    optional GetCardsMessage    getCardsMessage     = 4;
+    optional WelcomeMessage     welcomeMessage      = 3;
+    optional GameStartMessage   gameStartMessage    = 4;
+    optional GetCardsMessage    getCardsMessage     = 5;
 }
 
 message                         WelcomeMessage {

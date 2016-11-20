@@ -4,6 +4,8 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+import java.util.ArrayList;
+
 /**
  * Created by sakiir on 13/11/16.
  */
@@ -57,14 +59,10 @@ public class                            JCoincheServerHandler extends SimpleChan
         }
     }
 
-    /**
-     * When a String is read
-     * @param ctx
-     * @param msg
-     */
     @Override
-    public void                 channelRead0(ChannelHandlerContext ctx, String msg) {  }
+    public void                 channelRead0(ChannelHandlerContext ctx, String msg) {
 
+    }
     /**
      * When an Object is read
      * @param ctx
@@ -72,13 +70,21 @@ public class                            JCoincheServerHandler extends SimpleChan
      */
     @Override
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
-        String in = (String) msg;
-        in = in.trim();
+
+        JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
+        String                           token;
+
         if (this.gameHandle.getGameThread() != null) {
-            System.out.println(String.format(JCoincheConstants.log_sending_data_to_game_process, in));
-            this.gameHandle.getGameThread().addMessage(in);
-        } else {
-            ctx.writeAndFlush("You Can't send message right about now\r\n");
+            if (req.hasToken()) {
+                token = req.getToken();
+                ArrayList<JCoinchePlayer> players = this.gameHandle.getGameThread().getAllPlayers();
+                for (JCoinchePlayer p : players) {
+                    if (token.equals(p.getToken())) {
+                        p.setMessage(req);
+                        break;
+                    }
+                }
+            }
         }
     }
 
