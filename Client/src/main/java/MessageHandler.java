@@ -43,7 +43,7 @@ public class                MessageHandler {
         System.out.println(String.format("[>] My Cards :"));
         // tmp dump
         for (int i = 0 ; i < message.getColorsCount() ; ++i) {
-            System.out.println(String.format("{id : %d, color : %d}", message.getColors(i), message.getIds(i)));
+            System.out.println(String.format("{id : %d, color : %d}", message.getIds(i), message.getColors(i)));
         }
     }
 }
