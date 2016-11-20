@@ -22,6 +22,11 @@ public class                        CardGenerator {
         }
         for (JCoincheCard c : this.cards) {
             int randomPlayerIndex = r.nextInt(3);
+
+            while (players.get(randomPlayerIndex).getCards().size() >= 8) {
+                randomPlayerIndex = r.nextInt(3);
+            }
+
             JCoincheCard newCard = new JCoincheCard(c);
             newCard.setPlayer(players.get(randomPlayerIndex));
             players.get(randomPlayerIndex).getCards().add(newCard);
