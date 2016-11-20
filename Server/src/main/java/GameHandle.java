@@ -37,6 +37,7 @@ public class                GameHandle {
      */
     public void             stopGame() {
         System.out.println(JCoincheConstants.log_game_stopped);
+        this.getGameThread();
         this.gameThread.stopGame();
         this.gameThread = null;
     }

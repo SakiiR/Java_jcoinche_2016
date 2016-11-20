@@ -127,7 +127,6 @@ public class                            GameThread implements Runnable {
      */
     public GameThread stopGame() {
         this.isRunning = false;
-        Thread.currentThread().interrupt();
         return this;
     }
 }
