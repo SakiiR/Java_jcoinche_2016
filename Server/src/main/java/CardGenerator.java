@@ -23,6 +23,7 @@ public class                        CardGenerator {
                         ));
             }
         }
+        System.out.println(String.format("[>] Card size : %d", this.cards.size()));
         System.out.println(JCoincheConstants.log_generated_cards);
     }
 }
