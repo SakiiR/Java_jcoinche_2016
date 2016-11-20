@@ -12,21 +12,22 @@ import java.util.Set;
  * Created by sakiir on 14/11/16.
  */
 public class                            GameThread implements Runnable {
-    private boolean                     isRunning = true;
-    private ChannelGroup                channelGroup = null;
-    private List<String>                messages = null;
-    private GameHandle                  gameHandle = null;
-    private ArrayList<JCoincheTeam>     teams = null;
-    private ArrayList<JCoinchePlayer>   allPlayers = null;
-    private CardGenerator               cardGenerator =null;
-    private JCoincheBid                         bid = null;
-    private JCoinchePlayer              generalBeginner = null;
+    private boolean isRunning = true;
+    private ChannelGroup channelGroup = null;
+    private GameHandle gameHandle = null;
+    private ArrayList<JCoincheTeam> teams = null;
+    private ArrayList<JCoinchePlayer> allPlayers = null;
+    private CardGenerator cardGenerator = null;
+    private JCoincheBid bid = null;
+    private JCoinchePlayer generalBeginner = null;
+
     /**
      * GameThread Constructor
+     *
      * @param channelGroup
      * @param gameHandle
      */
-    public                              GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
+    public GameThread(ChannelGroup channelGroup, GameHandle gameHandle) {
         this.channelGroup = channelGroup;
         this.gameHandle = gameHandle;
         this.teams = new ArrayList<JCoincheTeam>();
@@ -38,7 +39,7 @@ public class                            GameThread implements Runnable {
      * run() method for the game thread
      */
     @Override
-    public void                         run() {
+    public void run() {
         this.initializeTeams();
         this.generalBeginner = this.allPlayers.get(0);
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
@@ -60,10 +61,11 @@ public class                            GameThread implements Runnable {
         }
     }
 
-    public ArrayList<JCoinchePlayer>    getAllPlayers() {
+    public ArrayList<JCoinchePlayer> getAllPlayers() {
         return allPlayers;
     }
-    private ArrayList<Channel>          channelGroupToArrayList() {
+
+    private ArrayList<Channel> channelGroupToArrayList() {
         ArrayList<Channel> channels = new ArrayList<>();
 
         for (Channel ch : this.channelGroup) {
@@ -72,12 +74,12 @@ public class                            GameThread implements Runnable {
         return channels;
     }
 
-    private void                        initializeTeams() {
-        ArrayList<Channel>              n_channels = this.channelGroupToArrayList();
+    private void initializeTeams() {
+        ArrayList<Channel> n_channels = this.channelGroupToArrayList();
 
         this.allPlayers = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
-            JCoinchePlayer  player = new JCoinchePlayer(n_channels.get(i), i + 1);
+            JCoinchePlayer player = new JCoinchePlayer(n_channels.get(i), i + 1);
             allPlayers.add(player);
         }
 
@@ -105,45 +107,27 @@ public class                            GameThread implements Runnable {
         }
     }
 
-    private boolean                     checkScoreTeams() {
-        int                             score1;
-        int                             score2;
+    private boolean checkScoreTeams() {
+        int score1;
+        int score2;
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
         return ((score1 >= 1000 || score2 >= 1000) && score1 != score2);
     }
 
-    private void                        broadcastGameStart() {
+    private void broadcastGameStart() {
 
     }
+
     /**
      * stop the game thread
+     *
      * @return GameThread
      */
-    public GameThread                   stopGame() {
+    public GameThread stopGame() {
         this.isRunning = false;
-        this.messages.clear();
-        return this;
-    }
-
-    /**
-     * Add a message to the game thread queue
-     * @param message
-     * @return GameThread
-     */
-    public GameThread                   addMessage(String message) {
-        this.messages.add(message);
-        return this;
-    }
-
-    /**
-     * Remove a message to the game thread queue
-     * @param message
-     * @return GameThread
-     */
-    public GameThread                   removeMessage(String message) {
-        this.messages.remove(message);
+        Thread.currentThread().interrupt();
         return this;
     }
 }

@@ -44,7 +44,7 @@ public class                            JCoincheBid {
             this.sendCardsToAllPlayers();
             this.bidBeginner = this.beginner;
             pass = 0;
-            while (pass < 4 || !hasBid) {
+            while (pass < 4 && !hasBid) {
                 if (!(takebid = this.suggestBid(this.bidBeginner))) {
                     pass++;
                     if (this.bidBeginner.getId() == 4)

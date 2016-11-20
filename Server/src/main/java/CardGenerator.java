@@ -22,7 +22,6 @@ public class                        CardGenerator {
         }
         for (JCoincheCard c : this.cards) {
             int randomPlayerIndex = r.nextInt(4);
-            System.out.println(String.format("random : %d", randomPlayerIndex));
             while (players.get(randomPlayerIndex).getCards().size() >= 8) {
                 randomPlayerIndex = r.nextInt(4);
             }
