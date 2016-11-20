@@ -21,10 +21,10 @@ public class                        CardGenerator {
             p.getCards().clear();
         }
         for (JCoincheCard c : this.cards) {
-            int randomPlayerIndex = r.nextInt(3);
-
+            int randomPlayerIndex = r.nextInt(4);
+            System.out.println(String.format("random : %d", randomPlayerIndex));
             while (players.get(randomPlayerIndex).getCards().size() >= 8) {
-                randomPlayerIndex = r.nextInt(3);
+                randomPlayerIndex = r.nextInt(4);
             }
 
             JCoincheCard newCard = new JCoincheCard(c);
@@ -40,7 +40,7 @@ public class                        CardGenerator {
             for (int j = 0 ; j < JCoincheCard.Id.values().length ; ++j) {
                 JCoincheCard c = new JCoincheCard(
                         JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[i].name()),
-                        JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[i].name())
+                        JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[j].name())
                 );
                 this.cards.add(c);
                 System.out.println(String.format("[>] {Color : %s, Id : %s}", c.getColor(), c.getId()));
