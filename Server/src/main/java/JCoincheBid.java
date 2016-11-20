@@ -28,8 +28,23 @@ public class                            JCoincheBid {
         this.bidInformations = new JCoincheBidInformations();
         while (!hasBid) {
             this.cardGenerator.spreadCards(allPlayers);
+            this.sendCardsToAllPlayers();
+            System.out.println("pass spreadCards");
+            try {
+                Thread.sleep(500);
+
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             //sendcard to all players
 
+        }
+    }
+
+    private void                        sendCardsToAllPlayers() {
+        for (JCoinchePlayer p : this.allPlayers) {
+            p.getChannel().writeAndFlush(MessageForger.forgeGetCardsMessage(p));
         }
     }
 }

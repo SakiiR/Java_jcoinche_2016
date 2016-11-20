@@ -35,4 +35,8 @@ public class                                                        MessageForge
                         .setTeamId(teamId)
                 .setPlayerId(playerId)));
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetCardsMessage(JCoinchePlayer player) {
+
+    }
 }

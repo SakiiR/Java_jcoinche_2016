@@ -18,6 +18,7 @@ public class                                    JCoinchePlayer {
         this.channel = channel;
         this.generateToken();
         this.playerId = playerId;
+        this.cards = new ArrayList<>();
     }
 
     public JCoincheTeam                         getTeam() {
