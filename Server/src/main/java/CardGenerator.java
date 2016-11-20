@@ -15,12 +15,13 @@ public class                        CardGenerator {
     private void                    generate32Cards() {
         System.out.println(JCoincheConstants.log_generating_cards);
         for (int i = 0 ; i < JCoincheCard.Color.values().length ; ++i) {
-            for (int j = 0 ; i < JCoincheCard.Id.values().length ; ++j) {
-                this.cards.add(
-                        new JCoincheCard(
-                                JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[i].name()),
-                                JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[i].name())
-                        ));
+            for (int j = 0 ; j < JCoincheCard.Id.values().length ; ++j) {
+                JCoincheCard c = new JCoincheCard(
+                        JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[i].name()),
+                        JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[i].name())
+                );
+                this.cards.add(c);
+                System.out.println(String.format("[>] {Color : %s, Id : %s}", c.getColor(), c.getId()));
             }
         }
         System.out.println(String.format("[>] Card size : %d", this.cards.size()));
