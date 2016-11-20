@@ -56,6 +56,13 @@ public class                                    JCoinchePlayer {
         return this.cards;
     }
 
+    public void                                 dumpCards() {
+        System.out.println(String.format("[>] Player[%d]'s  Cards :"));
+        for (JCoincheCard c : this.cards) {
+            System.out.println(String.format("{color : %d, id : %d}", c.getColor().ordinal(), c.getId().ordinal()));
+        }
+    }
+
     public Channel              getChannel() {
         return this.channel;
     }
