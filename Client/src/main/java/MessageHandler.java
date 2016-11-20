@@ -44,13 +44,14 @@ public class                MessageHandler {
     private void handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
         System.out.println(String.format("[>] GET_CARDS Message !"));
         System.out.println(String.format("[>] My Cards :"));
-        // tmp dump
+
         for (int i = 0 ; i < message.getColorsCount() ; ++i) {
             System.out.println(String.format("{id : %d, color : %d}", message.getIds(i), message.getColors(i)));
         }
     }
 
     private void    handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
-        
+        System.out.println(String.format("[>] GET_BID Message !"));
+        System.out.println(String.format("{value : %d}", message.getValue()));
     }
 }
