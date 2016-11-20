@@ -44,6 +44,7 @@ public class                            GameThread implements Runnable {
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
         while (this.isRunning) {
             while(!this.checkScoreTeams()) {
+                this.bid.runBid();
                 System.out.println("inside boucle jeu");
                 try {
                 Thread.sleep(500);
