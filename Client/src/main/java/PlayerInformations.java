@@ -1,3 +1,5 @@
+import io.netty.channel.Channel;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +9,16 @@ public class                        PlayerInformations {
     private String                  token;
     private int                     teamId;
     private int                     playerId;
+    private Channel                 channel;
+
+    public Channel                  getChannel() {
+        return channel;
+    }
+
+    public PlayerInformations       setChannel(Channel channel) {
+        this.channel = channel;
+        return this;
+    }
 
     private ArrayList<JCoincheCard> cards;
 
