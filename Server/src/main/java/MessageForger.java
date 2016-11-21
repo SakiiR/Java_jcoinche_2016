@@ -109,7 +109,7 @@ public class                                                        MessageForge
         }
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetCoincheMessage(String msg) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetCoincheMessage() {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()

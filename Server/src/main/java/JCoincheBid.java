@@ -48,10 +48,11 @@ public class                            JCoincheBid {
                         if (!checkSetBidMessageValues(message, bidValue)) {
                             JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
                             JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
-                        }
-                        else
+                        } else {
                             valideMessage = true;
+                        }
                     } else {
+                        this.bidInformations.setBiddenPlayer(player);
                         this.sendBidToAllPlayers(false);
                         return false;
                     }
@@ -71,7 +72,6 @@ public class                            JCoincheBid {
             this.bidInformations.setBidType(null);
         }
         else {
-
             this.bidInformations.setBidType(JCoincheBidInformations.BidType.valueOf(JCoincheBidInformations.BidType.values()[message.getSetBidMessage().getTrump() - 4].name()));
             this.bidInformations.setBidTrump(null);
         }
@@ -80,12 +80,12 @@ public class                            JCoincheBid {
     }
 
     private void                        sendBidToAllPlayers(boolean bid) {
-
         for(JCoinchePlayer p : allPlayers) {
-            if (!bid)
+            if (!bid) {
                 JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidMessage(this.bidInformations, false));
-            else
+            } else {
                 JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidMessage(this.bidInformations, true));
+            }
         }
     }
 
@@ -94,17 +94,21 @@ public class                            JCoincheBid {
         int                             resBidTrump;
         boolean                         goodValue = false;
 
-        if (!message.getSetBidMessage().hasBidValue() || !message.getSetBidMessage().hasTrump())
+        if (!message.getSetBidMessage().hasBidValue() || !message.getSetBidMessage().hasTrump()) {
             return false;
-        resBidValue = message.getSetBidMessage().getBidValue();
-        if (resBidValue < minBidValue)
-            return false;
-        for(int i : this.bidValues) {
-            if (i == resBidValue)
-                goodValue = true;
         }
-        if (!goodValue)
+        resBidValue = message.getSetBidMessage().getBidValue();
+        if (resBidValue < minBidValue) {
             return false;
+        }
+        for(int i : this.bidValues) {
+            if (i == resBidValue) {
+                goodValue = true;
+            }
+        }
+        if (!goodValue) {
+            return false;
+        }
         resBidTrump = message.getSetBidMessage().getTrump();
         return (resBidTrump >= 0 && resBidTrump <= 5);
     }
@@ -123,15 +127,18 @@ public class                            JCoincheBid {
             while (pass < 4 && !hasBid && GameThread.isRunning) {
                 if (!(this.suggestBid(this.bidBeginner))) {
                     pass++;
-                    if (this.bidBeginner.getId() == 4)
+                    if (this.bidBeginner.getId() == 4) {
                         this.bidBeginner = this.allPlayers.get(0);
-                    else
+                    } else {
                         this.bidBeginner = this.allPlayers.get(this.bidBeginner.getId());
+                    }
                 } else {
-                    if (this.bidInformations.getBidValue() == 170)
+                    if (this.bidInformations.getBidValue() == 170) {
                         hasBid = true;
-                    else
+                    }
+                    else {
                         hasBid = this.resuggerBid(this.bidBeginner);
+                    }
                 }
             }
             try {
@@ -141,10 +148,12 @@ public class                            JCoincheBid {
                 e.printStackTrace();
             }
         }
-        if (!GameThread.isRunning)
+        if (!GameThread.isRunning) {
             return;
-        if (this.suggestCoinche())
+        }
+        if (this.suggestCoinche()) {
             this.suggestSurCoinche();
+        }
     }
 
     private boolean                         suggestCoinche() {
@@ -158,17 +167,15 @@ public class                            JCoincheBid {
             teamNumber = 0;
         //send message to adversaire
         for (JCoinchePlayer p : this.teams.get(teamNumber).getPlayers()) {
-            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage("Do you want to Coinche (yes : 1 / no : 0) ?"));
-            while (!valideMessage && GameThread.isRunning)
-            {
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage());
+            while (!valideMessage && GameThread.isRunning) {
                 message = p.getMessage();
                 if (message != null) {
                     p.setMessage(null);
                     if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_COINCHE) {
                         JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeError("Wrong Coinche"));
-                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage("Do you want to Coinche (yes : 1 / no : 0) ?"));
-                    }
-                    else {
+                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage());
+                    } else {
                         valideMessage = true;
                         if (message.getSetCoincheMessage().getCoincheValue()) {
                             this.bidInformations.setCoinche(true);
@@ -176,14 +183,10 @@ public class                            JCoincheBid {
                             return true;
                         }
                     }
-
-
-
                 }
                 try {
                     Thread.sleep(500);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

@@ -28,4 +28,20 @@ public class                                                        MessageForge
                         .SET_BID)
                 .setSetBidMessage(bidBuilder));
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCoincheMessage(String token, boolean coinche) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setToken(token)
+                .setType(JCoincheProtocol
+                        .JCoincheMessage
+                        .Type
+                        .SET_COINCHE)
+                .setSetCoincheMessage(JCoincheProtocol
+                        .SetCoincheMessage
+                        .newBuilder()
+                        .setCoincheValue(coinche))
+        );
+    }
 }
