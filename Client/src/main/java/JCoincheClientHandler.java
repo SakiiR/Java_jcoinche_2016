@@ -18,6 +18,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     @Override
     public void             channelActive(ChannelHandlerContext ctx) {
         System.out.println(JCoincheConstants.log_client_connected);
+        this.clientProcess.getPlayerInformations().setChannel(ctx.channel());
     }
 
     @Override
