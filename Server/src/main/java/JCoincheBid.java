@@ -38,9 +38,11 @@ public class                            JCoincheBid {
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
         while (!valideMessage && GameThread.isRunning) {
             message = player.getMessage();
-            JCoincheUtils.log("[>] Checking for message ..");
+            //JCoincheUtils.log("[>] Checking for message ..");
             if (message != null) {
                 System.out.println("inside message get");
+                JCoincheUtils.log("received message of type = %s, bidvalue = %d, bidtrump = %d", message.getType(), message.getSetBidMessage().getBidValue(), message.getSetBidMessage().getTrump());
+
                 player.setMessage(null);
                 if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_BID) {
                     JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
@@ -76,10 +78,17 @@ public class                            JCoincheBid {
             this.bidInformations.setBidType(JCoincheBidInformations.BidType.valueOf(JCoincheBidInformations.BidType.values()[message.getSetBidMessage().getTrump() - 4].name()));
             this.bidInformations.setBidTrump(null);
         }
-
+        this.sendBidToAllPlayers();
         //lecture du dernier message reçu => boucle tant que message invalide (set_bid + bonne value si enchère + envoi erreur
         //message reçu valide => si pass return false, sinon enchère fait => set bidInfo broadcast aux autres joueurs return true
         return true;
+    }
+
+    private void                        sendBidToAllPlayers() {
+
+        for(JCoinchePlayer p : allPlayers) {
+
+        }
     }
 
     private boolean                     checkSetBidMessageValues(JCoincheProtocol.JCoincheMessage message, int minBidValue) {
