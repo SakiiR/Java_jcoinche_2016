@@ -52,7 +52,10 @@ public class                JCoincheClient {
                         System.err.println(String.format("[-] Failed to connect(%s, %d)", host, port));
                     }
                 }
-                f.channel().closeFuture().sync();
+
+                Channel serverChannel = f.channel();
+                clientProcess.getPlayerInformations().setChannel(serverChannel);
+                serverChannel.closeFuture().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

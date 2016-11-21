@@ -30,13 +30,13 @@ public class                MessageHandler {
                 handleErrorMessage(message.getErrorMessage());
                 break;
             default:
-                System.out.println("[>] Unknow message type ..");
+                JCoincheUtils.log("[>] Unknow Message received ..");
                 break;
         }
     }
 
     private void    handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
-        System.out.println(String.format("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage()));
+        JCoincheUtils.log("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
     }
 
     private void    handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
@@ -63,9 +63,9 @@ public class                MessageHandler {
         int         trump = 0;
 
         while (!isValidInput) {
-            System.out.println(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : "));
+            System.out.println(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
             bidValue = s.nextInt();
-            if (bidValue > message.getValue() || bidValue == 0) {
+            if (bidValue >= message.getValue() || bidValue == 0) {
                 isValidInput = true;
             }
         }
@@ -80,6 +80,8 @@ public class                MessageHandler {
                 }
             }
         }
+
+        System.out.println("[>] Sending SET_BID");
 
         if (bidValue == 0) {
             JCoincheUtils.writeAndFlush(
