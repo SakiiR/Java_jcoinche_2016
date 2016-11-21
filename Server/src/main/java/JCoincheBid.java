@@ -43,7 +43,7 @@ public class                            JCoincheBid {
                     JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
                     JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
                 } else {
-                    if (message.getBid()) {
+                    if (message.getSetBidMessage().getBid()) {
                         if (!checkSetBidMessageValues(message, bidValue)) {
                             JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
                             JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
@@ -57,13 +57,15 @@ public class                            JCoincheBid {
         }
         if (!GameThread.isRunning)
             return false;
-        this.bidInformations.setBiddenPlayer(player).setBidValue(message.getValue());
-        if (message.getTrump() < 4) {
-            this.bidInformations.setBidTrump(message.getTrump());
+        this.bidInformations.setBiddenPlayer(player).setBidValue(message.getSetBidMessage().getBidValue());
+        if (message.getSetBidMessage().getTrump() < 4) {
+            //JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[i].name())
+            this.bidInformations.setBidTrump(JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getSetBidMessage().getTrump()].name()));
             this.bidInformations.setBidType(null);
         }
         else {
-            this.bidInformations.setBidType(message.getTrump() - 4);
+
+            this.bidInformations.setBidType(JCoincheBidInformations.BidType.valueOf(JCoincheBidInformations.BidType.values()[message.getSetBidMessage().getTrump() - 4].name()));
             this.bidInformations.setBidTrump(null);
         }
 
@@ -77,11 +79,9 @@ public class                            JCoincheBid {
         int                             resBidTrump;
         boolean                         goodValue = false;
 
-        if (!message.hasValue())
+        if (!message.getSetBidMessage().hasBidValue() || !message.getSetBidMessage().hasTrump())
             return false;
-        if (!message.hasTrump())
-            return false;
-        resBidValue = message.getValue();
+        resBidValue = message.getSetBidMessage().getBidValue();
         if (resBidValue < minBidValue)
             return false;
         for(int i : this.bidValues) {
@@ -90,11 +90,8 @@ public class                            JCoincheBid {
         }
         if (!goodValue)
             return false;
-        resBidTrump = message.getTrump();
-        if (resBidTrump < 0 || resBidTrump > 5)
-            return false;
-        return true;
-
+        resBidTrump = message.getSetBidMessage().getTrump();
+        return (resBidTrump >= 0 && resBidTrump <= 5);
     }
 
     public void                         runBid()

@@ -9,6 +9,7 @@ message                         JCoincheMessage {
         GET_CARDS   = 2;
         GET_BID     = 3;
         SET_BID     = 4;
+        ERROR       = 5;
     }
 
     required Type               type                = 1;
@@ -19,6 +20,7 @@ message                         JCoincheMessage {
     optional GetCardsMessage    getCardsMessage     = 5;
     optional GetBidMessage      getBidMessage       = 6;
     optional SetBidMessage      setBidMessage       = 7;
+    optional ErrorMessage       errorMessage        = 8;
 }
 
 message                         WelcomeMessage {
@@ -45,4 +47,8 @@ message                         SetBidMessage {
     required bool               bid        = 1;
     optional int32              bidValue   = 2;
     optional int32              trump      = 3;
+}
+
+message                         ErrorMessage {
+    required string             message    = 1;
 }

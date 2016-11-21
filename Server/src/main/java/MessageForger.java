@@ -64,4 +64,16 @@ public class                                                        MessageForge
                         .GetBidMessage.newBuilder()
                         .setValue(value)));
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeError(String message) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.ERROR)
+                .setErrorMessage(JCoincheProtocol
+                        .ErrorMessage
+                        .newBuilder()
+                        .setMessage(message))
+        );
+    }
 }
