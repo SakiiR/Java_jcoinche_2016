@@ -40,7 +40,6 @@ public class                MessageHandler {
         String      input;
 
         Scanner     s = new Scanner(System.in);
-
         while (!validInput) {
             JCoincheUtils.log(message);
             try {
