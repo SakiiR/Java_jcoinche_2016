@@ -29,14 +29,74 @@ public class                            JCoincheBid {
         return this;
     }
 
-    private boolean                     suggestBid(JCoinchePlayer player) {
-        //générer message get_bid avec values ajournée par rapport au bideInfo
-        int                             bidValue = (this.bidInformations.getBidValue() == 0 ? 80 : this.bidInformations.getBidValue() + 10);
+    private boolean                         suggestBid(JCoinchePlayer player) {
+        boolean                             valideMessage = false;
+        JCoincheProtocol.JCoincheMessage    message = null;
+        int                                 resBidValue;
+        int                                 bidValue = (this.bidInformations.getBidValue() == 0 ? 80 : this.bidInformations.getBidValue() + 10);
+
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
+        while (!valideMessage && GameThread.isRunning) {
+            if ((message = player.getMessage()) != null) {
+                player.setMessage(null);
+                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_BID) {
+                    JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
+                    JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
+                } else {
+                    if (message.getBid()) {
+                        if (!checkSetBidMessageValues(message, bidValue)) {
+                            JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
+                            JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
+                        }
+                        else
+                            valideMessage = true;
+                    } else
+                        return false;
+                }
+            }
+        }
+        if (!GameThread.isRunning)
+            return false;
+        this.bidInformations.setBiddenPlayer(player).setBidValue(message.getValue());
+        if (message.getTrump() < 4) {
+            this.bidInformations.setBidTrump(message.getTrump());
+            this.bidInformations.setBidType(null);
+        }
+        else {
+            this.bidInformations.setBidType(message.getTrump() - 4);
+            this.bidInformations.setBidTrump(null);
+        }
+
         //lecture du dernier message reçu => boucle tant que message invalide (set_bid + bonne value si enchère + envoi erreur
-        //message reçu valide => si pass return false, sinon enchère fait => set bidInfo return true
-        return false;
+        //message reçu valide => si pass return false, sinon enchère fait => set bidInfo broadcast aux autres joueurs return true
+        return true;
     }
+
+    private boolean                     checkSetBidMessageValues(JCoincheProtocol.JCoincheMessage message, int minBidValue) {
+        int                             resBidValue;
+        int                             resBidTrump;
+        boolean                         goodValue = false;
+
+        if (!message.hasValue())
+            return false;
+        if (!message.hasTrump())
+            return false;
+        resBidValue = message.getValue();
+        if (resBidValue < minBidValue)
+            return false;
+        for(int i : this.bidValues) {
+            if (i == resBidValue)
+                goodValue = true;
+        }
+        if (!goodValue)
+            return false;
+        resBidTrump = message.getTrump();
+        if (resBidTrump < 0 || resBidTrump > 5)
+            return false;
+        return true;
+
+    }
+
     public void                         runBid()
     {
         boolean                         hasBid = false;
