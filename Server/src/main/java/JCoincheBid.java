@@ -37,7 +37,10 @@ public class                            JCoincheBid {
 
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
         while (!valideMessage && GameThread.isRunning) {
-            if ((message = player.getMessage()) != null) {
+            message = player.getMessage();
+            JCoincheUtils.log("[>] Checking for message ..");
+            if (message != null) {
+                System.out.println("inside message get");
                 player.setMessage(null);
                 if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_BID) {
                     JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
@@ -53,6 +56,11 @@ public class                            JCoincheBid {
                     } else
                         return false;
                 }
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         if (!GameThread.isRunning)

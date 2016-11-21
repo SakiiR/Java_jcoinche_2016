@@ -13,7 +13,7 @@ public class                                    JCoinchePlayer {
     private int                                 playerId;
     private JCoinchePlayer                      partner;
     private ArrayList<JCoincheCard>             cards;
-    private JCoincheProtocol.JCoincheMessage    message;
+    private JCoincheProtocol.JCoincheMessage    message = null;
 
 
     public                                      JCoinchePlayer(Channel channel, int playerId) {

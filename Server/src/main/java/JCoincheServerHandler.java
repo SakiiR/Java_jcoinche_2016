@@ -1,4 +1,5 @@
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * Created by sakiir on 13/11/16.
  */
 
-public class                            JCoincheServerHandler extends SimpleChannelInboundHandler<String> {
+public class                            JCoincheServerHandler extends ChannelInboundHandlerAdapter {
 
     static final private ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private GameHandle                  gameHandle = null;
@@ -59,10 +60,6 @@ public class                            JCoincheServerHandler extends SimpleChan
         }
     }
 
-    @Override
-    public void                 channelRead0(ChannelHandlerContext ctx, String msg) {
-
-    }
     /**
      * When an Object is read
      * @param ctx
@@ -81,6 +78,7 @@ public class                            JCoincheServerHandler extends SimpleChan
                 for (JCoinchePlayer p : players) {
                     if (token.equals(p.getToken())) {
                         p.setMessage(req);
+                        JCoincheUtils.log("[>] Received Message [%s]", p.getMessage().getType());
                         break;
                     }
                 }
