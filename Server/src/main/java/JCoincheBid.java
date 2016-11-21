@@ -32,17 +32,13 @@ public class                            JCoincheBid {
     private boolean                         suggestBid(JCoinchePlayer player) {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
-        int                                 resBidValue;
         int                                 bidValue = (this.bidInformations.getBidValue() == 0 ? 80 : this.bidInformations.getBidValue() + 10);
 
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetBidMessage(bidValue));
         while (!valideMessage && GameThread.isRunning) {
             message = player.getMessage();
-            //JCoincheUtils.log("[>] Checking for message ..");
             if (message != null) {
-                System.out.println("inside message get");
                 JCoincheUtils.log("received message of type = %s, bidvalue = %d, bidtrump = %d", message.getType(), message.getSetBidMessage().getBidValue(), message.getSetBidMessage().getTrump());
-
                 player.setMessage(null);
                 if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_BID) {
                     JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong bid"));
@@ -55,8 +51,10 @@ public class                            JCoincheBid {
                         }
                         else
                             valideMessage = true;
-                    } else
+                    } else {
+                        this.sendBidToAllPlayers(false);
                         return false;
+                    }
                 }
             }
             try {
@@ -69,7 +67,6 @@ public class                            JCoincheBid {
             return false;
         this.bidInformations.setBiddenPlayer(player).setBidValue(message.getSetBidMessage().getBidValue());
         if (message.getSetBidMessage().getTrump() < 4) {
-            //JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[i].name())
             this.bidInformations.setBidTrump(JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getSetBidMessage().getTrump()].name()));
             this.bidInformations.setBidType(null);
         }
@@ -78,16 +75,17 @@ public class                            JCoincheBid {
             this.bidInformations.setBidType(JCoincheBidInformations.BidType.valueOf(JCoincheBidInformations.BidType.values()[message.getSetBidMessage().getTrump() - 4].name()));
             this.bidInformations.setBidTrump(null);
         }
-        this.sendBidToAllPlayers();
-        //lecture du dernier message reçu => boucle tant que message invalide (set_bid + bonne value si enchère + envoi erreur
-        //message reçu valide => si pass return false, sinon enchère fait => set bidInfo broadcast aux autres joueurs return true
+        this.sendBidToAllPlayers(true);
         return true;
     }
 
-    private void                        sendBidToAllPlayers() {
+    private void                        sendBidToAllPlayers(boolean bid) {
 
         for(JCoinchePlayer p : allPlayers) {
-
+            if (!bid)
+                JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidMessage(this.bidInformations, false));
+            else
+                JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidMessage(this.bidInformations, true));
         }
     }
 
@@ -114,7 +112,6 @@ public class                            JCoincheBid {
     public void                         runBid()
     {
         boolean                         hasBid = false;
-        boolean                         takebid = false;
         int                             pass = 0;
 
         this.bidInformations = new JCoincheBidInformations();
@@ -124,24 +121,78 @@ public class                            JCoincheBid {
             this.bidBeginner = this.beginner;
             pass = 0;
             while (pass < 4 && !hasBid && GameThread.isRunning) {
-                if (!(takebid = this.suggestBid(this.bidBeginner))) {
+                if (!(this.suggestBid(this.bidBeginner))) {
                     pass++;
                     if (this.bidBeginner.getId() == 4)
                         this.bidBeginner = this.allPlayers.get(0);
                     else
                         this.bidBeginner = this.allPlayers.get(this.bidBeginner.getId());
                 } else {
-                    hasBid = this.resuggerBid(this.bidBeginner);
+                    if (this.bidInformations.getBidValue() == 170)
+                        hasBid = true;
+                    else
+                        hasBid = this.resuggerBid(this.bidBeginner);
                 }
             }
             try {
                 Thread.sleep(500);
-
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        if (!GameThread.isRunning)
+            return;
+        if (this.suggestCoinche())
+            this.suggestSurCoinche();
+    }
+
+    private boolean                         suggestCoinche() {
+        int                                 teamNumber;
+        boolean                             valideMessage = false;
+        JCoincheProtocol.JCoincheMessage    message = null;
+
+        if (this.bidInformations.getBiddenPlayer().getId() == 0 || this.bidInformations.getBiddenPlayer().getId() == 2)
+            teamNumber = 1;
+        else
+            teamNumber = 0;
+        //send message to adversaire
+        for (JCoinchePlayer p : this.teams.get(teamNumber).getPlayers()) {
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage("Do you want to Coinche (yes : 1 / no : 0) ?"));
+            while (!valideMessage && GameThread.isRunning)
+            {
+                message = p.getMessage();
+                if (message != null) {
+                    p.setMessage(null);
+                    if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_COINCHE) {
+                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeError("Wrong Coinche"));
+                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage("Do you want to Coinche (yes : 1 / no : 0) ?"));
+                    }
+                    else {
+                        valideMessage = true;
+                        if (message.getSetCoincheMessage().getCoincheValue()) {
+                            this.bidInformations.setCoinche(true);
+                            //broadcast tout les clients qu'il y a coinche
+                            return true;
+                        }
+                    }
+
+
+
+                }
+                try {
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+    private void                        suggestSurCoinche() {
+
     }
 
     private boolean                     resuggerBid(JCoinchePlayer bidder) {

@@ -11,6 +11,8 @@ message                         JCoincheMessage {
         SET_BID     = 4;
         ERROR       = 5;
         SEND_BID    = 6;
+        GET_COINCHE = 7;
+        SET_COINCHE = 8;
     }
 
     required Type               type                = 1;
@@ -23,6 +25,8 @@ message                         JCoincheMessage {
     optional SetBidMessage      setBidMessage       = 7;
     optional ErrorMessage       errorMessage        = 8;
     optional SendBidMessage     sendBidMessage      = 9;
+    optional GetCoincheMessage  getCoincheMessage   = 10;
+    optional SetCoincheMessage  setCoincheMessage   = 11;
 }
 
 message                         WelcomeMessage {
@@ -56,8 +60,15 @@ message                         ErrorMessage {
 }
 
 message                         SendBidMessage {
-    optional int32              playerId    = 1;
-    optional bool               bid         = 2;
+    required int32              playerId    = 1;
+    required bool               bid         = 2;
     optional int32              bidValue    = 3;
     optional int32              bidTrumps   = 4;
+}
+
+message                         GetCoincheMessage {
+}
+
+message                         SetCoincheMessage {
+    optional bool               coincheValue = 1;
 }
