@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -5,10 +6,8 @@ import java.util.Scanner;
  */
 public class                MessageHandler {
     private ClientProcess   clientProcess;
-    private Scanner         s;
 
     public          MessageHandler(ClientProcess clientProcess) {
-        this.s = new Scanner(System.in);
         this.clientProcess = clientProcess;
     }
 
@@ -35,6 +34,31 @@ public class                MessageHandler {
         }
     }
 
+    private int     promptInt(String message) {
+        int         result = -1;
+        boolean     validInput = false;
+        String      input;
+
+        Scanner     s = new Scanner(System.in);
+
+        while (!validInput) {
+            JCoincheUtils.log(message);
+            try {
+                input = s.nextLine().trim();
+            } catch (Exception e) {
+                s = new Scanner(System.in);
+                input = "-1";
+            }
+            try {
+                result = Integer.parseInt(input);
+            } catch (Exception e) { }
+            if (result >=  0) {
+                return result;
+            }
+        }
+        return result;
+    }
+
     private void    handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
         JCoincheUtils.log("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
     }
@@ -57,32 +81,23 @@ public class                MessageHandler {
     }
 
     private void    handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
+        int         bidValue = -1;
+        int         trump = -1;
+
+        Scanner s = new Scanner(System.in);
         System.out.println(String.format("[>] GET_BID Message !"));
-        boolean     isValidInput = false;
-        int         bidValue = 0;
-        int         trump = 0;
 
-        while (!isValidInput) {
-            System.out.println(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
-            bidValue = s.nextInt();
-            if (bidValue >= message.getValue() || bidValue == 0) {
-                isValidInput = true;
+        while (!(bidValue >= message.getValue() || bidValue == 0)) {
+            bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
+        }
+
+        if (bidValue >= message.getValue()) {
+            while (!(trump >= 0 && trump <= 5)) {
+                trump = this.promptInt("[>] Now .. Enter your trump {0: HEART, 1: DIAMOND, 2: CLUB, 3: SPADE, 4: WT, 5: AT} : ");
             }
         }
 
-        if (bidValue > message.getValue()) {
-            isValidInput = false;
-            while (!isValidInput) {
-                System.out.println(String.format("[>] Now .. Enter your trump {0: HEART, 1: DIAMOND, 2: CLUB, 3: SPADE, 4: WT, 5: AT} : "));
-                trump = s.nextInt();
-                if (trump >= 0 && trump <= 5) {
-                    isValidInput = true;
-                }
-            }
-        }
-
-        System.out.println("[>] Sending SET_BID");
-
+        JCoincheUtils.log("[>] Sending SET_BID with : {bidValue : %d, trump : %d}", bidValue, trump);
         if (bidValue == 0) {
             JCoincheUtils.writeAndFlush(
                     this.clientProcess.getPlayerInformations().getChannel(),

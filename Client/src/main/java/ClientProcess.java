@@ -30,11 +30,9 @@ public class                                                    ClientProcess im
                 this.messageHandler.parseMessage(message);
             }
             this.lock.unlock();
-
             if (this.messages.size() > 0) {
                 this.messages.clear();
             }
-
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {

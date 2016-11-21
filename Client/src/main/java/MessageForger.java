@@ -7,12 +7,12 @@ public class                                                        MessageForge
         JCoincheProtocol.SetBidMessage.Builder                      bidBuilder = JCoincheProtocol.SetBidMessage.newBuilder();
 
         bidBuilder.setBid(false);
-        builder.setToken(token)
+        return (builder.setToken(token)
                 .setType(JCoincheProtocol
                         .JCoincheMessage
                         .Type
-                        .SET_BID);
-        return builder;
+                        .SET_BID)
+                .setSetBidMessage(bidBuilder));
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetBidMessage(String token,  int bidValue, int trump) {
@@ -21,11 +21,11 @@ public class                                                        MessageForge
 
         bidBuilder.setBid(true);
         bidBuilder.setBidValue(bidValue).setTrump(trump);
-        builder.setToken(token)
+        return (builder.setToken(token)
                 .setType(JCoincheProtocol
                         .JCoincheMessage
                         .Type
-                        .SET_BID);
-        return builder;
+                        .SET_BID)
+                .setSetBidMessage(bidBuilder));
     }
 }
