@@ -14,7 +14,7 @@ public class                                                    ClientProcess im
     private Lock                                                lock;
 
     public          ClientProcess() {
-        this.messages = new ArrayList<JCoincheProtocol.JCoincheMessage>();
+        this.messages = new ArrayList<>();
         this.messageHandler = new MessageHandler(this);
         this.playerInformations = new PlayerInformations();
         this.lock = new ReentrantLock();
@@ -44,13 +44,6 @@ public class                                                    ClientProcess im
     public ClientProcess                        addMessage(JCoincheProtocol.JCoincheMessage message) {
         this.lock.lock();
         this.messages.add(message);
-        this.lock.unlock();
-        return this;
-    }
-
-    public ClientProcess                        removeMessage(JCoincheProtocol.JCoincheMessage message) {
-        this.lock.lock();
-        this.messages.remove(message);
         this.lock.unlock();
         return this;
     }
