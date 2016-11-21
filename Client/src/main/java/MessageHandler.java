@@ -4,14 +4,14 @@ import java.util.Scanner;
 /**
  * Created by sakiir on 19/11/16.
  */
-public class                MessageHandler {
-    private ClientProcess   clientProcess;
+public class                            MessageHandler {
+    private ClientProcess               clientProcess;
 
-    public          MessageHandler(ClientProcess clientProcess) {
+    public                              MessageHandler(ClientProcess clientProcess) {
         this.clientProcess = clientProcess;
     }
 
-    public void     parseMessage(JCoincheProtocol.JCoincheMessage message) {
+    public void                         parseMessage(JCoincheProtocol.JCoincheMessage message) {
         switch (message.getType()) {
             case WELCOME:
                 handleWelcomeMessage(message.getWelcomeMessage());
@@ -34,12 +34,12 @@ public class                MessageHandler {
         }
     }
 
-    private int     promptInt(String message) {
-        int         result = -1;
-        boolean     validInput = false;
-        String      input;
+    private int                         promptInt(String message) {
+        int                             result = -1;
+        boolean                         validInput = false;
+        String                          input;
+        Scanner                         s = new Scanner(System.in);
 
-        Scanner     s = new Scanner(System.in);
         while (!validInput) {
             JCoincheUtils.log(message);
             try {
@@ -58,11 +58,11 @@ public class                MessageHandler {
         return result;
     }
 
-    private void    handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
+    private void                        handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
         JCoincheUtils.log("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
     }
 
-    private void    handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
+    private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
         System.out.println(String.format("[>] GAME_START Message : {token : %s, player_id : %d, team_id : %d}", message.getToken(), message.getPlayerId(), message.getTeamId()));
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
@@ -70,7 +70,7 @@ public class                MessageHandler {
                 .setTeamId(message.getTeamId());
     }
 
-    private void    handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
+    private void                        handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
         System.out.println(String.format("[>] GET_CARDS Message !"));
         System.out.println(String.format("[>] My Cards :"));
 
@@ -79,13 +79,11 @@ public class                MessageHandler {
         }
     }
 
-    private void    handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
-        int         bidValue = -1;
-        int         trump = -1;
+    private void                        handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
+        int                             bidValue = -1;
+        int                             trump = -1;
 
-        Scanner s = new Scanner(System.in);
-        System.out.println(String.format("[>] GET_BID Message !"));
-
+        JCoincheUtils.log("[>] GET_BID Message !");
         while (!(bidValue >= message.getValue() || bidValue == 0)) {
             bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
         }
@@ -106,11 +104,12 @@ public class                MessageHandler {
             JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(),
                     MessageForger.forgeSetBidMessage(this.clientProcess.getPlayerInformations().getToken(),
                             bidValue,
-                            trump));
+                            trump)
+            );
         }
     }
 
-    private void    handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
+    private void                        handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
         JCoincheUtils.log("[>] Error : %s", message.getMessage());
     }
 }
