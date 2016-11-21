@@ -14,19 +14,22 @@ public class                            MessageHandler {
     public void                         parseMessage(JCoincheProtocol.JCoincheMessage message) {
         switch (message.getType()) {
             case WELCOME:
-                handleWelcomeMessage(message.getWelcomeMessage());
+                this.handleWelcomeMessage(message.getWelcomeMessage());
                 break;
             case GAME_START:
-                handleGameStartMessage(message.getGameStartMessage());
+                this.handleGameStartMessage(message.getGameStartMessage());
                 break;
             case GET_CARDS:
-                handleGetCardsMessage(message.getGetCardsMessage());
+                this.handleGetCardsMessage(message.getGetCardsMessage());
                 break;
             case GET_BID:
-                handleGetBidMessage(message.getGetBidMessage());
+                this.handleGetBidMessage(message.getGetBidMessage());
                 break;
             case ERROR:
-                handleErrorMessage(message.getErrorMessage());
+                this.handleErrorMessage(message.getErrorMessage());
+                break;
+            case SEND_BID:
+                this.handleSendBidMessage(message.getSendBidMessage());
                 break;
             default:
                 JCoincheUtils.log("[>] Unknow Message received ..");
@@ -111,5 +114,21 @@ public class                            MessageHandler {
 
     private void                        handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
         JCoincheUtils.log("[>] Error : %s", message.getMessage());
+    }
+
+    private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
+        JCoincheUtils.log("[>] SEND_BID Message");
+        JCoincheUtils.log("[>] Bid Over ! Result :");
+        if (message.getBid() == false) {
+            JCoincheUtils.log("[>] Everyone pass ..");
+            return;
+        }
+        JCoincheUtils.log("[>] Bid Value : %d", message.getBidValue());
+        JCoincheUtils.log("[>] Bid Trump : %d", message.getBidTrumps());
+        if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
+            JCoincheUtils.log("[>] By Me");
+        } else {
+            JCoincheUtils.log("[>] By Player : %d", message.getPlayerId());
+        }
     }
 }

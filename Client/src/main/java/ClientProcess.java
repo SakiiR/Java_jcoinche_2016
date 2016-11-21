@@ -13,7 +13,7 @@ public class                                                    ClientProcess im
     private PlayerInformations                                  playerInformations;
     private Lock                                                lock;
 
-    public          ClientProcess() {
+    public                                                      ClientProcess() {
         this.messages = new ArrayList<>();
         this.messageHandler = new MessageHandler(this);
         this.playerInformations = new PlayerInformations();
@@ -21,7 +21,7 @@ public class                                                    ClientProcess im
     }
 
     @Override
-    public void                                 run() {
+    public void                                                 run() {
         while (this.isRunning) {
             this.lock.lock();
             for (JCoincheProtocol.JCoincheMessage message : this.messages) {
@@ -41,14 +41,14 @@ public class                                                    ClientProcess im
         }
     }
 
-    public ClientProcess                        addMessage(JCoincheProtocol.JCoincheMessage message) {
+    public ClientProcess                                        addMessage(JCoincheProtocol.JCoincheMessage message) {
         this.lock.lock();
         this.messages.add(message);
         this.lock.unlock();
         return this;
     }
 
-    public PlayerInformations                   getPlayerInformations() {
+    public PlayerInformations                                   getPlayerInformations() {
         return this.playerInformations;
     }
 }
