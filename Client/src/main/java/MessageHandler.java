@@ -26,6 +26,9 @@ public class                MessageHandler {
             case GET_BID:
                 handleGetBidMessage(message.getGetBidMessage());
                 break;
+            case ERROR:
+                handleErrorMessage(message.getErrorMessage());
+                break;
             default:
                 System.out.println("[>] Unknow message type ..");
                 break;
@@ -89,5 +92,9 @@ public class                MessageHandler {
                             bidValue,
                             trump));
         }
+    }
+
+    private void    handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
+        JCoincheUtils.log("[>] Error : %s", message.getMessage());
     }
 }
