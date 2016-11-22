@@ -68,8 +68,7 @@ message                         SendBidMessage {
     optional int32              bidTrump    = 4;
 }
 
-message                         GetCoincheMessage {
-}
+message                         GetCoincheMessage {  }
 
 message                         SetCoincheMessage {
     required bool               coincheValue = 1;

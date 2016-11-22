@@ -34,6 +34,9 @@ public class                            MessageHandler {
             case GET_COINCHE:
                 this.handleGetCoincheMessage(message.getGetCoincheMessage());
                 break;
+            case SEND_COINCHE:
+                this.handleSendBidMessage(message.getSendBidMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -151,5 +154,13 @@ public class                            MessageHandler {
                         (coincheOrNot == 0 ? false : true)
                 )
         );
+    }
+
+    private void                        handleSendCoincheMessag(JCoincheProtocol.SendCoincheMessage message) {
+        if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
+            JCoincheUtils.logSuccess("[>] I Coinche !");
+        } else {
+            JCoincheUtils.logSuccess("[>] Player [%d] Coinche !", message.getPlayerId());
+        }
     }
 }

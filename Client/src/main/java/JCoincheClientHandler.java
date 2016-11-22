@@ -23,7 +23,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     @Override
     public void             channelRead(ChannelHandlerContext ctx, Object msg) {
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
-        JCoincheUtils.logInfo(JCoincheConstants.log_message_received, req.getType());
+        JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
         this.clientProcess.addMessage(req);
     }
 
