@@ -10,16 +10,15 @@ public class                                    JCoinchePlayer {
     private JCoincheTeam                        team;
     private Channel                             channel;
     private String                              token;
-    private int                                 playerId;
+    private int                                 id;
     private JCoinchePlayer                      partner;
     private ArrayList<JCoincheCard>             cards;
     private JCoincheProtocol.JCoincheMessage    message = null;
 
 
-    public                                      JCoinchePlayer(Channel channel, int playerId) {
+    public                                      JCoinchePlayer(Channel channel) {
         this.channel = channel;
         this.generateToken();
-        this.playerId = playerId;
         this.cards = new ArrayList<>();
     }
 
@@ -41,8 +40,13 @@ public class                                    JCoinchePlayer {
         return this;
     }
 
+    public JCoinchePlayer                       setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public int                                  getId() {
-        return this.playerId;
+        return this.id;
     }
 
     public JCoinchePlayer                       getPartner() {
@@ -73,7 +77,17 @@ public class                                    JCoinchePlayer {
         this.message = message;
     }
 
-    public Channel              getChannel() {
+    public Channel                              getChannel() {
         return this.channel;
+    }
+
+    public JCoinchePlayer                       setChannel(Channel channel) {
+        this.channel = channel;
+        return this;
+    }
+
+    public void                 initialize() {
+        this.team = null;
+        this.message = null;
     }
 }

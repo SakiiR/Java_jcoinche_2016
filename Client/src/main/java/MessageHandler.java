@@ -43,6 +43,9 @@ public class                            MessageHandler {
             case SEND_SURCOINCHE:
                 this.handleSendSurcoincheMessage(message.getSendSurcoincheMessage());
                 break;
+            case GAME_STOPPED:
+                this.handleGameStoppedMessage(message.getGameStoppedMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -191,5 +194,9 @@ public class                            MessageHandler {
         } else {
             JCoincheUtils.logSuccess("[>] Player [%d] Surcoinche !", message.getPlayerId());
         }
+    }
+
+    private void                        handleGameStoppedMessage(JCoincheProtocol.GameStoppedMessage message) {
+        JCoincheUtils.logWarning("[!] Game has been stopped ! waiting for a new player ..");
     }
 }

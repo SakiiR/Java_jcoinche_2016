@@ -32,12 +32,31 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     @Override
     public void                         channelInactive(ChannelHandlerContext ctx) throws Exception {
+        JCoinchePlayer                  p = this.gameHandle.getPlayerByChannel(ctx.channel());
+
+        /* if the player is already in the waiting queue */
+        if (this.gameHandle.getPlayers().indexOf(p) > 3) {
+            this.gameHandle.getPlayers().remove(p);
+            ctx.close();
+            JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
+            return;
+        }
+        /* if the game is already stopped */
+        if (this.gameHandle.getPlayersCount() < 4) {
+            this.gameHandle.getPlayers().remove(p);
+            ctx.close();
+            JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
+            return;
+        }
+        p.setChannel(null);
         ctx.fireChannelInactive();
         channels.remove(ctx.channel());
-        JCoincheUtils.log(JCoincheConstants.log_client_disconnected);
-        JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size());
-        if (this.gameHandle.isRunning() && channels.size() < 4) {
-            this.gameHandle.stopGame();
+        this.gameHandle.removeInnactiveChannels();
+        JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
+        this.gameHandle.stopGame();
+        if (this.gameHandle.getPlayersCount() >= 4) {
+            this.gameHandle.startGame();
+            return;
         }
     }
 
@@ -46,18 +65,22 @@ public class                            JCoincheServerHandler extends ChannelInb
      * @param ctx
      */
     @Override
-    public void                 channelActive(final ChannelHandlerContext ctx) {
-        if (channels.size() + 1 <= 4) {
-            channels.add(ctx.channel());
-            JCoincheUtils.logInfo(JCoincheConstants.log_client_count, channels.size());
-            JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
-            if (channels.size() >= 4) {
-                JCoincheUtils.log(JCoincheConstants.log_game_process_starting);
+    public void                         channelActive(ChannelHandlerContext ctx) {
+        if (this.gameHandle.getPlayersCount() > 10) {
+            // Queue is too big .. sorry
+            ctx.close();
+            return;
+        }
+        channels.add(ctx.channel());
+        this.gameHandle.addPlayer(ctx.channel());
+        JCoincheUtils.logInfo("[^] New Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
+        if (this.gameHandle.getPlayersCount() <= 4) {
+            JCoincheUtils.writeAndFlushWithoutChecks(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
+            if (this.gameHandle.getPlayersCount() == 4) {
                 this.gameHandle.startGame();
             }
         } else {
-            JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
-            ctx.close();
+            JCoincheUtils.writeAndFlushWithoutChecks(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
         }
     }
 
@@ -68,7 +91,6 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     @Override
     public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
-
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
         String                           token;
 

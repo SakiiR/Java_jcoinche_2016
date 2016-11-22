@@ -17,6 +17,7 @@ message                         JCoincheMessage {
         GET_SURCOINCHE  = 10;
         SET_SURCOINCHE  = 11;
         SEND_SURCOINCHE = 12;
+        GAME_STOPPED    = 13;
     }
 
     required Type                   type                    = 1;
@@ -35,6 +36,7 @@ message                         JCoincheMessage {
     optional GetSurcoincheMessage   getSurcoincheMessage    = 13;
     optional SetSurcoincheMessage   setSurcoincheMessage    = 14;
     optional SendSurcoincheMessage  sendSurcoincheMessage   = 15;
+    optional GameStoppedMessage     gameStoppedMessage      = 16;
 }
 
 message                             WelcomeMessage {
@@ -93,3 +95,5 @@ message                             SetSurcoincheMessage {
 message                             SendSurcoincheMessage {
     required int32                  playerId    = 1;
 }
+
+message                             GameStoppedMessage {  }

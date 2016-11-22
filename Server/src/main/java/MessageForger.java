@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Created by sakiir on 19/11/16.
  */
 public class                                                        MessageForger {
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeWelcomeMessage(String message) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeWelcomeMessage(String message) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder().setType(
@@ -21,7 +21,7 @@ public class                                                        MessageForge
                 ));
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGameStartMessage(String token, int playerId, int teamId, int partnerId) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGameStartMessage(String token, int playerId, int teamId, int partnerId) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -38,7 +38,7 @@ public class                                                        MessageForge
                         .setPlayerId(playerId)));
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetCardsMessage(JCoinchePlayer player) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetCardsMessage(JCoinchePlayer player) {
         ArrayList<JCoincheCard> cards = player.getCards();
         JCoincheProtocol.JCoincheMessage.Builder builder = JCoincheProtocol.JCoincheMessage.newBuilder();
         JCoincheProtocol.GetCardsMessage.Builder cardsMessage = JCoincheProtocol.GetCardsMessage.newBuilder();
@@ -53,7 +53,7 @@ public class                                                        MessageForge
         return builder;
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetBidMessage(int value) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetBidMessage(int value) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -65,7 +65,7 @@ public class                                                        MessageForge
                         .setValue(value)));
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeError(String message) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeError(String message) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -77,7 +77,7 @@ public class                                                        MessageForge
         );
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendBidMessage(JCoincheBidInformations bidInformations, boolean bid, JCoinchePlayer player) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidMessage(JCoincheBidInformations bidInformations, boolean bid, JCoinchePlayer player) {
 
         if (bid) {
             int trump;
@@ -109,7 +109,7 @@ public class                                                        MessageForge
         }
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetCoincheMessage() {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetCoincheMessage() {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -120,7 +120,7 @@ public class                                                        MessageForge
         );
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendCoincheMessage(int id) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendCoincheMessage(int id) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -131,7 +131,7 @@ public class                                                        MessageForge
                         .setPlayerId(id)));
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetSurcoincheMessage() {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetSurcoincheMessage() {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -142,7 +142,7 @@ public class                                                        MessageForge
         );
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendSurcoincheMessage(int id) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendSurcoincheMessage(int id) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -151,6 +151,17 @@ public class                                                        MessageForge
                         .SendSurcoincheMessage
                         .newBuilder()
                         .setPlayerId(id))
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGameStoppedMessage() {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.GAME_STOPPED)
+                .setGameStoppedMessage(JCoincheProtocol
+                        .GameStoppedMessage
+                        .newBuilder())
         );
     }
 }
