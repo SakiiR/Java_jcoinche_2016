@@ -35,7 +35,7 @@ public class                            MessageHandler {
                 this.handleGetCoincheMessage(message.getGetCoincheMessage());
                 break;
             default:
-                JCoincheUtils.log("[>] Unknow Message received  [%s] ..", message.getType());
+                JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
         }
     }
@@ -47,7 +47,7 @@ public class                            MessageHandler {
         Scanner                         s = new Scanner(System.in);
 
         while (!validInput) {
-            JCoincheUtils.log(message);
+            JCoincheUtils.logSuccess(message);
             try {
                 input = s.nextLine().trim();
             } catch (Exception e) {
@@ -65,7 +65,7 @@ public class                            MessageHandler {
     }
 
     private void                        handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
-        JCoincheUtils.log("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
+        JCoincheUtils.logInfo("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
     }
 
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
@@ -89,7 +89,7 @@ public class                            MessageHandler {
         int                             bidValue = -1;
         int                             trump = -1;
 
-        JCoincheUtils.log("[>] GET_BID Message !");
+        JCoincheUtils.logInfo("[>] GET_BID Message !");
         while (!((bidValue >= message.getValue() || bidValue == 0 ) && bidValue % 10 == 0)) {
             bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
         }
@@ -100,7 +100,7 @@ public class                            MessageHandler {
             }
         }
 
-        JCoincheUtils.log("[>] Sending SET_BID with : {bidValue : %d, trump : %d}", bidValue, trump);
+        JCoincheUtils.logInfo("[>] Sending SET_BID with : {bidValue : %d, trump : %d}", bidValue, trump);
         if (bidValue == 0) {
             JCoincheUtils.writeAndFlush(
                     this.clientProcess.getPlayerInformations().getChannel(),
@@ -120,22 +120,22 @@ public class                            MessageHandler {
     }
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
-        JCoincheUtils.log("\n[>] SEND_BID Message");
+        JCoincheUtils.logInfo("\n[>] SEND_BID Message");
 
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
             if (message.getBid()) {
-                JCoincheUtils.log("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
+                JCoincheUtils.logWarning("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
             } else {
-                JCoincheUtils.log("\t[^] I pass ..");
+                JCoincheUtils.logWarning("\t[^] I pass ..");
             }
         } else {
             if (message.getBid()) {
-                JCoincheUtils.log("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
+                JCoincheUtils.logWarning("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
             } else {
-                JCoincheUtils.log("\t[^] Player [%d] pass ..", message.getPlayerId());
+                JCoincheUtils.logWarning("\t[^] Player [%d] pass ..", message.getPlayerId());
             }
         }
-        JCoincheUtils.log("[>] END SEND_BID\n");
+        JCoincheUtils.logInfo("[>] END SEND_BID\n");
     }
 
     private void                        handleGetCoincheMessage(JCoincheProtocol.GetCoincheMessage message) {
@@ -144,7 +144,7 @@ public class                            MessageHandler {
         while (!(coincheOrNot >= 0 && coincheOrNot <= 1)) {
             coincheOrNot = this.promptInt("[>] Do you want to Coinche ? {0: No, 1: Yes}");
         }
-        JCoincheUtils.log("[>] SET_COINCHE %d!", coincheOrNot);
+        JCoincheUtils.logInfo("[>] SET_COINCHE %d!", coincheOrNot);
         JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(),
                 MessageForger.forgeSetCoincheMessage(
                         this.clientProcess.getPlayerInformations().getToken(),

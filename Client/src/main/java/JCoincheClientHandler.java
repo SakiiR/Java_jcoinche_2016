@@ -17,14 +17,13 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
 
     @Override
     public void             channelActive(ChannelHandlerContext ctx) {
-        System.out.println(JCoincheConstants.log_client_connected);
+        JCoincheUtils.logInfo(JCoincheConstants.log_client_connected);
     }
 
     @Override
     public void             channelRead(ChannelHandlerContext ctx, Object msg) {
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
-
-        System.out.println(String.format(JCoincheConstants.log_message_received, req.getType()));
+        JCoincheUtils.logInfo(JCoincheConstants.log_message_received, req.getType());
         this.clientProcess.addMessage(req);
     }
 
