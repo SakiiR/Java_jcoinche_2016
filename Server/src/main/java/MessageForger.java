@@ -119,4 +119,14 @@ public class                                                        MessageForge
                         .newBuilder())
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendCoincheMessage(int id) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_COINCHE)
+                .setSendCoincheMessage(JCoincheProtocol
+                        .SendCoincheMessage
+                        .newBuilder().setPlayerId(id)));
+    }
 }

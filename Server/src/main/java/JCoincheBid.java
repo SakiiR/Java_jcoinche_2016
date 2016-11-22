@@ -168,9 +168,8 @@ public class                            JCoincheBid {
             teamNumber = 0;
         //send message to adversaire
         for (JCoinchePlayer p : this.teams.get(teamNumber).getPlayers()) {
-            JCoincheUtils.log("before get coinche message, sending message to player id = %d", p.getId());
+            JCoincheUtils.log("[>] Sending message to player id = %d", p.getId());
             JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage());
-            JCoincheUtils.log("after get coinche message");
             valideMessage = false;
             while (!valideMessage && GameThread.isRunning) {
                 message = p.getMessage();
@@ -183,8 +182,11 @@ public class                            JCoincheBid {
                          valideMessage = true;
                         if (message.getSetCoincheMessage().getCoincheValue()) {
                             this.bidInformations.setCoinche(true);
-                            JCoincheUtils.log("get coinche value == true");
-                            //broadcast tout les clients qu'il y a coinche
+                            JCoincheUtils.log("[>] Coinche made ! Sending Coinche to all players");
+                            //broadcast a tout les players s'il y a coinche
+                            for (JCoinchePlayer player : this.allPlayers) {
+                                JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeSendCoincheMessage(p.getId()));
+                            }
                             return true;
                         }
                     }

@@ -4,15 +4,16 @@ option java_outer_classname = "JCoincheProtocol";
 
 message                         JCoincheMessage {
     enum                        Type {
-        WELCOME     = 0;
-        GAME_START  = 1;
-        GET_CARDS   = 2;
-        GET_BID     = 3;
-        SET_BID     = 4;
-        ERROR       = 5;
-        SEND_BID    = 6;
-        GET_COINCHE = 7;
-        SET_COINCHE = 8;
+        WELCOME         = 0;
+        GAME_START      = 1;
+        GET_CARDS       = 2;
+        GET_BID         = 3;
+        SET_BID         = 4;
+        ERROR           = 5;
+        SEND_BID        = 6;
+        GET_COINCHE     = 7;
+        SET_COINCHE     = 8;
+        SEND_COINCHE    = 9;
     }
 
     required Type               type                = 1;
@@ -27,6 +28,7 @@ message                         JCoincheMessage {
     optional SendBidMessage     sendBidMessage      = 9;
     optional GetCoincheMessage  getCoincheMessage   = 10;
     optional SetCoincheMessage  setCoincheMessage   = 11;
+    optional SendCoincheMessage sendCoincheMessage  = 12;
 }
 
 message                         WelcomeMessage {
@@ -71,4 +73,8 @@ message                         GetCoincheMessage {
 
 message                         SetCoincheMessage {
     required bool               coincheValue = 1;
+}
+
+message                         SendCoincheMessage {
+    required int32              playerId     = 1;
 }
