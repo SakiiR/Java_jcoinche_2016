@@ -70,5 +70,5 @@ message                         GetCoincheMessage {
 }
 
 message                         SetCoincheMessage {
-    optional bool               coincheValue = 1;
+    required bool               coincheValue = 1;
 }

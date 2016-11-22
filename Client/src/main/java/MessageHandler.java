@@ -90,7 +90,7 @@ public class                            MessageHandler {
         int                             trump = -1;
 
         JCoincheUtils.log("[>] GET_BID Message !");
-        while (!(bidValue >= message.getValue() || bidValue == 0)) {
+        while (!((bidValue >= message.getValue() || bidValue == 0 ) && bidValue % 10 == 0)) {
             bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
         }
 
@@ -144,6 +144,12 @@ public class                            MessageHandler {
         while (!(coincheOrNot >= 0 && coincheOrNot <= 1)) {
             coincheOrNot = this.promptInt("[>] Do you want to Coinche ? {0: No, 1: Yes}");
         }
-        MessageForger.forgeSetCoincheMessage(this.clientProcess.getPlayerInformations().getToken(), (coincheOrNot == 0 ? false : true));
+        JCoincheUtils.log("[>] SET_COINCHE %d!", coincheOrNot);
+        JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(),
+                MessageForger.forgeSetCoincheMessage(
+                        this.clientProcess.getPlayerInformations().getToken(),
+                        (coincheOrNot == 0 ? false : true)
+                )
+        );
     }
 }

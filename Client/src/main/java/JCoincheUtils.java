@@ -1,9 +1,17 @@
 import io.netty.channel.Channel;
 
+
 /**
  * Created by sakiir on 20/11/16.
  */
 public class                JCoincheUtils {
+    enum                    Colors {
+        GREEN,
+        BLUE,
+        RED,
+        ORANGE
+    }
+
     static public void      writeAndFlush(Channel ch, Object obj) { ch.writeAndFlush(obj); }
 
     static public void      log(String format, Object ...params) {
