@@ -124,13 +124,13 @@ public class                            MessageHandler {
 
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
             if (message.getBid()) {
-                JCoincheUtils.log("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrumps() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrumps() - 4) : EnumUtils.getColorByIndex(message.getBidTrumps())));
+                JCoincheUtils.log("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
             } else {
                 JCoincheUtils.log("\t[^] I pass ..");
             }
         } else {
             if (message.getBid()) {
-                JCoincheUtils.log("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrumps() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrumps() - 4) : EnumUtils.getColorByIndex(message.getBidTrumps())));
+                JCoincheUtils.log("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
             } else {
                 JCoincheUtils.log("\t[^] Player [%d] pass ..", message.getPlayerId());
             }
