@@ -132,6 +132,13 @@ public class                                                        MessageForge
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetSurcoincheMessage() {
-
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.GET_SURCOINCHE)
+                .setGetSurCoincheMessage(JCoincheProtocol
+                        .GetSurcoincheMessage
+                        .newBuilder())
+        );
     }
 }

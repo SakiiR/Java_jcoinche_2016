@@ -201,9 +201,34 @@ public class                            JCoincheBid {
         return false;
     }
 
-    private void                        suggestSurCoinche() {
+    private void                            suggestSurCoinche() {
+        boolean                             validemessage = false;
+        JCoincheProtocol.JCoincheMessage    message = null;
+        JCoinchePlayer                      bidder = null;
 
-
+        bidder = this.bidInformations.getBiddenPlayer();
+        JCoincheUtils.writeAndFlush(bidder.getChannel(), MessageForger.forgeGetSurcoincheMessage());
+        while (!validemessage && GameThread.isRunning) {
+            message = bidder.getMessage();
+            if (message != null) {
+                bidder.setMessage(null);
+                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_SURCOINCHE) {
+                    JCoincheUtils.writeAndFlush(bidder.getChannel(), MessageForger.forgeError("Wrong Surcoinche"));
+                    JCoincheUtils.writeAndFlush(bidder.getChannel(), MessageForger.forgeGetSurcoincheMessage());
+                } else {
+                    validemessage = true;
+                    this.bidInformations.setSurcoinche(true);
+                    for (JCoinchePlayer p : this.allPlayers) {
+                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendSurcoincheMessage(bidder.getId())
+                    }
+                }
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private boolean                     resuggerBid(JCoinchePlayer bidder) {
