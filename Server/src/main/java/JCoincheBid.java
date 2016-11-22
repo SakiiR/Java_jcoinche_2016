@@ -203,6 +203,7 @@ public class                            JCoincheBid {
 
     private void                        suggestSurCoinche() {
 
+
     }
 
     private boolean                     resuggerBid(JCoinchePlayer bidder) {

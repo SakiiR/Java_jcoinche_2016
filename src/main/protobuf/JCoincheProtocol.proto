@@ -14,66 +14,70 @@ message                         JCoincheMessage {
         GET_COINCHE     = 7;
         SET_COINCHE     = 8;
         SEND_COINCHE    = 9;
+        GET_SURCOINCHE  = 10;
     }
 
-    required Type               type                = 1;
-    optional string             token               = 2;
+    required Type                   type                    = 1;
+    optional string                 token                   = 2;
 
-    optional WelcomeMessage     welcomeMessage      = 3;
-    optional GameStartMessage   gameStartMessage    = 4;
-    optional GetCardsMessage    getCardsMessage     = 5;
-    optional GetBidMessage      getBidMessage       = 6;
-    optional SetBidMessage      setBidMessage       = 7;
-    optional ErrorMessage       errorMessage        = 8;
-    optional SendBidMessage     sendBidMessage      = 9;
-    optional GetCoincheMessage  getCoincheMessage   = 10;
-    optional SetCoincheMessage  setCoincheMessage   = 11;
-    optional SendCoincheMessage sendCoincheMessage  = 12;
+    optional WelcomeMessage         welcomeMessage          = 3;
+    optional GameStartMessage       gameStartMessage        = 4;
+    optional GetCardsMessage        getCardsMessage         = 5;
+    optional GetBidMessage          getBidMessage           = 6;
+    optional SetBidMessage          setBidMessage           = 7;
+    optional ErrorMessage           errorMessage            = 8;
+    optional SendBidMessage         sendBidMessage          = 9;
+    optional GetCoincheMessage      getCoincheMessage       = 10;
+    optional SetCoincheMessage      setCoincheMessage       = 11;
+    optional SendCoincheMessage     sendCoincheMessage      = 12;
+    optional GetSurcoincheMessage   getSurCoincheMessage    = 13;
 }
 
-message                         WelcomeMessage {
-    optional string             message    = 1;
+message                             WelcomeMessage {
+    optional string                 message    = 1;
 }
 
-message                         GameStartMessage {
-    optional string             token      = 1;
-    optional int32              playerId   = 2;
-    optional int32              teamId     = 3;
-    optional int32              partnerId  = 4;
+message                             GameStartMessage {
+    optional string                 token      = 1;
+    optional int32                  playerId   = 2;
+    optional int32                  teamId     = 3;
+    optional int32                  partnerId  = 4;
 }
 
-message                         GetCardsMessage {
-    repeated int32              colors     = 1 [packed=true];
-    repeated int32              ids        = 2 [packed=true];
+message                             GetCardsMessage {
+    repeated int32                  colors     = 1 [packed=true];
+    repeated int32                  ids        = 2 [packed=true];
 }
 
-message                         GetBidMessage {
-    required int32              value      = 1;
+message                             GetBidMessage {
+    required int32                  value      = 1;
 }
 
-message                         SetBidMessage {
-    required bool               bid        = 1;
-    optional int32              bidValue   = 2;
-    optional int32              trump      = 3;
+message                             SetBidMessage {
+    required bool                   bid        = 1;
+    optional int32                  bidValue   = 2;
+    optional int32                  trump      = 3;
 }
 
-message                         ErrorMessage {
-    required string             message    = 1;
+message                             ErrorMessage {
+    required string                 message    = 1;
 }
 
-message                         SendBidMessage {
-    required int32              playerId    = 1;
-    required bool               bid         = 2;
-    optional int32              bidValue    = 3;
-    optional int32              bidTrump    = 4;
+message                             SendBidMessage {
+    required int32                  playerId    = 1;
+    required bool                   bid         = 2;
+    optional int32                  bidValue    = 3;
+    optional int32                  bidTrump    = 4;
 }
 
-message                         GetCoincheMessage {  }
+message                             GetCoincheMessage {  }
 
-message                         SetCoincheMessage {
-    required bool               coincheValue = 1;
+message                             SetCoincheMessage {
+    required bool                   coincheValue = 1;
 }
 
-message                         SendCoincheMessage {
-    required int32              playerId     = 1;
+message                             SendCoincheMessage {
+    required int32                  playerId     = 1;
 }
+
+message                             GetSurcoincheMessage {  }

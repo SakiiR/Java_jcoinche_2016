@@ -130,4 +130,8 @@ public class                                                        MessageForge
                         .newBuilder()
                         .setPlayerId(id)));
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeGetSurcoincheMessage() {
+
+    }
 }
