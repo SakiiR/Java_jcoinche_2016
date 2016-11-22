@@ -33,6 +33,7 @@ public class                            JCoincheServerHandler extends ChannelInb
     @Override
     public void                         channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.fireChannelInactive();
+        channels.remove(ctx.channel());
         JCoincheUtils.log(JCoincheConstants.log_client_disconnected);
         JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size());
         if (this.gameHandle.isRunning() && channels.size() < 4) {
@@ -46,11 +47,11 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
-        if (channels.size() <= 4) {
+        if (channels.size() + 1 <= 4) {
             channels.add(ctx.channel());
-            JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size() + 1);
+            JCoincheUtils.logInfo(JCoincheConstants.log_client_count, channels.size());
             JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
-            if (channels.size() == 4) {
+            if (channels.size() >= 4) {
                 JCoincheUtils.log(JCoincheConstants.log_game_process_starting);
                 this.gameHandle.startGame();
             }
