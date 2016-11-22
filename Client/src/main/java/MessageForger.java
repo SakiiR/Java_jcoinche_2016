@@ -41,7 +41,23 @@ public class                                                        MessageForge
                 .setSetCoincheMessage(JCoincheProtocol
                         .SetCoincheMessage
                         .newBuilder()
-                        .setCoincheValue(coinche))
+                        .setCoinche(coinche))
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetSurcoincheMessage(String token, boolean surcoinche) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setToken(token)
+                .setType(JCoincheProtocol
+                        .JCoincheMessage
+                        .Type
+                        .SET_SURCOINCHE)
+                .setSetSurCoincheMessage(JCoincheProtocol
+                        .SetSurcoincheMessage
+                        .newBuilder()
+                        .setSurcoinche(surcoinche))
         );
     }
 }
