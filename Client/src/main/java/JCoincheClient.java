@@ -49,7 +49,7 @@ public class                JCoincheClient {
                     f.sync();
                 } catch (Exception e) {
                     if (e instanceof ConnectException) {
-                        System.err.println(String.format("[-] Failed to connect(%s, %d)", host, port));
+                        JCoincheUtils.logStderr("[-] Failed to connect(%s, %d)", host, port);
                     }
                 }
 
