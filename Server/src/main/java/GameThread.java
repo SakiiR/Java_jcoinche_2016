@@ -84,9 +84,9 @@ public class                            GameThread implements Runnable {
         }
     }
 
-    private boolean checkScoreTeams() {
-        int score1;
-        int score2;
+    private boolean                     checkScoreTeams() {
+        int                             score1;
+        int                             score2;
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
