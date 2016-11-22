@@ -35,7 +35,10 @@ public class                            MessageHandler {
                 this.handleGetCoincheMessage(message.getGetCoincheMessage());
                 break;
             case SEND_COINCHE:
-                this.handleSendBidMessage(message.getSendBidMessage());
+                this.handleSendCoincheMessage(message.getSendCoincheMessage());
+                break;
+            case GET_SURCOINCHE:
+                this.handleGetSurcoincheMessage(message.getGetSurCoincheMessage());
                 break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
@@ -156,11 +159,26 @@ public class                            MessageHandler {
         );
     }
 
-    private void                        handleSendCoincheMessag(JCoincheProtocol.SendCoincheMessage message) {
+    private void                        handleSendCoincheMessage(JCoincheProtocol.SendCoincheMessage message) {
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
             JCoincheUtils.logSuccess("[>] I Coinche !");
         } else {
             JCoincheUtils.logSuccess("[>] Player [%d] Coinche !", message.getPlayerId());
         }
+    }
+
+    private void                        handleGetSurcoincheMessage(JCoincheProtocol.GetSurcoincheMessage message) {
+        int                             surcoincheOrNot = -1;
+
+        while (!(surcoincheOrNot >= 0 && surcoincheOrNot <= 1)) {
+            surcoincheOrNot = this.promptInt("[>] Do you want to surcoinche ? {0: No, 1: Yes}");
+        }
+
+        JCoincheUtils.logInfo("[>] SET_SURCOINCHE %d!", surcoincheOrNot);
+        JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(),
+                MessageForger.forgeSetSurcoincheMessage(
+                        this.clientProcess.getPlayerInformations().getToken(),
+                        (surcoincheOrNot == 0 ? false : true))
+        );
     }
 }
