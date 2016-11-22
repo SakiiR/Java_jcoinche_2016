@@ -127,6 +127,7 @@ public class                                                        MessageForge
                 .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_COINCHE)
                 .setSendCoincheMessage(JCoincheProtocol
                         .SendCoincheMessage
-                        .newBuilder().setPlayerId(id)));
+                        .newBuilder()
+                        .setPlayerId(id)));
     }
 }
