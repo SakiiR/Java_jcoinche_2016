@@ -12,12 +12,12 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
 
     public                  JCoincheClientHandler(ClientProcess clientProcess) {
         this.clientProcess = clientProcess;
-        new Thread(this.clientProcess).start();
     }
 
     @Override
     public void             channelActive(ChannelHandlerContext ctx) {
         JCoincheUtils.logInfo(JCoincheConstants.log_client_connected);
+        new Thread(this.clientProcess).start();
     }
 
     @Override
