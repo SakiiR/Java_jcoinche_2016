@@ -132,7 +132,7 @@ public class                            MessageHandler {
             return;
         }
         JCoincheUtils.log("[>] \tBid Value : %d", message.getBidValue());
-        JCoincheUtils.log("[>] \tBid Trump : %d", message.getBidTrumps());
+        JCoincheUtils.log("[>] \tBid Trump : %d", message.getBidTrump());
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
             JCoincheUtils.log("[>] \tBy Me");
         } else {

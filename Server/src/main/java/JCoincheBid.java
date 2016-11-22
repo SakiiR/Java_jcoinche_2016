@@ -161,7 +161,7 @@ public class                            JCoincheBid {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
 
-        if (this.bidInformations.getBiddenPlayer().getId() == 0 || this.bidInformations.getBiddenPlayer().getId() == 2)
+        if (this.bidInformations.getBiddenPlayer().getId() == 1 || this.bidInformations.getBiddenPlayer().getId() == 3)
             teamNumber = 1;
         else
             teamNumber = 0;

@@ -63,7 +63,7 @@ message                         SendBidMessage {
     required int32              playerId    = 1;
     required bool               bid         = 2;
     optional int32              bidValue    = 3;
-    optional int32              bidTrumps   = 4;
+    optional int32              bidTrump    = 4;
 }
 
 message                         GetCoincheMessage {
