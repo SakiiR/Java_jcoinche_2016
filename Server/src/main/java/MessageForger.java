@@ -77,7 +77,7 @@ public class                                                        MessageForge
         );
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendBidMessage(JCoincheBidInformations bidInformations, boolean bid) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendBidMessage(JCoincheBidInformations bidInformations, boolean bid, JCoinchePlayer player) {
 
         if (bid) {
             int trump;
@@ -93,7 +93,7 @@ public class                                                        MessageForge
                     .setSendBidMessage(JCoincheProtocol
                             .SendBidMessage
                             .newBuilder()
-                            .setPlayerId(bidInformations.getBiddenPlayer().getId())
+                            .setPlayerId(player.getId())
                             .setBid(true)
                             .setBidValue(bidInformations.getBidValue())
                             .setBidTrump(trump)));
@@ -104,7 +104,7 @@ public class                                                        MessageForge
                     .setSendBidMessage(JCoincheProtocol
                             .SendBidMessage
                             .newBuilder()
-                            .setPlayerId(bidInformations.getBiddenPlayer().getId())
+                            .setPlayerId(player.getId())
                             .setBid(false)));
         }
     }
