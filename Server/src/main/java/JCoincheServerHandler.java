@@ -46,10 +46,10 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     @Override
     public void                 channelActive(final ChannelHandlerContext ctx) {
-        if (channels.size() < 4) {
+        if (channels.size() <= 4) {
+            channels.add(ctx.channel());
             JCoincheUtils.log(JCoincheConstants.log_client_count, channels.size() + 1);
             JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
-            channels.add(ctx.channel());
             if (channels.size() == 4) {
                 JCoincheUtils.log(JCoincheConstants.log_game_process_starting);
                 this.gameHandle.startGame();
