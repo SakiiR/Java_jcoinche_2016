@@ -96,7 +96,7 @@ public class                                                        MessageForge
                             .setPlayerId(bidInformations.getBiddenPlayer().getId())
                             .setBid(true)
                             .setBidValue(bidInformations.getBidValue())
-                            .setBidTrumps(trump)));
+                            .setBidTrump(trump)));
         } else {
             return (JCoincheProtocol
                     .JCoincheMessage
