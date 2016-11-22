@@ -46,7 +46,9 @@ public class                JCoincheUtils {
         System.out.println("\033[31m" + str + "\033[0m");
     }
 
-    static public void      logStderr(String format, Object ...params) { System.err.println(String.format("\033[31m" + format + "\033[0m", params)); }
+    static public void      logStderr(String format, Object ...params) {
+        System.err.println(String.format("\033[31m" + format + "\033[0m", params));
+    }
 
     static public void      logStderr(String str) {
         System.err.println("\033[31m" + str + "\033[0m");
