@@ -121,24 +121,21 @@ public class                            MessageHandler {
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         JCoincheUtils.log("\n[>] SEND_BID Message");
-        JCoincheUtils.log("[>] Bid Over ! Result :");
-        if (message.getBid() == false) {
-            if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
-                JCoincheUtils.log("\t[>] I pass", message.getPlayerId());
-            } else {
-                JCoincheUtils.log("\t[>] User %d pass ..", message.getPlayerId());
-            }
-            JCoincheUtils.log("[>] End Bid Infos ..\n");
-            return;
-        }
-        JCoincheUtils.log("[>] \tBid Value : %d", message.getBidValue());
-        JCoincheUtils.log("[>] \tBid Trump : %d", message.getBidTrumps());
+
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
-            JCoincheUtils.log("[>] \tBy Me");
+            if (message.getBid()) {
+                JCoincheUtils.log("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrumps() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrumps() - 4) : EnumUtils.getColorByIndex(message.getBidTrumps())));
+            } else {
+                JCoincheUtils.log("\t[^] I pass ..");
+            }
         } else {
-            JCoincheUtils.log("[>] \tBy Player : %d", message.getPlayerId());
+            if (message.getBid()) {
+                JCoincheUtils.log("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrumps() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrumps() - 4) : EnumUtils.getColorByIndex(message.getBidTrumps())));
+            } else {
+                JCoincheUtils.log("\t[^] Player [%d] pass ..", message.getPlayerId());
+            }
         }
-        JCoincheUtils.log("[>] End Bid Infos ..\n");
+        JCoincheUtils.log("[>] END SEND_BID\n");
     }
 
     private void                        handleGetCoincheMessage(JCoincheProtocol.GetCoincheMessage message) {
