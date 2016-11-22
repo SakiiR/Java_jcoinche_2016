@@ -62,7 +62,7 @@ public class                        JCoincheServer {
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
                             if (future.cause() instanceof BindException) {
-                                JCoincheUtils.logErr(JCoincheConstants.log_failed_bind, port);
+                               // JCoincheUtils.logErr(JCoincheConstants.log_failed_bind, port);
                             }
                         }
                     }

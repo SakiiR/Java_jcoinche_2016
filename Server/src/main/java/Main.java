@@ -15,7 +15,7 @@ public class                Main {
                 port = Integer.parseInt(args[0]);
             }
         } catch (NumberFormatException e) {
-            JCoincheUtils.logErr(JCoincheConstants.log_failed_parse_int, args[0]);
+//            JCoincheUtils.logErr(JCoincheConstants.log_failed_parse_int, args[0]);
             JCoincheUtils.log(JCoincheConstants.log_using_default_port);
             port = 1337;
         }

@@ -136,9 +136,21 @@ public class                                                        MessageForge
                 .JCoincheMessage
                 .newBuilder()
                 .setType(JCoincheProtocol.JCoincheMessage.Type.GET_SURCOINCHE)
-                .setGetSurCoincheMessage(JCoincheProtocol
+                .setGetSurcoincheMessage(JCoincheProtocol
                         .GetSurcoincheMessage
                         .newBuilder())
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeSendSurcoincheMessage(int id) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_SURCOINCHE)
+                .setSendSurcoincheMessage(JCoincheProtocol
+                        .SendSurcoincheMessage
+                        .newBuilder()
+                        .setPlayerId(id))
         );
     }
 }

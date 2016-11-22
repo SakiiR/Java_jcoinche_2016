@@ -41,8 +41,9 @@ public class                            GameThread implements Runnable {
             else
                 this.generalBeginner = this.allPlayers.get(generalBeginner.getId());
             try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
+                Thread.sleep(50000);
+                JCoincheUtils.log("[>] Bid okay return inside runBid");
+                } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

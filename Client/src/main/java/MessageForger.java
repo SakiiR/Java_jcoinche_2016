@@ -54,10 +54,11 @@ public class                                                        MessageForge
                         .JCoincheMessage
                         .Type
                         .SET_SURCOINCHE)
-                .setSetSurCoincheMessage(JCoincheProtocol
+                .setSetSurcoincheMessage(JCoincheProtocol
                         .SetSurcoincheMessage
                         .newBuilder()
                         .setSurcoinche(surcoinche))
         );
     }
+
 }

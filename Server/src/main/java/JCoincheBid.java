@@ -180,7 +180,7 @@ public class                            JCoincheBid {
                         JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGetCoincheMessage());
                     } else {
                          valideMessage = true;
-                        if (message.getSetCoincheMessage().getCoincheValue()) {
+                        if (message.getSetCoincheMessage().getCoinche()) {
                             this.bidInformations.setCoinche(true);
                             JCoincheUtils.log("[>] Coinche made ! Sending Coinche to all players");
                             //broadcast a tout les players s'il y a coinche
@@ -217,9 +217,11 @@ public class                            JCoincheBid {
                     JCoincheUtils.writeAndFlush(bidder.getChannel(), MessageForger.forgeGetSurcoincheMessage());
                 } else {
                     validemessage = true;
-                    this.bidInformations.setSurcoinche(true);
-                    for (JCoinchePlayer p : this.allPlayers) {
-                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendSurcoincheMessage(bidder.getId())
+                    if (message.getSetSurcoincheMessage().getSurcoinche()) {
+                        this.bidInformations.setSurcoinche(true);
+                        for (JCoinchePlayer p : this.allPlayers) {
+                            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendSurcoincheMessage(bidder.getId()));
+                        }
                     }
                 }
             }

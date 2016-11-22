@@ -38,7 +38,7 @@ public class                            MessageHandler {
                 this.handleSendCoincheMessage(message.getSendCoincheMessage());
                 break;
             case GET_SURCOINCHE:
-                this.handleGetSurcoincheMessage(message.getGetSurCoincheMessage());
+                this.handleGetSurcoincheMessage(message.getGetSurcoincheMessage());
                 break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());

@@ -16,6 +16,7 @@ message                         JCoincheMessage {
         SEND_COINCHE    = 9;
         GET_SURCOINCHE  = 10;
         SET_SURCOINCHE  = 11;
+        SEND_SURCOINCHE = 12;
     }
 
     required Type                   type                    = 1;
@@ -31,8 +32,9 @@ message                         JCoincheMessage {
     optional GetCoincheMessage      getCoincheMessage       = 10;
     optional SetCoincheMessage      setCoincheMessage       = 11;
     optional SendCoincheMessage     sendCoincheMessage      = 12;
-    optional GetSurcoincheMessage   getSurCoincheMessage    = 13;
-    optional SetSurcoincheMessage   setSurCoincheMessage    = 14;
+    optional GetSurcoincheMessage   getSurcoincheMessage    = 13;
+    optional SetSurcoincheMessage   setSurcoincheMessage    = 14;
+    optional SendSurcoincheMessage  sendSurcoincheMessage   = 15;
 }
 
 message                             WelcomeMessage {
@@ -75,7 +77,7 @@ message                             SendBidMessage {
 message                             GetCoincheMessage {  }
 
 message                             SetCoincheMessage {
-    required bool                   coinche = 1;
+    required bool                   coinche     = 1;
 }
 
 message                             SendCoincheMessage {
@@ -85,5 +87,9 @@ message                             SendCoincheMessage {
 message                             GetSurcoincheMessage {  }
 
 message                             SetSurcoincheMessage {
-    required bool                   surcoinche = 1;
+    required bool                   surcoinche  = 1;
+}
+
+message                             SendSurcoincheMessage {
+    required int32                  playerId    = 1;
 }
