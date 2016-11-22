@@ -6,8 +6,8 @@ import io.netty.channel.group.ChannelGroup;
  */
 
 public class                GameHandle {
-    protected GameThread    gameThread = null;
-    protected ChannelGroup  channels = null;
+    private GameThread      gameThread = null;
+    private ChannelGroup    channels = null;
 
     /**
      * Empty constructor
