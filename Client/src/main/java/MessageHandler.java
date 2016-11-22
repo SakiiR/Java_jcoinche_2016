@@ -40,6 +40,9 @@ public class                            MessageHandler {
             case GET_SURCOINCHE:
                 this.handleGetSurcoincheMessage(message.getGetSurcoincheMessage());
                 break;
+            case SEND_SURCOINCHE:
+                this.handleSendSurcoincheMessage(message.getSendSurcoincheMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -180,5 +183,13 @@ public class                            MessageHandler {
                         this.clientProcess.getPlayerInformations().getToken(),
                         (surcoincheOrNot == 0 ? false : true))
         );
+    }
+
+    private void                        handleSendSurcoincheMessage(JCoincheProtocol.SendSurcoincheMessage message) {
+        if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
+            JCoincheUtils.logSuccess("[>] I Surcoinche !");
+        } else {
+            JCoincheUtils.logSuccess("[>] Player [%d] Surcoinche !", message.getPlayerId());
+        }
     }
 }
