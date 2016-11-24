@@ -49,6 +49,21 @@ public class                            MessageHandler {
             case SEND_BID_INFO:
                 this.handleSendBidInformationsMessage(message.getSendBidInfoMessage());
                 break;
+            case START_TRICK:
+                this.handleStartTrickMessage(message.getStartTrickMessage());
+                break;
+            case GET_CARD:
+                this.handleGetCardMessage(message.getGetCardMessage());
+                break;
+            case SEND_CARD:
+                this.handleSendCardMessage(message.getSendCardMessage());
+                break;
+            case SEND_WIN_TRICK:
+                this.handleSendWinTrickMessage(message.getSendWinTrickMessage());
+                break;
+            case SEND_WIN_ROUND:
+                this.handleSendWinRoundMessage(message.getSendWinRoundMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -92,11 +107,12 @@ public class                            MessageHandler {
     }
 
     private void                        handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
-        System.out.println(String.format("[>] GET_CARDS Message !"));
-        System.out.println(String.format("[>] My Cards :"));
-
         for (int i = 0 ; i < message.getColorsCount() ; ++i) {
-            System.out.println(String.format("{id : %d, color : %d}", message.getIds(i), message.getColors(i)));
+            this.clientProcess.getPlayerInformations().getCards().add(new JCoincheCard(
+                    JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getColors(i)].name()),
+                    JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[message.getIds(i)].name())
+            ));
+            this.clientProcess.getPlayerInformations().dumpCard();
         }
     }
 
@@ -202,5 +218,49 @@ public class                            MessageHandler {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
         JCoincheUtils.logSuccess("[+] %s Set the \"contrat\" to %s of %s ..", who, value, trump);
+    }
+
+    private void                        handleStartTrickMessage(JCoincheProtocol.StartTrickMessage message) {
+        JCoincheUtils.logSuccess("[+] Starting Trick N°%d", message.getTrickNumber());
+    }
+
+    private void                        handleGetCardMessage(JCoincheProtocol.GetCardMessage message) {
+        int                             cardIndex = -1;
+        JCoincheCard                    toSend = null;
+
+        this.clientProcess.getPlayerInformations().dumpCardWithIndex();
+        while (!(cardIndex >= 0 && cardIndex < this.clientProcess.getPlayerInformations().getCards().size())) {
+            cardIndex = this.promptInt("[+] Please .. Choose a Card : ");
+        }
+        MessageForger.forgeSetCardMessage(
+                this.clientProcess.getPlayerInformations().getToken(),
+                toSend
+        );
+    }
+
+    private void                        handleSendCardMessage(JCoincheProtocol.SendCardMessage message) {
+        String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+
+        JCoincheUtils.logSuccess("[+] %s dropped Card %s of %s", who, EnumUtils.getIdByIndex(message.getCardId()), EnumUtils.getColorByIndex(message.getCardColor()));
+    }
+
+    private void                        handleSendWinTrickMessage(JCoincheProtocol.SendWinTrickMessage message) {
+        String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+        String                          team = (who == "I" ? "" : String.format(" from team %d", message.getTeamId()));
+
+        JCoincheUtils.logSuccess("[+] %s%s won the Trick ! with SCORE : %d", who, team, message.getScore());
+    }
+
+    private void                        handleSendWinRoundMessage(JCoincheProtocol.SendWinRoundMessage message) {
+        if (message.getWinnerTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
+            JCoincheUtils.logSuccess("+-------------------------");
+            JCoincheUtils.logSuccess("| We WON The Game With %dpts against %dpts", message.getWinnerScore(), message.getLooserScore());
+            JCoincheUtils.logSuccess("+-------------------------");
+        } else {
+            JCoincheUtils.logSuccess("+-------------------------");
+            JCoincheUtils.logSuccess("| We LOOSE The Game With %dpts against %dpts", message.getLooserScore(), message.getWinnerScore());
+            JCoincheUtils.logSuccess("+-------------------------");
+        }
+        JCoincheUtils.logSuccess("[+] %s", message.getMessage());
     }
 }

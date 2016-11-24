@@ -60,4 +60,25 @@ public class                                                        MessageForge
                         .setSurcoinche(surcoinche))
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCardMessage(String token, JCoincheCard c) {
+     return (JCoincheProtocol
+             .JCoincheMessage
+             .newBuilder()
+             .setToken(token)
+             .setType(JCoincheProtocol
+                     .JCoincheMessage
+                     .Type
+                     .SET_CARD)
+             .setSetCardMessage(JCoincheProtocol
+                     .SetCardMessage
+                     .newBuilder()
+                     .setCardColor(c
+                             .getColor()
+                             .ordinal())
+                     .setCardId(c
+                             .getId()
+                             .ordinal()))
+     );
+    }
 }
