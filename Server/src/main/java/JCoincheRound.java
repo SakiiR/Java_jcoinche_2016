@@ -26,8 +26,8 @@ public class                    JCoincheRound {
             this.tricks.add(new JCoincheTrick(trickBeginner, teams, players, bidInformations));
             this.sendTrickNbtoPlayers(this.tricks.size());
             this.tricks.get(this.tricks.size() - 1).run();
-
         }
+        //fin du round, 8 plis accomplis => check du contrat application des points a la team gagnante plus broadcast
     }
 
     private void            sendTrickNbtoPlayers(int nb) {
