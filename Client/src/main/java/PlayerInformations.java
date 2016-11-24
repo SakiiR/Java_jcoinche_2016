@@ -10,6 +10,7 @@ public class                        PlayerInformations {
     private int                     teamId;
     private int                     playerId;
     private Channel                 channel;
+    private ArrayList<JCoincheCard> cards;
 
     public Channel                  getChannel() {
         return channel;
@@ -19,8 +20,6 @@ public class                        PlayerInformations {
         this.channel = channel;
         return this;
     }
-
-    private ArrayList<JCoincheCard> cards;
 
     public                          PlayerInformations() {
         this.cards = new ArrayList<>();
@@ -53,4 +52,30 @@ public class                        PlayerInformations {
         return this;
     }
 
+    public ArrayList<JCoincheCard>  getCards() {
+        return cards;
+    }
+
+    public PlayerInformations       setCards(ArrayList<JCoincheCard> cards) {
+        this.cards = cards;
+        return this;
+    }
+
+    public void                     dumpCard() {
+        JCoincheUtils.logSuccess("[+] My Cards (%d) :", this.cards.size());
+        for (JCoincheCard c : this.cards) {
+            JCoincheUtils.logSuccess("->\t%s of %s", c.getId(), c.getColor());
+        }
+        JCoincheUtils.logSuccess("[+] My Cards End");
+    }
+
+    public void                     dumpCardWithIndex() {
+        int                         i = 0;
+        JCoincheUtils.logSuccess("[+] My Cards (%d) :", this.cards.size());
+        for (JCoincheCard c : this.cards) {
+            JCoincheUtils.logSuccess("->\t[%d] %s of %s", i, c.getId(), c.getColor());
+            ++i;
+        }
+        JCoincheUtils.logSuccess("[+] My Cards End");
+    }
 }
