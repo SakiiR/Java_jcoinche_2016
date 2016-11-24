@@ -166,9 +166,9 @@ public class                                                        MessageForge
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidInfoMessage(JCoincheBidInformations bidInfo) {
-        int trump;
+        int         trump;
 
-        trump = (bidInfo.getBidTrump() != null ? bidInfo.getBidTrump().ordinal() : bidInfo.getBidType().ordinal());
+        trump = (bidInfo.getBidTrump() == null ? bidInfo.getBidType().ordinal() : bidInfo.getBidTrump().ordinal());
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
