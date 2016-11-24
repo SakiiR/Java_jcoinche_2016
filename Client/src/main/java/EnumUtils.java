@@ -3,7 +3,11 @@
  */
 public class                            EnumUtils {
     public enum                         Trump {
-        WA,
+        HEART,
+        DIAMOND,
+        CLUB,
+        SPADE,
+        WT,
         AT
     }
 

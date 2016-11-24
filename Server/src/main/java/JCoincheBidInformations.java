@@ -10,6 +10,10 @@ public class                        JCoincheBidInformations {
     private boolean                 surcoinche;
 
     public enum                     BidType {
+        HEART,
+        DIAMOND,
+        CLUB,
+        SPADE,
         WT,
         AT
     }

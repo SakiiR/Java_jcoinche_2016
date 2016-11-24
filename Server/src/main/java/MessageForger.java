@@ -168,6 +168,8 @@ public class                                                        MessageForge
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidInfoMessage(JCoincheBidInformations bidInfo) {
         int         trump;
 
+        JCoincheUtils.logWarning("bidtrump : %s", bidInfo.getBidTrump());
+        JCoincheUtils.logWarning("bidtype : %s", bidInfo.getBidTrump());
         trump = (bidInfo.getBidTrump() == null ? bidInfo.getBidType().ordinal() : bidInfo.getBidTrump().ordinal());
         return (JCoincheProtocol
                 .JCoincheMessage

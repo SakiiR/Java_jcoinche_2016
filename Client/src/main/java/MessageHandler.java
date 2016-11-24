@@ -100,6 +100,7 @@ public class                            MessageHandler {
 
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
         System.out.println(String.format("[>] GAME_START Message : {token : %s, player_id : %d, team_id : %d}", message.getToken(), message.getPlayerId(), message.getTeamId()));
+        this.clientProcess.getPlayerInformations().getCards().clear();
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
                 .setPlayerId(message.getPlayerId())
@@ -112,8 +113,8 @@ public class                            MessageHandler {
                     JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getColors(i)].name()),
                     JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[message.getIds(i)].name())
             ));
-            this.clientProcess.getPlayerInformations().dumpCard();
         }
+        this.clientProcess.getPlayerInformations().dumpCard();
     }
 
     private void                        handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
@@ -153,12 +154,13 @@ public class                            MessageHandler {
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         JCoincheUtils.logInfo("\n[>] SEND_BID Message");
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+        String                          trump;
 
-            if (message.getBid()) {
-                JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
-            } else {
-                JCoincheUtils.logWarning("\t[^] %s pass ..", who);
-            }
+        if (message.getBid()) {
+            JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
+        } else {
+            JCoincheUtils.logWarning("\t[^] %s pass ..", who);
+        }
         JCoincheUtils.logInfo("[>] END SEND_BID\n");
     }
 
