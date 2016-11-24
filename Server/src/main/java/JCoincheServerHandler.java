@@ -41,8 +41,8 @@ public class                            JCoincheServerHandler extends ChannelInb
             JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
             return;
         }
-        /* if the game is already stopped */
-        if (this.gameHandle.getPlayersCount() < 4) {
+        /* if the game is already stopped and player is not in game */
+        if (!GameThread.isRunning) {
             this.gameHandle.getPlayers().remove(p);
             ctx.close();
             JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
@@ -51,7 +51,7 @@ public class                            JCoincheServerHandler extends ChannelInb
         p.setChannel(null);
         ctx.fireChannelInactive();
         channels.remove(ctx.channel());
-        this.gameHandle.removeInnactiveChannels();
+        ctx.close();
         JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
         this.gameHandle.stopGame();
         if (this.gameHandle.getPlayersCount() >= 4) {

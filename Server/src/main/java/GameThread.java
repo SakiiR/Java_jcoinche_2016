@@ -37,6 +37,7 @@ public class                            GameThread implements Runnable {
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
         while (!this.checkScoreTeams() && GameThread.isRunning) {
             this.bid.setBeginner(this.generalBeginner).runBid();
+            if (!GameThread.isRunning) return;
             this.sendBidToPlayers();
             //on entre dans la boucle de plis
             round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers);

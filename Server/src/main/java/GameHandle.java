@@ -49,6 +49,7 @@ public class                            GameHandle {
         try {
             JCoincheUtils.logWarning("[!] Before join");
             this.t.join();
+            this.removeInnactiveChannels();
             JCoincheUtils.logWarning("[!] After join");
         } catch (InterruptedException e) {
             e.printStackTrace();
