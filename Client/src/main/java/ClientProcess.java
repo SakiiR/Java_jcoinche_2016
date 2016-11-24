@@ -25,8 +25,6 @@ public class                                                    ClientProcess im
         while (this.isRunning) {
             this.lock.lock();
             for (JCoincheProtocol.JCoincheMessage message : this.messages) {
-                System.out.println(String.format(JCoincheConstants.log_last_message_handling, message.getType()));
-                // send message to handler
                 this.messageHandler.parseMessage(message);
             }
             this.lock.unlock();
