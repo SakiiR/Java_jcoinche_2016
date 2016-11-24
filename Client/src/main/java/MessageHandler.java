@@ -232,24 +232,30 @@ public class                            MessageHandler {
         while (!(cardIndex >= 0 && cardIndex < this.clientProcess.getPlayerInformations().getCards().size())) {
             cardIndex = this.promptInt("[+] Please .. Choose a Card : ");
         }
-        MessageForger.forgeSetCardMessage(
+        toSend = this.clientProcess.getPlayerInformations().getCards().get(cardIndex);
+        JCoincheUtils.logSuccess("[+] SET_CARD : %s of %s", toSend.getId(), toSend.getColor());
+        JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(), MessageForger.forgeSetCardMessage(
                 this.clientProcess.getPlayerInformations().getToken(),
                 toSend
-        );
+        ));
     }
 
     private void                        handleSendCardMessage(JCoincheProtocol.SendCardMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+        JCoincheCard                    toDelete = null;
 
         JCoincheUtils.logSuccess("[+] %s dropped Card %s of %s",
                 who,
                 EnumUtils.getIdByIndex(message.getCardId()),
                 EnumUtils.getColorByIndex(message.getCardColor()));
         if (who == "I") {
-            this.clientProcess.getPlayerInformations().getCards().remove(new JCoincheCard(
-                    EnumUtils.getColorByIndex(message.getCardColor()),
-                    EnumUtils.getIdByIndex(message.getCardId())
-            ));
+            for (JCoincheCard c : this.clientProcess.getPlayerInformations().getCards()) {
+                if (c.getColor().ordinal() == message.getCardColor() &&
+                        c.getId().ordinal() == message.getCardId()) {
+                    toDelete = c;
+                }
+            }
+            this.clientProcess.getPlayerInformations().getCards().remove(toDelete);
         }
     }
 
