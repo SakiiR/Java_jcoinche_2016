@@ -123,12 +123,12 @@ public class                            MessageHandler {
 
         JCoincheUtils.logInfo("[>] GET_BID Message !");
         while (!((bidValue >= message.getValue() || bidValue == 0 ) && bidValue % 10 == 0)) {
-            bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass : ", message.getValue()));
+            bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass :", message.getValue()));
         }
 
         if (bidValue >= message.getValue()) {
             while (!(trump >= 0 && trump <= 5)) {
-                trump = this.promptInt("[>] Now .. Enter your trump {0: HEART, 1: DIAMOND, 2: CLUB, 3: SPADE, 4: WT, 5: AT} : ");
+                trump = this.promptInt("[>] Now .. Enter your trump {0: HEART, 1: DIAMOND, 2: CLUB, 3: SPADE, 4: WT, 5: AT} :");
             }
         }
 
@@ -152,16 +152,13 @@ public class                            MessageHandler {
     }
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
-        JCoincheUtils.logInfo("\n[>] SEND_BID Message");
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
-        String                          trump;
 
         if (message.getBid()) {
-            JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
+            JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), EnumUtils.getTrumpTypeByIndex(message.getBidTrump()));
         } else {
             JCoincheUtils.logWarning("\t[^] %s pass ..", who);
         }
-        JCoincheUtils.logInfo("[>] END SEND_BID\n");
     }
 
     private void                        handleGetCoincheMessage(JCoincheProtocol.GetCoincheMessage message) {
@@ -193,12 +190,11 @@ public class                            MessageHandler {
         while (!(surcoincheOrNot >= 0 && surcoincheOrNot <= 1)) {
             surcoincheOrNot = this.promptInt("[>] Do you want to surcoinche ? {0: No, 1: Yes}");
         }
-
-        JCoincheUtils.logInfo("[>] SET_SURCOINCHE %d!", surcoincheOrNot);
         JCoincheUtils.writeAndFlush(this.clientProcess.getPlayerInformations().getChannel(),
                 MessageForger.forgeSetSurcoincheMessage(
                         this.clientProcess.getPlayerInformations().getToken(),
-                        (surcoincheOrNot == 0 ? false : true))
+                        (surcoincheOrNot != 0)
+                )
         );
     }
 
@@ -216,7 +212,7 @@ public class                            MessageHandler {
 
     private void                        handleSendBidInformationsMessage(JCoincheProtocol.SendBidInfoMessage message) {
         String                          value = (message.getValue() == 170 ? "CAPOT" : String.format("%d", message.getValue()));
-        String                          trump = (message.getTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getTrump() - 4).toString() : EnumUtils.getColorByIndex(message.getTrump()).toString());
+        String                          trump = EnumUtils.getTrumpTypeByIndex(message.getTrump()).name();
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
         JCoincheUtils.logSuccess("[+] %s Set the \"contrat\" to %s of %s ..", who, value, trump);
