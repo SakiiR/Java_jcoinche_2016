@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -100,7 +101,6 @@ public class                            MessageHandler {
 
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
         System.out.println(String.format("[>] GAME_START Message : {token : %s, player_id : %d, team_id : %d}", message.getToken(), message.getPlayerId(), message.getTeamId()));
-        this.clientProcess.getPlayerInformations().getCards().clear();
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
                 .setPlayerId(message.getPlayerId())
@@ -108,6 +108,8 @@ public class                            MessageHandler {
     }
 
     private void                        handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
+        this.clientProcess.getPlayerInformations().getCards().clear();
+        this.clientProcess.getPlayerInformations().setCards(new ArrayList<JCoincheCard>());
         for (int i = 0 ; i < message.getColorsCount() ; ++i) {
             this.clientProcess.getPlayerInformations().getCards().add(new JCoincheCard(
                     JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getColors(i)].name()),
