@@ -4580,7 +4580,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-rounds: Array<Trick>",
+											"text": "-tricks: Array<Trick>",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										}
@@ -6991,7 +6991,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFYbtgneCxdMz0="
 							},
-							"name": "rounds",
+							"name": "tricks",
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
