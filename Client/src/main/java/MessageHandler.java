@@ -241,7 +241,16 @@ public class                            MessageHandler {
     private void                        handleSendCardMessage(JCoincheProtocol.SendCardMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
-        JCoincheUtils.logSuccess("[+] %s dropped Card %s of %s", who, EnumUtils.getIdByIndex(message.getCardId()), EnumUtils.getColorByIndex(message.getCardColor()));
+        JCoincheUtils.logSuccess("[+] %s dropped Card %s of %s",
+                who,
+                EnumUtils.getIdByIndex(message.getCardId()),
+                EnumUtils.getColorByIndex(message.getCardColor()));
+        if (who == "I") {
+            this.clientProcess.getPlayerInformations().getCards().remove(new JCoincheCard(
+                    EnumUtils.getColorByIndex(message.getCardColor()),
+                    EnumUtils.getIdByIndex(message.getCardId())
+            ));
+        }
     }
 
     private void                        handleSendWinTrickMessage(JCoincheProtocol.SendWinTrickMessage message) {

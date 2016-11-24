@@ -21,7 +21,7 @@ allprojects {
 /**
  * Maybe change rule name
  */
-task "package"(type: Copy, dependsOn: [subprojects.jar, build, subprojects.build]) {
+task "package"(type: Copy, dependsOn: [subprojects.jar]) {
     from(subprojects.jar)
     into project.file('./target')
 }

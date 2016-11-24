@@ -38,7 +38,7 @@ task "jcdeps"(type: Copy) {
     into "../target/server_deps"
 }
 
-build.dependsOn(jcdeps)
+jar.dependsOn(jcdeps)
 
 jar {
     into('lib') {

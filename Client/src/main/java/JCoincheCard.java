@@ -35,4 +35,11 @@ public class                JCoincheCard {
     public Id               getId() {
         return this.id;
     }
+
+    public boolean          equals(JCoincheCard other) {
+        return (
+                this.color == other.getColor() &&
+                this.id == other.getId()
+        );
+    }
 }
