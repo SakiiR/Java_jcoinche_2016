@@ -82,11 +82,7 @@ public class                                                        MessageForge
         if (bid) {
             int trump;
 
-            if (bidInformations.getBidType() != null) {
-                trump = bidInformations.getBidType().ordinal();
-            } else {
-                trump = bidInformations.getBidTrump().ordinal();
-            }
+            trump = bidInformations.getBidTrump().ordinal();
             return (JCoincheProtocol
                     .JCoincheMessage
                     .newBuilder().setType(JCoincheProtocol.JCoincheMessage.Type.SEND_BID)
@@ -166,11 +162,7 @@ public class                                                        MessageForge
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidInfoMessage(JCoincheBidInformations bidInfo) {
-        int         trump;
 
-        JCoincheUtils.logWarning("bidtrump : %s", bidInfo.getBidTrump());
-        JCoincheUtils.logWarning("bidtype : %s", bidInfo.getBidTrump());
-        trump = (bidInfo.getBidTrump() == null ? bidInfo.getBidType().ordinal() : bidInfo.getBidTrump().ordinal());
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -180,7 +172,7 @@ public class                                                        MessageForge
                         .newBuilder()
                         .setPlayerId(bidInfo.getBiddenPlayer().getId())
                         .setValue(bidInfo.getBidValue())
-                        .setTrump(trump))
+                        .setTrump(bidInfo.getBidTrump().ordinal()))
         );
     }
 

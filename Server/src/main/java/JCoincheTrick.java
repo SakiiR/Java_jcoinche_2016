@@ -43,6 +43,11 @@ public class                    JCoincheTrick {
 
     }
 
+    private void                            sendGetCardError(JCoinchePlayer player) {
+        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
+        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
+    }
+
     private void                            getCardFromPlayer() {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
@@ -51,17 +56,14 @@ public class                    JCoincheTrick {
         message = this.actualPlayer.getMessage();
         if (message != null) {
             while(!valideMessage && GameThread.isRunning) {
-                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD) {
-                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
-                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
-                }
+                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD)
+                    this.sendGetCardError(this.actualPlayer);
                 else {
-                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner)) {
-                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
-                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
-                    }
+                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer))
+                        this.sendGetCardError(this.actualPlayer);
                     else {
-
+                        if (!this.checkCardValidity(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer))
+                            this.sendGetCardError(this.actualPlayer);
                     }
                 }
                 try {
@@ -74,6 +76,10 @@ public class                    JCoincheTrick {
         }
     }
 
+    private boolean                         checkCardValidity(int cardId, int colorId, JCoinchePlayer player) {
+        return false;
+    }
+
     private void                            getCardFromBeginner() {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
@@ -82,16 +88,12 @@ public class                    JCoincheTrick {
         message = this.trickBeginner.getMessage();
         if (message != null) {
             while (!valideMessage && GameThread.isRunning) {
-                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD) {
-                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
-                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
-                }
+                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD)
+                    this.sendGetCardError(this.trickBeginner);
                 //on check si la carte est présente dans le jeu;
                 else {
-                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner)) {
-                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
-                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
-                    }
+                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner))
+                        this.sendGetCardError(this.trickBeginner);
                     else
                         valideMessage = true;
                 }
