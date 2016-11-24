@@ -42,7 +42,6 @@ public class                        CardGenerator {
                         JCoincheCard.Id.valueOf(JCoincheCard.Id.values()[j].name())
                 );
                 this.cards.add(c);
-                JCoincheUtils.log(JCoincheConstants.log_card_info, c.getColor(), c.getId());
             }
         }
         JCoincheUtils.log(JCoincheConstants.log_generated_cards);

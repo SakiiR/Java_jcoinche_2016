@@ -162,7 +162,6 @@ public class                                                        MessageForge
     }
 
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidInfoMessage(JCoincheBidInformations bidInfo) {
-
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()

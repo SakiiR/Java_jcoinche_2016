@@ -154,8 +154,6 @@ public class                            JCoincheBid {
         if (this.suggestCoinche()) {
             this.suggestSurCoinche();
         }
-        JCoincheUtils.logWarning("bidtrump : %s", this.bidInformations.getBidTrump());
-        JCoincheUtils.logWarning("bidtype : %s", this.bidInformations.getBidTrump());
     }
 
     private boolean                         suggestCoinche() {

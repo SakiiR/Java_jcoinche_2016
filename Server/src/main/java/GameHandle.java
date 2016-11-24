@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class                            GameHandle {
     private GameThread                  gameThread = null;
-    private ChannelGroup                channels = null;
     ArrayList<JCoinchePlayer>           players;
     Thread                              t;
 
@@ -35,7 +34,6 @@ public class                            GameHandle {
      * @return GameHandle
      */
     public GameHandle                   setChannels(ChannelGroup channels) {
-        this.channels = channels;
         return this;
     }
 
@@ -51,6 +49,7 @@ public class                            GameHandle {
         try {
             JCoincheUtils.logWarning("[!] Before join");
             this.t.join();
+            this.removeInnactiveChannels();
             JCoincheUtils.logWarning("[!] After join");
         } catch (InterruptedException e) {
             e.printStackTrace();
