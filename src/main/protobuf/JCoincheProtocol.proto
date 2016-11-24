@@ -18,6 +18,14 @@ message                         JCoincheMessage {
         SET_SURCOINCHE  = 11;
         SEND_SURCOINCHE = 12;
         GAME_STOPPED    = 13;
+        SEND_BID_INFO   = 14;
+        START_TRICK     = 15;
+        GET_CARD        = 16;
+        SET_CARD        = 17;
+        SEND_CARD       = 18;
+        SEND_WIN_TRICK  = 19;
+        SEND_WIN_ROUND  = 20;
+        END_GAME        = 21;
     }
 
     required Type                   type                    = 1;
@@ -37,6 +45,14 @@ message                         JCoincheMessage {
     optional SetSurcoincheMessage   setSurcoincheMessage    = 14;
     optional SendSurcoincheMessage  sendSurcoincheMessage   = 15;
     optional GameStoppedMessage     gameStoppedMessage      = 16;
+    optional SendBidInfoMessage     sendBidInfoMessage      = 17;
+    optional StartTrickMessage      startTrickMessage       = 18;
+    optional GetCardMessage         getCardMessage          = 19;
+    optional SetCardMessage         setCardMessage          = 20;
+    optional SendCardMessage        sendCardMessage         = 21;
+    optional SendWinTrickMessage    sendWinTrickMessage     = 22;
+    optional SendWinRoundMessage    sendWinRoundMessage     = 23;
+    optional EndGameMessage         endGameMessage          = 24;
 }
 
 message                             WelcomeMessage {
@@ -97,3 +113,48 @@ message                             SendSurcoincheMessage {
 }
 
 message                             GameStoppedMessage {  }
+
+message                             SendBidInfoMessage {
+    required int32                  playerId    = 1;
+    required int32                  value       = 2;
+    required int32                  trump       = 3;
+}
+
+message                             StartTrickMessage {
+    required int32                  trickNumber = 1;
+}
+
+message                             GetCardMessage {    }
+
+message                             SetCardMessage {
+    required int32                  cardId      = 1;
+    required int32                  cardColor   = 2;
+
+}
+
+message                             SendCardMessage {
+    required int32                  playerId    = 1;
+    required int32                  cardId      = 2;
+    required int32                  cardColor   = 3;
+}
+
+message                             SendWinTrickMessage {
+    required int32                  playerId    = 1;
+    required int32                  teamId      = 2;
+    required int32                  score       = 3;
+}
+
+message                             SendWinRoundMessage {
+    required int32                  winnerTeamId = 1;
+    required int32                  winnerScore = 2;
+    required int32                  looserTeamId = 3;
+    required int32                  looserScore = 4;
+    required string                 message     = 5;
+}
+
+message                             EndGameMessage {
+    required int32                  winnerTeamId = 1;
+    required int32                  winnerScore = 2;
+    required int32                  looserTeamId = 3;
+    required int32                  looserScore = 4;
+}

@@ -14,6 +14,7 @@ public class                            GameThread implements Runnable {
     private CardGenerator               cardGenerator = null;
     private JCoincheBid                 bid = null;
     private JCoinchePlayer              generalBeginner = null;
+    private JCoincheRound               round = null;
 
     /**
      * Constructor
@@ -36,6 +37,10 @@ public class                            GameThread implements Runnable {
         this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
         while (!this.checkScoreTeams() && GameThread.isRunning) {
             this.bid.setBeginner(this.generalBeginner).runBid();
+            this.sendBidToPlayers();
+            //on entre dans la boucle de plis
+            round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers);
+            //fin de boucle change le beginner général
             if (this.generalBeginner.getId() == 4)
                 this.generalBeginner = this.allPlayers.get(0);
             else
@@ -84,12 +89,18 @@ public class                            GameThread implements Runnable {
         }
     }
 
-    private boolean checkScoreTeams() {
+    private boolean                     checkScoreTeams() {
         int score1;
         int score2;
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
         return ((score1 >= 1000 || score2 >= 1000) && score1 != score2);
+    }
+
+    private void                        sendBidToPlayers() {
+        for (JCoinchePlayer p : this.allPlayers) {
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidInfoMessage(this.bid.getBidInformations()));
+        }
     }
 }

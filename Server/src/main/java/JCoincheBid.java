@@ -52,7 +52,6 @@ public class                            JCoincheBid {
                             valideMessage = true;
                         }
                     } else {
-                       // this.bidInformations.setBiddenPlayer(player);
                         this.sendBidToAllPlayers(false, player);
                         return false;
                     }
@@ -233,6 +232,10 @@ public class                            JCoincheBid {
         }
     }
 
+    public JCoincheBidInformations      getBidInformations() {
+        return bidInformations;
+    }
+
     private boolean                     resuggerBid(JCoinchePlayer bidder) {
 
         int                             pass = 0;
@@ -254,8 +257,9 @@ public class                            JCoincheBid {
             else
                 break;
         }
-        if (pass == 3) {
+        if (pass == 3 || this.bidInformations.getBidValue() == 170) {
             return true;
+
         }
         if (!GameThread.isRunning) {
             return false;

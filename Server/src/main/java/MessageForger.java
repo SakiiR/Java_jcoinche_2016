@@ -164,4 +164,33 @@ public class                                                        MessageForge
                         .newBuilder())
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendBidInfoMessage(JCoincheBidInformations bidInfo) {
+        int trump;
+
+        trump = (bidInfo.getBidTrump() != null ? bidInfo.getBidTrump().ordinal() : bidInfo.getBidType().ordinal());
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_BID_INFO)
+                .setSendBidInfoMessage(JCoincheProtocol
+                        .SendBidInfoMessage
+                        .newBuilder()
+                        .setPlayerId(bidInfo.getBiddenPlayer().getId())
+                        .setValue(bidInfo.getBidValue())
+                        .setTrump(trump))
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder forgeStartTrickMessage(int nb) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.START_TRICK)
+                .setStartTrickMessage(JCoincheProtocol
+                        .StartTrickMessage
+                        .newBuilder()
+                        .setTrickNumber(nb))
+        );
+    }
 }

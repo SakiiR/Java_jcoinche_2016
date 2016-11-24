@@ -257,7 +257,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-trick: Trick",
+											"text": "-trick: Round",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -4353,7 +4353,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Trick",
+											"text": "Round",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -4580,7 +4580,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-rounds: Array<Round>",
+											"text": "-rounds: Array<Trick>",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										}
@@ -4779,7 +4779,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Round",
+											"text": "trick",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -4894,7 +4894,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-roundBeguinner: Player",
+											"text": "-trickBeguinner: Player",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -4978,7 +4978,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-roundCard: Card",
+											"text": "-trickCard: Card",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -6906,7 +6906,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Trick",
+					"name": "Round",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -6995,7 +6995,7 @@
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
-							"type": "Array<Round>",
+							"type": "Array<Trick>",
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,
@@ -7015,7 +7015,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Round",
+					"name": "trick",
 					"visibility": "public",
 					"attributes": [
 						{
@@ -7024,7 +7024,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFYbuHnmDJpxD8="
 							},
-							"name": "roundBeguinner",
+							"name": "trickBeguinner",
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
@@ -7080,7 +7080,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFYbuHnmDJpxD8="
 							},
-							"name": "roundCard",
+							"name": "trickCard",
 							"visibility": "private",
 							"isStatic": false,
 							"isLeaf": false,
