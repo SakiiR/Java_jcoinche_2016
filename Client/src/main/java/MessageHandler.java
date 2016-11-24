@@ -46,6 +46,9 @@ public class                            MessageHandler {
             case GAME_STOPPED:
                 this.handleGameStoppedMessage(message.getGameStoppedMessage());
                 break;
+            case SEND_BID_INFO:
+                this.handleSendBidInformationsMessage(message.getSendBidInfoMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -133,20 +136,13 @@ public class                            MessageHandler {
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         JCoincheUtils.logInfo("\n[>] SEND_BID Message");
+        String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
-        if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
             if (message.getBid()) {
-                JCoincheUtils.logWarning("\t[^] I bid for -> %d on %s", message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
+                JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
             } else {
-                JCoincheUtils.logWarning("\t[^] I pass ..");
+                JCoincheUtils.logWarning("\t[^] %s pass ..", who);
             }
-        } else {
-            if (message.getBid()) {
-                JCoincheUtils.logWarning("\t[^] Player [%d] bid for -> %d on %s", message.getPlayerId(), message.getBidValue(), (message.getBidTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getBidTrump() - 4) : EnumUtils.getColorByIndex(message.getBidTrump())));
-            } else {
-                JCoincheUtils.logWarning("\t[^] Player [%d] pass ..", message.getPlayerId());
-            }
-        }
         JCoincheUtils.logInfo("[>] END SEND_BID\n");
     }
 
@@ -198,5 +194,13 @@ public class                            MessageHandler {
 
     private void                        handleGameStoppedMessage(JCoincheProtocol.GameStoppedMessage message) {
         JCoincheUtils.logWarning("[!] Game has been stopped ! waiting for a new player ..");
+    }
+
+    private void                        handleSendBidInformationsMessage(JCoincheProtocol.SendBidInfoMessage message) {
+        String                          value = (message.getValue() == 170 ? "CAPOT" : String.format("%d", message.getValue()));
+        String                          trump = (message.getTrump() > 3 ? EnumUtils.getTrumpTypeByIndex(message.getTrump() - 4).toString() : EnumUtils.getColorByIndex(message.getTrump()).toString());
+        String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+
+        JCoincheUtils.logSuccess("[+] %s Set the \"contrat\" to %s of %s ..", who, value, trump);
     }
 }
