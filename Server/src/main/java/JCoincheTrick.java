@@ -31,7 +31,7 @@ public class                    JCoincheTrick {
                 this.getCardFromBeginner();
             else
                 //faire pareil beginner mais avec les check de jeu !!!
-                this.getCardFromPlayer();
+               // this.getCardFromPlayer();
             if (this.actualPlayer.getId() == 4)
                 this.actualPlayer = this.players.get(0);
             else
@@ -44,13 +44,39 @@ public class                    JCoincheTrick {
     }
 
     private void                            getCardFromPlayer() {
+        boolean                             valideMessage = false;
+        JCoincheProtocol.JCoincheMessage    message = null;
 
+        JCoincheUtils.writeAndFlush(this.actualPlayer.getChannel(), MessageForger.forgeGetCardMessage());
+        message = this.actualPlayer.getMessage();
+        if (message != null) {
+            while(!valideMessage && GameThread.isRunning) {
+                if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD) {
+                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
+                    JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
+                }
+                else {
+                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner)) {
+                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeError("Wrong card"));
+                        JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
+                    }
+                    else {
+
+                    }
+                }
+                try {
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void                            getCardFromBeginner() {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
-        JCoincheCard                        card = null;
 
         JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
         message = this.trickBeginner.getMessage();
@@ -68,6 +94,12 @@ public class                    JCoincheTrick {
                     }
                     else
                         valideMessage = true;
+                }
+                try {
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
