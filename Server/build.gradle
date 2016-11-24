@@ -6,9 +6,6 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-repositories {
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -17,11 +14,6 @@ buildscript {
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
     }
 }
-
-task listJars << {
-    configurations.compile.each { File file -> println file.name }
-}
-
 
 project.dependencies {
     compile 'com.google.protobuf:protobuf-java:3.0.0'
@@ -33,12 +25,12 @@ project.dependencies {
 archivesBaseName = 'jcoinche-server'
 version = ''
 
-task "jcdeps"(type: Copy) {
+task "copyDependenciesToTarget"(type: Copy) {
     from configurations.runtime
     into "../target/server_deps"
 }
 
-jar.dependsOn(jcdeps)
+jar.dependsOn(copyDependenciesToTarget)
 
 jar {
     into('lib') {
