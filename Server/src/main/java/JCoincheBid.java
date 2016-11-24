@@ -66,14 +66,15 @@ public class                            JCoincheBid {
         if (!GameThread.isRunning)
             return false;
         this.bidInformations.setBiddenPlayer(player).setBidValue(message.getSetBidMessage().getBidValue());
-        if (message.getSetBidMessage().getTrump() < 4) {
+        this.bidInformations.setBidTrump(JCoincheBidInformations.BidTrump.valueOf(JCoincheBidInformations.BidTrump.values()[message.getSetBidMessage().getTrump()].name()));
+ /*       if (message.getSetBidMessage().getTrump() < 4) {
             this.bidInformations.setBidTrump(JCoincheCard.Color.valueOf(JCoincheCard.Color.values()[message.getSetBidMessage().getTrump()].name()));
             this.bidInformations.setBidType(null);
         }
         else {
             this.bidInformations.setBidType(JCoincheBidInformations.BidType.valueOf(JCoincheBidInformations.BidType.values()[message.getSetBidMessage().getTrump() - 4].name()));
             this.bidInformations.setBidTrump(null);
-        }
+        }*/
         this.sendBidToAllPlayers(true, player);
         return true;
     }

@@ -3,13 +3,13 @@
  */
 public class                        JCoincheBidInformations {
     private int                     bidValue;
-    private JCoincheCard.Color      bidTrump = null;
-    private BidType                 bidType = null;
+//    private JCoincheCard.Color      bidTrump = null;
+    private BidTrump                bidTrump = null;
     private JCoinchePlayer          biddenPlayer = null;
     private boolean                 coinche;
     private boolean                 surcoinche;
 
-    public enum                     BidType {
+    public enum                     BidTrump {
         HEART,
         DIAMOND,
         CLUB,
@@ -25,21 +25,21 @@ public class                        JCoincheBidInformations {
 
     }
 
-    public JCoincheCard.Color       getBidTrump() {
+   /* public JCoincheCard.Color       getBidTrump() {
         return bidTrump;
     }
 
     public JCoincheBidInformations  setBidTrump(JCoincheCard.Color bidTrump) {
         this.bidTrump = bidTrump;
         return this;
+    }*/
+
+    public BidTrump                  getBidTrump() {
+        return bidTrump;
     }
 
-    public BidType                  getBidType() {
-        return bidType;
-    }
-
-    public JCoincheBidInformations  setBidType(BidType bidType) {
-        this.bidType = bidType;
+    public JCoincheBidInformations  setBidTrump(BidTrump bidType) {
+        this.bidTrump = bidType;
         return this;
     }
 
