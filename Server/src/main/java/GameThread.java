@@ -40,6 +40,7 @@ public class                            GameThread implements Runnable {
             this.sendBidToPlayers();
             //on entre dans la boucle de plis
             round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers);
+            round.run();
             //fin de boucle change le beginner général
             if (this.generalBeginner.getId() == 4)
                 this.generalBeginner = this.allPlayers.get(0);

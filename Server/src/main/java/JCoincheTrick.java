@@ -30,8 +30,7 @@ public class                    JCoincheTrick {
             if (this.cards.size() == 0)
                 this.getCardFromBeginner();
             else
-                //faire pareil beginner mais avec les check de jeu !!!
-               // this.getCardFromPlayer();
+                this.getCardFromPlayer();
             if (this.actualPlayer.getId() == 4)
                 this.actualPlayer = this.players.get(0);
             else
@@ -62,8 +61,10 @@ public class                    JCoincheTrick {
                     if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer))
                         this.sendGetCardError(this.actualPlayer);
                     else {
-                        if (!this.checkCardValidity(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer))
+                        if (!this.checkCardValidity(message.getSetCardMessage().getCardColor(), this.actualPlayer))
                             this.sendGetCardError(this.actualPlayer);
+                        else
+                            valideMessage = true;
                     }
                 }
                 try {
@@ -74,10 +75,21 @@ public class                    JCoincheTrick {
                 }
             }
         }
+        this.addCardtoCards(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer);
+        this.sendCardtoPlayers(this.actualPlayer, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
     }
 
-    private boolean                         checkCardValidity(int cardId, int colorId, JCoinchePlayer player) {
-        return false;
+    private boolean                         checkCardValidity(int colorId, JCoinchePlayer player) {
+        if (colorId == this.cards.get(0).getColor().ordinal())
+            return true;
+        else {
+            for (JCoincheCard c : player.getCards())
+            {
+                if (c.getColor().ordinal() == this.cards.get(0).getColor().ordinal())
+                    return false;
+            }
+        }
+        return true;
     }
 
     private void                            getCardFromBeginner() {
@@ -108,7 +120,6 @@ public class                    JCoincheTrick {
         //on add la card au tapis et on la retire du jeu du player
         this.addCardtoCards(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner);
         this.sendCardtoPlayers(this.trickBeginner, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
-        //on broadcast la carte
     }
 
     private boolean                           checkCardOfPlayer(int cardId, int cardColor, JCoinchePlayer player) {
