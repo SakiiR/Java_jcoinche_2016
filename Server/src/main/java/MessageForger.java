@@ -182,7 +182,7 @@ public class                                                        MessageForge
         );
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder forgeStartTrickMessage(int nb) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeStartTrickMessage(int nb) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -191,6 +191,31 @@ public class                                                        MessageForge
                         .StartTrickMessage
                         .newBuilder()
                         .setTrickNumber(nb))
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGetCardMessage() {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.GET_CARD)
+                .setGetCardMessage(JCoincheProtocol
+                        .GetCardMessage
+                        .newBuilder())
+        );
+    }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendCardMessage(int playerId, int cardId, int cardColor) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_CARD)
+                .setSendCardMessage(JCoincheProtocol
+                        .SendCardMessage
+                        .newBuilder()
+                        .setPlayerId(playerId)
+                        .setCardId(cardId)
+                        .setCardColor(cardColor))
         );
     }
 }
