@@ -13,6 +13,10 @@ public class                        CardGenerator {
         this.generate32Cards();
     }
 
+    public ArrayList<JCoincheCard>  getCards() {
+        return this.cards;
+    }
+
     public void                     spreadCards(ArrayList<JCoinchePlayer> players) {
         SecureRandom                r = new SecureRandom();
 
