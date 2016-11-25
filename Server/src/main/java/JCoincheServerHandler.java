@@ -37,6 +37,7 @@ public class                            JCoincheServerHandler extends ChannelInb
             this.gameHandle.stopGame(p.getGameThread());
         }
         this.gameHandle.getPlayers().remove(p);
+        this.gameHandle.handleRemainingsClients();
         JCoincheUtils.logInfo("[!] Player Disconnected ! " + p.getChannel().remoteAddress() + " Connected clients : %d", this.gameHandle.getPlayersCount());
     }
 
@@ -59,9 +60,9 @@ public class                            JCoincheServerHandler extends ChannelInb
      * @param msg
      */
     @Override
-    public void                 channelRead(ChannelHandlerContext ctx, Object msg) {
-        JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
-        String                           token;
+    public void                             channelRead(ChannelHandlerContext ctx, Object msg) {
+        JCoincheProtocol.JCoincheMessage    req = (JCoincheProtocol.JCoincheMessage) msg;
+        String                              token;
 
         JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
         if (req.hasToken()) {

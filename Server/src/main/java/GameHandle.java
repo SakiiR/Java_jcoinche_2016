@@ -96,6 +96,34 @@ public class                            GameHandle {
         }
     }
 
+    public void                         handleRemainingsClients() {
+        ArrayList<JCoinchePlayer>       waitingPlayers = new ArrayList<>();
+
+        if (this.countWaitingClients() >= 3) {
+            int j = 0;
+            for (int i = 0 ; i < this.getPlayers().size() && j < 4 ; ++i) {
+                if (this.getPlayers().get(i).getGameThread() == null) {
+                    waitingPlayers.add(this.getPlayers().get(i));
+                    ++j;
+                }
+            }
+            JCoincheUtils.logWarning("[!] Waiting Clients : %d%s", waitingPlayers.size(), (j == 4 ? ", Starting Game With Them !" : ""));
+            if (j == 4) {
+                this.startGame(waitingPlayers);
+            }
+        }
+    }
+
+    private int                         countWaitingClients() {
+        int                             j = 0;
+
+        for (int i = 0 ; i < this.getPlayers().size() ; ++i) {
+            if (this.getPlayers().get(i).getGameThread() == null)
+                ++j;
+        }
+        return j;
+    }
+
     /**
      * Return the list of gamethread
      * @return GameThread
