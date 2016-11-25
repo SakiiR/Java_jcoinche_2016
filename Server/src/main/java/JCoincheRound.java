@@ -31,6 +31,7 @@ public class                    JCoincheRound {
             this.trickBeginner = this.tricks.get(this.tricks.size() - 1).getTrickBeginner();
         }
         if (!GameThread.isRunning) return;
+        JCoincheUtils.logInfo("bidderteam tricscore = %d bidvalue = %d", this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
         this.generateScoreTeams();
         //fin du round, 8 plis accomplis => check du contrat application des points a la team gagnante plus broadcast
     }
@@ -47,9 +48,9 @@ public class                    JCoincheRound {
         if (this.bidInformations.getBidValue() < 170) {
             if (this.bidInformations.isCoinche()) {
                 this.generateScoreTeamsCoinche(bidderTeam, otherTeam);
-            }
-            else
+            } else {
                 this.generateScoreTeamsNormal(bidderTeam, otherTeam);
+            }
         } else {
             this.generateScoreTeamsCapot(bidderTeam, otherTeam);
         }
@@ -120,7 +121,10 @@ public class                    JCoincheRound {
         int                     bidderRoundScore = 0;
         int                     otherRoundScore = 0;
 
+        JCoincheUtils.logInfo("inside generateScoreTeamsNormal");
+        JCoincheUtils.logInfo("bidderTeam trickScore = %d", bidderTeam.getTrickScore());
         if (bidderTeam.getTrickScore() >= this.bidInformations.getBidValue()) { //si contrat réalisé sans coinche / surcoinche
+            JCoincheUtils.logInfo("inside contrat réalisé");
             bidderRoundScore = this.bidInformations.getBidValue() + bidderTeam.getTrickScore();
             otherRoundScore = otherTeam.getTrickScore();
             bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
