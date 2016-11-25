@@ -128,7 +128,7 @@ public class                            GameThread implements Runnable {
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
-        return ((score1 >= 1000 || score2 >= 1000) && score1 != score2);
+        return ((score1 >= 300 || score2 >= 300) && score1 != score2);
     }
 
     private void                        sendBidToPlayers() {

@@ -46,10 +46,6 @@ public class                    JCoincheTrick {
         }
         if (!this.gameThread.isRunning()) return;
         this.evaluateCards(this.bidInformations, this.cards);
-        //chercher carte gagnante
-        // attribuer point au trick score
-        // set le trick beginner au dernier gagnant
-
     }
 
     private boolean                         evaluateCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
@@ -69,13 +65,13 @@ public class                    JCoincheTrick {
         }
         for (JCoincheCard c : cardsOnTable) {
             score += c.getValue();
-            winner.getTeam().setTrickScore(score);
         }
+        winner.getTeam().setTrickScore(winner.getTeam().getTrickScore() + score);
         this.trickBeginner = winner;
         JCoincheUtils.logInfo("winnerid = %d teamid = %d trickscore = %d ", winner.getId(), winner.getTeam().getId(), winner.getTeam().getTrickScore());
         for (JCoinchePlayer p : this.players)
         {
-            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinTrickMessage(winner.getId(), winner.getTeam().getId(), winner.getTeam().getTrickScore()));
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinTrickMessage(winner.getId(), winner.getTeam().getId(), score));
         }
         return true;
     }
