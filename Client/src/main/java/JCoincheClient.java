@@ -41,7 +41,6 @@ public class                JCoincheClient {
                             ch.pipeline().addLast("protobufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
                             ch.pipeline().addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
                             ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
-                            ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(30));
                             p.addLast(new JCoincheClientHandler(clientProcess));
                         }
                     });

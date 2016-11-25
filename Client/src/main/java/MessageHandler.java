@@ -246,7 +246,7 @@ public class                            MessageHandler {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
         JCoincheCard                    toDelete = null;
 
-        JCoincheUtils.logSuccess("[+] %s dropped Card %s of %s",
+        JCoincheUtils.logInfo("[+] %s dropped Card %s of %s",
                 who,
                 EnumUtils.getIdByIndex(message.getCardId()),
                 EnumUtils.getColorByIndex(message.getCardColor()));
@@ -268,7 +268,7 @@ public class                            MessageHandler {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
         String                          team = (who == "I" ? "" : String.format(" from team %d", message.getTeamId()));
 
-        JCoincheUtils.logSuccess("[+] %s%s won the Trick ! with SCORE : %d", who, team, message.getScore());
+        JCoincheUtils.logInfo("[+] %s%s won the Trick ! with SCORE : %d", who, team, message.getScore());
         this.clientProcess.getPlayerInformations().setLastCardPlayed(null);
     }
 
