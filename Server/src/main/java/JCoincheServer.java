@@ -47,10 +47,8 @@ public class                        JCoincheServer {
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
                             ch.pipeline().addLast("protobufDecoder", new ProtobufDecoder(JCoincheProtocol.JCoincheMessage.getDefaultInstance()));
-
                             ch.pipeline().addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
                             ch.pipeline().addLast("protobufEncoder", new ProtobufEncoder());
-
                             ch.pipeline().addLast(new JCoincheServerHandler(gameHandle));
                         }
                     })
@@ -71,7 +69,6 @@ public class                        JCoincheServer {
                         }
 
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -84,7 +81,8 @@ public class                        JCoincheServer {
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
                             if (future.cause() instanceof BindException) {
-                               // JCoincheUtils.logErr(JCoincheConstants.log_failed_bind, port);
+                                JCoincheUtils.logStderr(JCoincheConstants.log_failed_bind, port);
+                                System.exit(84);
                             }
                         }
                     }
@@ -93,6 +91,7 @@ public class                        JCoincheServer {
                 f.channel().closeFuture().sync();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                System.exit(84);
             }
         } finally {
             workerGroup.shutdownGracefully();

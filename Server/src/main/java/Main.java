@@ -22,6 +22,10 @@ public class                Main {
 
 
         JCoincheServer server = new JCoincheServer(port);
-        server.run();
+        try {
+            server.run();
+        } catch (Exception e) {
+            System.exit(84);
+        }
     }
 }
