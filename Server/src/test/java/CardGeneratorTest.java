@@ -8,9 +8,9 @@ import java.util.ArrayList;
  * Created by sakiir on 25/11/16.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class                                CardGeneratorTest extends TestCase{
+public class                                CardGeneratorTest extends TestCase {
     @Test
-    public void                             generateTestSize() throws Exception{
+    public void                             generateTestSize() throws Exception {
         CardGenerator       cG = new CardGenerator();
 
         assertEquals(cG.getCards().size(), 32);
@@ -74,3 +74,4 @@ public class                                CardGeneratorTest extends TestCase{
         assert (isUnique);
     }
 }
+
