@@ -54,7 +54,26 @@ public class                            GameThread implements Runnable {
                 e.printStackTrace();
             }
         }
+        if (!GameThread.isRunning) { return; }
+        this.sendResultToPlayers();
         JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
+    }
+
+    private void                        sendResultToPlayers() {
+        JCoincheTeam                    winnerTeam;
+        JCoincheTeam                    looserTeam;
+
+        if (this.teams.get(0).getScore() > this.teams.get(1).getScore()) {
+            winnerTeam = this.teams.get(0);
+            looserTeam = this.teams.get(1);
+        } else {
+            winnerTeam = this.teams.get(1);
+            looserTeam = this.teams.get(0);
+        }
+        for (JCoinchePlayer p : this.allPlayers) {
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeEndGameMessage(winnerTeam.getId(), winnerTeam.getScore(),
+                    looserTeam.getId(), looserTeam.getScore()));
+        }
     }
 
     public ArrayList<JCoinchePlayer>    getAllPlayers() {

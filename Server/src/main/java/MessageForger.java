@@ -244,4 +244,19 @@ public class                                                        MessageForge
                         .setMessage(message))
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeEndGameMessage(int winnerTeamId, int winnerScore, int looserTeamId, int looserScore) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.END_GAME)
+                .setEndGameMessage(JCoincheProtocol
+                        .EndGameMessage
+                        .newBuilder()
+                        .setWinnerTeamId(winnerTeamId)
+                        .setWinnerScore(winnerScore)
+                        .setLooserTeamId(looserTeamId)
+                        .setLooserScore(looserScore))
+        );
+    }
 }
