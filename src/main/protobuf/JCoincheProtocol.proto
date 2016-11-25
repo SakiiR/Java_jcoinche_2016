@@ -4,28 +4,28 @@ option java_outer_classname = "JCoincheProtocol";
 
 message                         JCoincheMessage {
     enum                        Type {
-        WELCOME         = 0;
-        GAME_START      = 1;
-        GET_CARDS       = 2;
-        GET_BID         = 3;
-        SET_BID         = 4;
-        ERROR           = 5;
-        SEND_BID        = 6;
-        GET_COINCHE     = 7;
-        SET_COINCHE     = 8;
-        SEND_COINCHE    = 9;
-        GET_SURCOINCHE  = 10;
-        SET_SURCOINCHE  = 11;
-        SEND_SURCOINCHE = 12;
-        GAME_STOPPED    = 13;
-        SEND_BID_INFO   = 14;
-        START_TRICK     = 15;
-        GET_CARD        = 16;
-        SET_CARD        = 17;
-        SEND_CARD       = 18;
-        SEND_WIN_TRICK  = 19;
-        SEND_WIN_ROUND  = 20;
-        END_GAME        = 21;
+        WELCOME                                             = 0;
+        GAME_START                                          = 1;
+        GET_CARDS                                           = 2;
+        GET_BID                                             = 3;
+        SET_BID                                             = 4;
+        ERROR                                               = 5;
+        SEND_BID                                            = 6;
+        GET_COINCHE                                         = 7;
+        SET_COINCHE                                         = 8;
+        SEND_COINCHE                                        = 9;
+        GET_SURCOINCHE                                      = 10;
+        SET_SURCOINCHE                                      = 11;
+        SEND_SURCOINCHE                                     = 12;
+        GAME_STOPPED                                        = 13;
+        SEND_BID_INFO                                       = 14;
+        START_TRICK                                         = 15;
+        GET_CARD                                            = 16;
+        SET_CARD                                            = 17;
+        SEND_CARD                                           = 18;
+        SEND_WIN_TRICK                                      = 19;
+        SEND_WIN_ROUND                                      = 20;
+        END_GAME                                            = 21;
     }
 
     required Type                   type                    = 1;
@@ -56,92 +56,92 @@ message                         JCoincheMessage {
 }
 
 message                             WelcomeMessage {
-    optional string                 message    = 1;
+    optional string                 message                 = 1;
 }
 
 message                             GameStartMessage {
-    optional string                 token      = 1;
-    optional int32                  playerId   = 2;
-    optional int32                  teamId     = 3;
-    optional int32                  partnerId  = 4;
+    optional string                 token                   = 1;
+    optional int32                  playerId                = 2;
+    optional int32                  teamId                  = 3;
+    optional int32                  partnerId               = 4;
 }
 
 message                             GetCardsMessage {
-    repeated int32                  colors     = 1 [packed=true];
-    repeated int32                  ids        = 2 [packed=true];
+    repeated int32                  colors                  = 1 [packed=true];
+    repeated int32                  ids                     = 2 [packed=true];
 }
 
 message                             GetBidMessage {
-    required int32                  value      = 1;
+    required int32                  value                   = 1;
 }
 
 message                             SetBidMessage {
-    required bool                   bid        = 1;
-    optional int32                  bidValue   = 2;
-    optional int32                  trump      = 3;
+    required bool                   bid                     = 1;
+    optional int32                  bidValue                = 2;
+    optional int32                  trump                   = 3;
 }
 
 message                             ErrorMessage {
-    required string                 message    = 1;
+    required string                 message                 = 1;
 }
 
 message                             SendBidMessage {
-    required int32                  playerId    = 1;
-    required bool                   bid         = 2;
-    optional int32                  bidValue    = 3;
-    optional int32                  bidTrump    = 4;
+    required int32                  playerId                = 1;
+    required bool                   bid                     = 2;
+    optional int32                  bidValue                = 3;
+    optional int32                  bidTrump                = 4;
 }
 
 message                             GetCoincheMessage {  }
 
 message                             SetCoincheMessage {
-    required bool                   coinche     = 1;
+    required bool                   coinche                 = 1;
 }
 
 message                             SendCoincheMessage {
-    required int32                  playerId     = 1;
+    required int32                  playerId                = 1;
 }
 
 message                             GetSurcoincheMessage {  }
 
 message                             SetSurcoincheMessage {
-    required bool                   surcoinche  = 1;
+    required bool                   surcoinche              = 1;
 }
 
 message                             SendSurcoincheMessage {
-    required int32                  playerId    = 1;
+    required int32                  playerId                = 1;
 }
 
 message                             GameStoppedMessage {  }
 
 message                             SendBidInfoMessage {
-    required int32                  playerId    = 1;
-    required int32                  value       = 2;
-    required int32                  trump       = 3;
+    required int32                  playerId                = 1;
+    required int32                  value                   = 2;
+    required int32                  trump                   = 3;
 }
 
 message                             StartTrickMessage {
-    required int32                  trickNumber = 1;
+    required int32                  trickNumber             = 1;
 }
 
 message                             GetCardMessage {    }
 
 message                             SetCardMessage {
-    required int32                  cardId      = 1;
-    required int32                  cardColor   = 2;
+    required int32                  cardId                  = 1;
+    required int32                  cardColor               = 2;
 
 }
 
 message                             SendCardMessage {
-    required int32                  playerId    = 1;
-    required int32                  cardId      = 2;
-    required int32                  cardColor   = 3;
+    required int32                  playerId                = 1;
+    required int32                  cardId                  = 2;
+    required int32                  cardColor               = 3;
 }
 
 message                             SendWinTrickMessage {
-    required int32                  playerId    = 1;
-    required int32                  teamId      = 2;
-    required int32                  score       = 3;
+    required int32                  playerId                = 1;
+    required int32                  teamId                  = 2;
+    required int32                  score                   = 3;
 }
 
 message                             SendWinRoundMessage {
