@@ -54,26 +54,6 @@ public class                        JCoincheServer {
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(200);
-                        JCoincheUtils.logWarning("Shutting down ...");
-                        gameHandle.stopGame();
-                        for(JCoinchePlayer p : gameHandle.getPlayers()) {
-                            if (p.getChannel() != null) {
-                                JCoincheUtils.logWarning("Closing Player %d", p.getId());
-                                p.getChannel().closeFuture();
-                                p.getChannel().close();
-                            }
-                        }
-                        System.exit(84);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
             try {
 
                 ChannelFuture f = b.bind(this.port).addListener(new ChannelFutureListener() {

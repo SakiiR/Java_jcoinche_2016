@@ -11,6 +11,9 @@ public class                        PlayerInformations {
     private int                     playerId;
     private Channel                 channel;
     private ArrayList<JCoincheCard> cards;
+    private String                  bidValue = null;
+    private String                  bidTrump = null;
+    private JCoincheCard            lastCardPlayed = null;
 
     public Channel                  getChannel() {
         return channel;
@@ -73,9 +76,40 @@ public class                        PlayerInformations {
         int                         i = 0;
         JCoincheUtils.logSuccess("[+] My Cards (%d) :", this.cards.size());
         for (JCoincheCard c : this.cards) {
-            JCoincheUtils.logSuccess("->\t[%d] %s of %s", i, c.getId(), c.getColor());
+            if (this.lastCardPlayed != null && c.getColor() == this.lastCardPlayed.getColor()) {
+                JCoincheUtils.logWarning("->\t[%d] %s of %s", i, c.getId(), c.getColor());
+            } else {
+                JCoincheUtils.logSuccess("->\t[%d] %s of %s", i, c.getId(), c.getColor());
+            }
             ++i;
         }
         JCoincheUtils.logSuccess("[+] My Cards End");
+    }
+
+    public String                   getBidValue() {
+        return bidValue;
+    }
+
+    public PlayerInformations       setBidValue(String bidValue) {
+        this.bidValue = bidValue;
+        return this;
+    }
+
+    public String                   getBidTrump() {
+        return bidTrump;
+    }
+
+    public PlayerInformations       setBidTrump(String bidTrump) {
+        this.bidTrump = bidTrump;
+        return this;
+    }
+
+    public JCoincheCard             getLastCardPlayed() {
+        return lastCardPlayed;
+    }
+
+    public PlayerInformations       setLastCardPlayed(JCoincheCard lastCardPlayed) {
+        this.lastCardPlayed = lastCardPlayed;
+        return this;
     }
 }

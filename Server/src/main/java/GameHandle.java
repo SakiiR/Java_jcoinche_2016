@@ -42,6 +42,7 @@ public class                            GameHandle {
      */
     public void                         stopGame() {
         JCoincheUtils.logWarning(JCoincheConstants.log_game_stopped);
+        if (this.gameThread.getAllPlayers() == null) return;
         for (JCoinchePlayer p : this.gameThread.getAllPlayers()) {
             JCoincheUtils.writeAndFlushWithoutChecks(p.getChannel(), MessageForger.forgeGameStoppedMessage());
         }

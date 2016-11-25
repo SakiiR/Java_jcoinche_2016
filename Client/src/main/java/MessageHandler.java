@@ -153,9 +153,10 @@ public class                            MessageHandler {
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
+        String                          value = (message.getBidValue() == 170 ? "CAPOT" : String.format("%d", message.getBidValue()));
 
         if (message.getBid()) {
-            JCoincheUtils.logSuccess("[BID] %s bid for -> %d on %s", who, message.getBidValue(), EnumUtils.getTrumpTypeByIndex(message.getBidTrump()));
+            JCoincheUtils.logSuccess("[BID] %s bid for -> %s on %s", who, value, EnumUtils.getTrumpTypeByIndex(message.getBidTrump()));
         } else {
             JCoincheUtils.logSuccess("[BID] %s pass ..", who);
         }
@@ -214,6 +215,7 @@ public class                            MessageHandler {
         String                          trump = EnumUtils.getTrumpTypeByIndex(message.getTrump()).name();
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
+        this.clientProcess.getPlayerInformations().setBidValue(value).setBidTrump(trump);
         JCoincheUtils.logSuccess("[+] %s Set the \"contrat\" to %s of %s ..", who, value, trump);
     }
 
@@ -226,6 +228,10 @@ public class                            MessageHandler {
         JCoincheCard                    toSend = null;
 
         this.clientProcess.getPlayerInformations().dumpCardWithIndex();
+        JCoincheUtils.logSuccess("[BID] The Bid / Trump are : %s of %s",
+                this.clientProcess.getPlayerInformations().getBidValue(),
+                this.clientProcess.getPlayerInformations().getBidTrump()
+        );
         while (!(cardIndex >= 0 && cardIndex < this.clientProcess.getPlayerInformations().getCards().size())) {
             cardIndex = this.promptInt("[+] Please .. Choose a Card : ");
         }
@@ -244,6 +250,9 @@ public class                            MessageHandler {
                 who,
                 EnumUtils.getIdByIndex(message.getCardId()),
                 EnumUtils.getColorByIndex(message.getCardColor()));
+        if (this.clientProcess.getPlayerInformations().getLastCardPlayed() == null) {
+            this.clientProcess.getPlayerInformations().setLastCardPlayed(new JCoincheCard(EnumUtils.getColorByIndex(message.getCardColor()), EnumUtils.getIdByIndex(message.getCardId())));
+        }
         if (who == "I") {
             for (JCoincheCard c : this.clientProcess.getPlayerInformations().getCards()) {
                 if (c.getColor().ordinal() == message.getCardColor() &&
@@ -260,6 +269,7 @@ public class                            MessageHandler {
         String                          team = (who == "I" ? "" : String.format(" from team %d", message.getTeamId()));
 
         JCoincheUtils.logSuccess("[+] %s%s won the Trick ! with SCORE : %d", who, team, message.getScore());
+        this.clientProcess.getPlayerInformations().setLastCardPlayed(null);
     }
 
     private void                        handleSendWinRoundMessage(JCoincheProtocol.SendWinRoundMessage message) {
