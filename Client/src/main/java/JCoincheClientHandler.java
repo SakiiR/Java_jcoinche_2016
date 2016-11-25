@@ -2,6 +2,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.ReadTimeoutException;
 
 /**
  * Created by sakiir on 18/11/16.
@@ -38,7 +39,11 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     public void             channelReadComplete(ChannelHandlerContext ctx) { ctx.flush(); }
 
     @Override
-    public void             exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    public void             exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        if (cause instanceof ReadTimeoutException) {
+            JCoincheUtils.logWarning("[-] Server Timeout !");
+            System.exit(84);
+        }
         cause.printStackTrace();
         ctx.close();
     }
