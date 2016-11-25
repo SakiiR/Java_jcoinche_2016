@@ -145,18 +145,18 @@ message                             SendWinTrickMessage {
 }
 
 message                             SendWinRoundMessage {
-    required int32                  bidderTeamId = 1;
-    required int32                  bidderTeamRoundScore = 2;
-    required int32                  bidderTeamScore = 3;
-    required int32                  otherTeamId = 4;
-    required int32                  otherTeamRoundScore = 5;
-    required int32                  otherTeamScore = 6;
-    required string                 message     = 7;
+    required int32                  bidderTeamId            = 1;
+    required int32                  bidderTeamRoundScore    = 2;
+    required int32                  bidderTeamScore         = 3;
+    required int32                  otherTeamId             = 4;
+    required int32                  otherTeamRoundScore     = 5;
+    required int32                  otherTeamScore          = 6;
+    required string                 message                 = 7;
 }
 
 message                             EndGameMessage {
-    required int32                  winnerTeamId = 1;
-    required int32                  winnerScore = 2;
-    required int32                  looserTeamId = 3;
-    required int32                  looserScore = 4;
+    required int32                  winnerTeamId            = 1;
+    required int32                  winnerScore             = 2;
+    required int32                  looserTeamId            = 3;
+    required int32                  looserScore             = 4;
 }

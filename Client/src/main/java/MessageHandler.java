@@ -273,15 +273,20 @@ public class                            MessageHandler {
     }
 
     private void                        handleSendWinRoundMessage(JCoincheProtocol.SendWinRoundMessage message) {
-        if (message.getWinnerTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
-            JCoincheUtils.logSuccess("+-------------------------");
-            JCoincheUtils.logSuccess("| We WON The Game With %dpts against %dpts", message.getWinnerScore(), message.getLooserScore());
-            JCoincheUtils.logSuccess("+-------------------------");
+        JCoincheUtils.logSuccess(message.getMessage());
+
+        JCoincheUtils.logSuccess("--------------------");
+        if (message.getBidderTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
+            JCoincheUtils.logSuccess("[+] My Team Did %d pts on this round !", message.getBidderTeamRoundScore());
+            JCoincheUtils.logSuccess("[+] My Team has %d pts At This Moment !", message.getBidderTeamScore());
+            JCoincheUtils.logSuccess("[+] Other Team Did %d pts on this round !", message.getOtherTeamRoundScore());
+            JCoincheUtils.logSuccess("[+] Other Team Has %d pts At This Moment !", message.getOtherTeamScore());
         } else {
-            JCoincheUtils.logSuccess("+-------------------------");
-            JCoincheUtils.logSuccess("| We LOOSE The Game With %dpts against %dpts", message.getLooserScore(), message.getWinnerScore());
-            JCoincheUtils.logSuccess("+-------------------------");
+            JCoincheUtils.logSuccess("[+] My Team Did %d pts on this round !", message.getOtherTeamRoundScore());
+            JCoincheUtils.logSuccess("[+] My Team has %d pts At This Moment !", message.getOtherTeamScore());
+            JCoincheUtils.logSuccess("[+] Other Team Did %d pts on this round !", message.getBidderTeamRoundScore());
+            JCoincheUtils.logSuccess("[+] Other Team Has %d pts At This Moment !", message.getBidderTeamScore());
         }
-        JCoincheUtils.logSuccess("[+] %s", message.getMessage());
+        JCoincheUtils.logSuccess("--------------------");
     }
 }
