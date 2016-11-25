@@ -225,4 +225,23 @@ public class                                                        MessageForge
                         .setScore(score))
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendWinRoundMessage(int bidderTeamId, int bidderTeamRoundScore, int bidderTeamScore,
+                                                                                             int otherTeamId, int otherTeamRoundScore, int otherTeamScore, String message) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_WIN_ROUND)
+                .setSendWinRoundMessage(JCoincheProtocol
+                        .SendWinRoundMessage
+                        .newBuilder()
+                        .setBidderTeamId(bidderTeamId)
+                        .setBidderTeamRoundScore(bidderTeamRoundScore)
+                        .setBidderTeamScore(bidderTeamScore)
+                        .setOtherTeamId(otherTeamId)
+                        .setOtherTeamRoundScore(otherTeamRoundScore)
+                        .setOtherTeamScore(otherTeamScore)
+                        .setMessage(message))
+        );
+    }
 }
