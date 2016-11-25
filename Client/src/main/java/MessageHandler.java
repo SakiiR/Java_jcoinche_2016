@@ -100,7 +100,7 @@ public class                            MessageHandler {
     }
 
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
-        System.out.println(String.format("[>] The Game Is Starting ! PLAYER(%d) TEAM(%d)", message.getPlayerId(), message.getTeamId()));
+        JCoincheUtils.logInfo("[>] The Game Is Starting ! PLAYER(%d) TEAM(%d)", message.getPlayerId(), message.getTeamId());
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
                 .setPlayerId(message.getPlayerId())
@@ -148,16 +148,16 @@ public class                            MessageHandler {
     }
 
     private void                        handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
-        JCoincheUtils.logError("[>] Error : %s", message.getMessage());
+        JCoincheUtils.logError("[-] Error : %s", message.getMessage());
     }
 
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
 
         if (message.getBid()) {
-            JCoincheUtils.logWarning("\t[^] %s bid for -> %d on %s", who, message.getBidValue(), EnumUtils.getTrumpTypeByIndex(message.getBidTrump()));
+            JCoincheUtils.logSuccess("[BID] %s bid for -> %d on %s", who, message.getBidValue(), EnumUtils.getTrumpTypeByIndex(message.getBidTrump()));
         } else {
-            JCoincheUtils.logWarning("\t[^] %s pass ..", who);
+            JCoincheUtils.logSuccess("[BID] %s pass ..", who);
         }
     }
 
