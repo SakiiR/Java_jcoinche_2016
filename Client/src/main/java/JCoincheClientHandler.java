@@ -15,6 +15,12 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ctx.fireChannelInactive();
+        ctx.close();
+    }
+
+    @Override
     public void             channelActive(ChannelHandlerContext ctx) {
         JCoincheUtils.logInfo(JCoincheConstants.log_client_connected);
         new Thread(this.clientProcess).start();
@@ -23,7 +29,8 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     @Override
     public void             channelRead(ChannelHandlerContext ctx, Object msg) {
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
-        JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
+        // Debuging
+        // JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
         this.clientProcess.addMessage(req);
     }
 

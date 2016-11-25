@@ -19,6 +19,8 @@ public class                Main {
             JCoincheUtils.log(JCoincheConstants.log_using_default_port);
             port = 1337;
         }
+
+
         JCoincheServer server = new JCoincheServer(port);
         server.run();
     }

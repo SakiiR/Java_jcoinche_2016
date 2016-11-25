@@ -94,7 +94,8 @@ public class                            JCoincheServerHandler extends ChannelInb
         JCoincheProtocol.JCoincheMessage req = (JCoincheProtocol.JCoincheMessage) msg;
         String                           token;
 
-        JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
+         // Debuging
+         //JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
         if (this.gameHandle.getGameThread() != null) {
             if (req.hasToken()) {
                 token = req.getToken();

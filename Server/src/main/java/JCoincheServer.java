@@ -35,6 +35,7 @@ public class                        JCoincheServer {
      */
     public void                     run() {
         JCoincheUtils.log(JCoincheConstants.log_server_starting);
+
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -55,8 +56,29 @@ public class                        JCoincheServer {
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    try {
+                        Thread.sleep(200);
+                        JCoincheUtils.logWarning("Shutting down ...");
+                        gameHandle.stopGame();
+                        for(JCoinchePlayer p : gameHandle.getPlayers()) {
+                            if (p.getChannel() != null) {
+                                JCoincheUtils.logWarning("Closing Player %d", p.getId());
+                                p.getChannel().closeFuture();
+                                p.getChannel().close();
+                            }
+                        }
+
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             try {
+
                 ChannelFuture f = b.bind(this.port).addListener(new ChannelFutureListener() {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {
