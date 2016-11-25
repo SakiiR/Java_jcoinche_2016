@@ -10,12 +10,14 @@ public class                    JCoincheTrick {
     ArrayList<JCoincheTeam>     teams = null;
     ArrayList<JCoinchePlayer>   players = null;
     JCoincheBidInformations     bidInformations = null;
+    GameThread                  gameThread = null;
 
     public                      JCoincheTrick(JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams,
-                                              ArrayList<JCoinchePlayer> players, JCoincheBidInformations bidInformations) {
+                                              ArrayList<JCoinchePlayer> players, JCoincheBidInformations bidInformations, GameThread gameThread) {
         this.trickBeginner = beginner;
         this.teams = teams;
         this.players = players;
+        this.gameThread = gameThread;
        /* if (this.trickBeginner.getId() == 4)
             this.actualPlayer = this.players.get(0);
         else
@@ -32,7 +34,7 @@ public class                    JCoincheTrick {
 
     public void                  run() {
 
-        while(this.cards.size() < 4 && GameThread.isRunning) {
+        while(this.cards.size() < 4 && this.gameThread.isRunning()) {
             if (this.cards.size() == 0)
                 this.getCardFromBeginner();
             else
@@ -42,7 +44,7 @@ public class                    JCoincheTrick {
             else
                 this.actualPlayer = this.players.get(this.actualPlayer.getId());
         }
-        if (!GameThread.isRunning) return;
+        if (!this.gameThread.isRunning()) return;
         this.evaluateCards(this.bidInformations, this.cards);
         //chercher carte gagnante
         // attribuer point au trick score
@@ -168,7 +170,7 @@ public class                    JCoincheTrick {
         JCoincheProtocol.JCoincheMessage    message = null;
 
         JCoincheUtils.writeAndFlush(this.actualPlayer.getChannel(), MessageForger.forgeGetCardMessage());
-        while(!valideMessage && GameThread.isRunning) {
+        while(!valideMessage && this.gameThread.isRunning()) {
             message = this.actualPlayer.getMessage();
             if (message != null) {
                 this.actualPlayer.setMessage(null);
@@ -193,7 +195,7 @@ public class                    JCoincheTrick {
                 e.printStackTrace();
             }
         }
-        if (!GameThread.isRunning) return;
+        if (!this.gameThread.isRunning()) return;
         this.addCardtoCards(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer);
         this.sendCardtoPlayers(this.actualPlayer, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
     }
@@ -216,7 +218,7 @@ public class                    JCoincheTrick {
         JCoincheProtocol.JCoincheMessage    message = null;
 
         JCoincheUtils.writeAndFlush(this.trickBeginner.getChannel(), MessageForger.forgeGetCardMessage());
-        while (!valideMessage && GameThread.isRunning) {
+        while (!valideMessage && this.gameThread.isRunning()) {
             message = this.trickBeginner.getMessage();
             if (message != null) {
                 this.trickBeginner.setMessage(null);
@@ -238,7 +240,7 @@ public class                    JCoincheTrick {
                 e.printStackTrace();
             }
         }
-        if (!GameThread.isRunning) return;
+        if (!this.gameThread.isRunning()) return;
         //on add la card au tapis et on la retire du jeu du player
         this.addCardtoCards(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner);
         this.sendCardtoPlayers(this.trickBeginner, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());

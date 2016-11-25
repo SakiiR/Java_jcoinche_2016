@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by sakiir on 14/11/16.
  */
 public class                            GameThread implements Runnable {
-    public static boolean               isRunning = true;
+    private boolean                     isRunning = true;
     private ArrayList<JCoincheTeam>     teams = null;
     private ArrayList<JCoinchePlayer>   allPlayers = null;
     private CardGenerator               cardGenerator = null;
@@ -23,8 +23,20 @@ public class                            GameThread implements Runnable {
     public                              GameThread(ArrayList<JCoinchePlayer> players) {
         this.teams = new ArrayList<JCoincheTeam>();
         this.cardGenerator = new CardGenerator();
-        GameThread.isRunning = true;
+        this.isRunning = true;
         this.allPlayers = players;
+        for (JCoinchePlayer p : this.allPlayers) {
+            p.setGameThread(this);
+        }
+    }
+
+    public boolean                      isRunning() {
+        return isRunning;
+    }
+
+    public GameThread                   setRunning(boolean running) {
+        isRunning = running;
+        return this;
     }
 
     /**
@@ -32,15 +44,16 @@ public class                            GameThread implements Runnable {
      */
     @Override
     public void                         run() {
+        JCoincheUtils.logInfo("[!] Entering Main GameThread::run() Method");
         this.initializeTeams();
         this.generalBeginner = this.allPlayers.get(0);
-        this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator);
-        while (!this.checkScoreTeams() && GameThread.isRunning) {
+        this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator, this);
+        while (!this.checkScoreTeams() && this.isRunning) {
             this.bid.setBeginner(this.generalBeginner).runBid();
-            if (!GameThread.isRunning) return;
+            if (!this.isRunning) return;
             this.sendBidToPlayers();
             //on entre dans la boucle de plis
-            round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers);
+            round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers, this);
             round.run();
             //fin de boucle change le beginner général
             if (this.generalBeginner.getId() == 4)
@@ -49,12 +62,11 @@ public class                            GameThread implements Runnable {
                 this.generalBeginner = this.allPlayers.get(generalBeginner.getId());
             try {
                 Thread.sleep(500);
-                JCoincheUtils.log("[>] Bid okay return inside runBid");
                 } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        if (!GameThread.isRunning) { return; }
+        if (!this.isRunning) { return; }
         this.sendResultToPlayers();
         JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
     }

@@ -4,7 +4,7 @@ import io.netty.channel.Channel;
  * Created by sakiir on 20/11/16.
  */
 public class                JCoincheUtils {
-    static public void      writeAndFlush(Channel ch, Object obj) { if (GameThread.isRunning && ch != null) ch.writeAndFlush(obj); }
+    static public void      writeAndFlush(Channel ch, Object obj) { if (ch != null) ch.writeAndFlush(obj); }
     static public void      writeAndFlushWithoutChecks(Channel ch, Object obj) { if (ch != null) ch.writeAndFlush(obj); }
 
     static public void      log(String format, Object ...params) {

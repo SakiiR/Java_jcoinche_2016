@@ -10,27 +10,29 @@ public class                    JCoincheRound {
     ArrayList<JCoincheTeam>     teams = null;
     ArrayList<JCoinchePlayer>   players = null;
     ArrayList<JCoincheTrick>    tricks = null;
+    GameThread                  gameThread = null;
 
-    public                      JCoincheRound(JCoincheBidInformations bidInfo, JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams, ArrayList<JCoinchePlayer> players) {
+    public                      JCoincheRound(JCoincheBidInformations bidInfo, JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams, ArrayList<JCoinchePlayer> players, GameThread gameThread) {
         this.bidInformations = bidInfo;
         this.trickBeginner = beginner;
         this.beginner = beginner;
         this.teams = teams;
         this.players = players;
         this.tricks = new ArrayList<>();
+        this.gameThread = gameThread;
     }
 
     public void                 run() {
 
         this.teams.get(0).setTrickScore(0);
         this.teams.get(1).setTrickScore(0);
-        while (tricks.size() < 8 && GameThread.isRunning) {
-            this.tricks.add(new JCoincheTrick(trickBeginner, teams, players, bidInformations));
+        while (tricks.size() < 8 && this.gameThread.isRunning()) {
+            this.tricks.add(new JCoincheTrick(trickBeginner, teams, players, bidInformations, this.gameThread));
             this.sendTrickNbtoPlayers(this.tricks.size());
             this.tricks.get(this.tricks.size() - 1).run();
             this.trickBeginner = this.tricks.get(this.tricks.size() - 1).getTrickBeginner();
         }
-        if (!GameThread.isRunning) return;
+        if (!this.gameThread.isRunning()) return;
         this.generateScoreTeams();
         //fin du round, 8 plis accomplis => check du contrat application des points a la team gagnante plus broadcast
     }

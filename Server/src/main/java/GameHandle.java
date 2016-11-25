@@ -9,55 +9,99 @@ import java.util.ArrayList;
  */
 
 public class                            GameHandle {
-    private GameThread                  gameThread = null;
-    ArrayList<JCoinchePlayer>           players;
-    Thread                              t;
+    private ArrayList<GameThread>       gameThreads = null;
+    private ArrayList<Thread>           threads = null;
+    private ArrayList<JCoinchePlayer>   players;
 
     /**
      * Empty constructor
      */
     public                              GameHandle() {
+        this.gameThreads = new ArrayList<>();
         this.players = new ArrayList<>();
+        this.threads = new ArrayList<>();
     }
 
     /**
      * Stop the game thread
      */
-    public void                         stopGame() {
-        JCoincheUtils.logWarning(JCoincheConstants.log_game_stopped);
-        if (this.gameThread.getAllPlayers() == null) return;
-        for (JCoinchePlayer p : this.gameThread.getAllPlayers()) {
-            JCoincheUtils.writeAndFlushWithoutChecks(p.getChannel(), MessageForger.forgeGameStoppedMessage());
+    public void                         stopGame(GameThread gameThread) {
+        Thread                          t = this.getThreadByGameThread(gameThread);
+
+        if (t != null) {
+            try {
+                gameThread.setRunning(false);
+                JCoincheUtils.logWarning("[!] Before Join " + gameThread.toString());
+                t.join();
+                JCoincheUtils.logWarning("[!] After Join " + gameThread.toString());
+                // clean Game Thread
+                // put gamethread players in the waiting queue
+                for (JCoinchePlayer p : gameThread.getAllPlayers()) {
+                    this.getPlayers().remove(p);
+                    this.getPlayers().add(p);
+                    p.setGameThread(null);
+                    JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStoppedMessage());
+                }
+                // removing Thread and gamethread from list
+                this.threads.remove(t);
+                this.gameThreads.remove(gameThread);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        GameThread.isRunning = false;
-        try {
-            JCoincheUtils.logWarning("[!] Before join");
-            this.t.join();
-            this.removeInnactiveChannels();
-            JCoincheUtils.logWarning("[!] After join");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+    }
+
+    private Thread                      getThreadByGameThread(GameThread gameThread) {
+        int                             i = 0;
+
+        for (GameThread gt : this.gameThreads) {
+            if (gt == gameThread)
+                return this.threads.get(i);
+            ++i;
         }
+        return null;
     }
 
     /**
      * Start the game thread
      */
-    public void                         startGame() {
-        this.removeInnactiveChannels();
-        ArrayList<JCoinchePlayer> fourPlayers = new ArrayList<>(this.players.subList(0, 4));
-        JCoincheUtils.logSuccess("[+] Starting Game with %d Players", fourPlayers.size());
-        this.gameThread = new GameThread(fourPlayers);
-        this.t  = new Thread(this.gameThread);
-        this.t.start();
+    public void                         startGame(ArrayList<JCoinchePlayer> players) {
+        GameThread                      gT = new GameThread(players);
+        Thread                          t = new Thread(gT);
+
+        JCoincheUtils.logWarning("[!] Starting Game With %d players", players.size());
+        this.threads.add(t);
+        this.gameThreads.add(gT);
+        t.start();
+    }
+
+    public void                         handleGames() {
+        int                             playersCount = this.players.size();
+
+        if (playersCount == 0) {
+            return;
+        }
+
+        // We have to start the new game
+        if (playersCount % 4 == 0) {
+            int index = 0;
+            for (JCoinchePlayer p : this.players) {
+                if (p.getGameThread() == null) {
+                    break;
+                }
+                ++index;
+            }
+            this.startGame(new ArrayList<>(this.players.subList(index, index + 4)));
+        }
     }
 
     /**
-     * Return the game thread
+     * Return the list of gamethread
      * @return GameThread
      */
-    public GameThread                   getGameThread() {
-        return this.gameThread;
+    public ArrayList<GameThread>        getGameThreads() {
+        return this.gameThreads;
     }
 
     /**
@@ -93,6 +137,7 @@ public class                            GameHandle {
             this.players.remove(p);
         }
     }
+
     /**
      * Return the size of players array
      * @return int

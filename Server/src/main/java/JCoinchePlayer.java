@@ -14,12 +14,22 @@ public class                                    JCoinchePlayer {
     private JCoinchePlayer                      partner;
     private ArrayList<JCoincheCard>             cards;
     private JCoincheProtocol.JCoincheMessage    message = null;
+    private GameThread                          gameThread = null;
 
 
     public                                      JCoinchePlayer(Channel channel) {
         this.channel = channel;
         this.generateToken();
         this.cards = new ArrayList<>();
+    }
+
+    public GameThread                           getGameThread() {
+        return gameThread;
+    }
+
+    public JCoinchePlayer                       setGameThread(GameThread gameThread) {
+        this.gameThread = gameThread;
+        return this;
     }
 
     public JCoincheTeam                         getTeam() {

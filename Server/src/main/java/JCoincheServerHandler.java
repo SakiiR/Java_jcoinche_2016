@@ -33,30 +33,11 @@ public class                            JCoincheServerHandler extends ChannelInb
     public void                         channelInactive(ChannelHandlerContext ctx) throws Exception {
         JCoinchePlayer                  p = this.gameHandle.getPlayerByChannel(ctx.channel());
 
-        /* if the player is already in the waiting queue */
-        if (this.gameHandle.getPlayers().indexOf(p) > 3) {
-            this.gameHandle.getPlayers().remove(p);
-            ctx.close();
-            JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
-            return;
+        if (p.getGameThread() != null) {
+            this.gameHandle.stopGame(p.getGameThread());
         }
-        /* if the game is already stopped and player is not in game */
-        if (!GameThread.isRunning) {
-            this.gameHandle.getPlayers().remove(p);
-            ctx.close();
-            JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
-            return;
-        }
-        p.setChannel(null);
-        ctx.fireChannelInactive();
-        channels.remove(ctx.channel());
-        ctx.close();
-        JCoincheUtils.logInfo("[^] Disconnected Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
-        this.gameHandle.stopGame();
-        if (this.gameHandle.getPlayersCount() >= 4) {
-            this.gameHandle.startGame();
-            return;
-        }
+        this.gameHandle.getPlayers().remove(p);
+        JCoincheUtils.logInfo("[!] Player Disconnected ! " + p.getChannel().remoteAddress() + " Connected clients : %d", this.gameHandle.getPlayersCount());
     }
 
     /**
@@ -65,22 +46,11 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     @Override
     public void                         channelActive(ChannelHandlerContext ctx) {
-        if (this.gameHandle.getPlayersCount() > 10) {
-            // Queue is too big .. sorry
-            ctx.close();
-            return;
-        }
         channels.add(ctx.channel());
+        JCoincheUtils.writeAndFlush(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinché, you are in the waiting queue"));
         this.gameHandle.addPlayer(ctx.channel());
-        JCoincheUtils.logInfo("[^] New Client ! Connected clients : %d", this.gameHandle.getPlayersCount());
-        if (this.gameHandle.getPlayersCount() <= 4) {
-            JCoincheUtils.writeAndFlushWithoutChecks(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! Waiting for others players ..."));
-            if (this.gameHandle.getPlayersCount() == 4) {
-                this.gameHandle.startGame();
-            }
-        } else {
-            JCoincheUtils.writeAndFlushWithoutChecks(ctx.channel(), MessageForger.forgeWelcomeMessage("Welcome to the doudoune coinchée ! A game is in progress, waiting for a new game ..."));
-        }
+        JCoincheUtils.logInfo("[^] Player Connected " + ctx.channel().remoteAddress() + " ! Connected clients : %d", this.gameHandle.getPlayersCount());
+        this.gameHandle.handleGames();
     }
 
     /**
@@ -94,16 +64,13 @@ public class                            JCoincheServerHandler extends ChannelInb
         String                           token;
 
         JCoincheUtils.logSuccess("[+] Received Packet of Size(%d) of Type(%s)", req.getSerializedSize(), req.getType());
-        if (this.gameHandle.getGameThread() != null) {
-            if (req.hasToken()) {
-                token = req.getToken();
-                ArrayList<JCoinchePlayer> players = this.gameHandle.getGameThread().getAllPlayers();
-                for (JCoinchePlayer p : players) {
-                    if (token.equals(p.getToken())) {
-                        p.setMessage(req);
-                        JCoincheUtils.log("[>] Received Message [%s]", p.getMessage().getType());
-                        break;
-                    }
+        if (req.hasToken()) {
+            token = req.getToken();
+            ArrayList<JCoinchePlayer> players = this.gameHandle.getPlayers();
+            for (JCoinchePlayer p : players) {
+                if (token.equals(p.getToken())) {
+                    p.setMessage(req);
+                    break;
                 }
             }
         }
