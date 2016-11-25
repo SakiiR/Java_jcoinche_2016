@@ -22,10 +22,13 @@ public class                    JCoincheRound {
 
     public void             run() {
 
+        this.teams.get(0).setTrickScore(0);
+        this.teams.get(1).setTrickScore(0);
         while (tricks.size() < 8 && GameThread.isRunning) {
             this.tricks.add(new JCoincheTrick(trickBeginner, teams, players, bidInformations));
             this.sendTrickNbtoPlayers(this.tricks.size());
             this.tricks.get(this.tricks.size() - 1).run();
+            this.trickBeginner = this.tricks.get(this.tricks.size() - 1).getTrickBeginner();
         }
         if (!GameThread.isRunning) return;
         //fin du round, 8 plis accomplis => check du contrat application des points a la team gagnante plus broadcast

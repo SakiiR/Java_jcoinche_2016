@@ -30,4 +30,12 @@ public class                                JCoincheTeam {
     public ArrayList<JCoinchePlayer>        getPlayers() {
         return players;
     }
+
+    public void                             setScore(int score) {
+        this.score = score;
+    }
+
+    public void                             setTrickScore(int trickScore) {
+        this.trickScore = trickScore;
+    }
 }

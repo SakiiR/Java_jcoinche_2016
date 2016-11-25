@@ -25,6 +25,11 @@ public class                    JCoincheTrick {
         this.cards = new ArrayList<>();
     }
 
+    public JCoinchePlayer       getTrickBeginner() {
+        return trickBeginner;
+    }
+
+
     public void                  run() {
 
         while(this.cards.size() < 4 && GameThread.isRunning) {
@@ -38,10 +43,119 @@ public class                    JCoincheTrick {
                 this.actualPlayer = this.players.get(this.actualPlayer.getId());
         }
         if (!GameThread.isRunning) return;
+        this.evaluateCards(this.bidInformations, this.cards);
         //chercher carte gagnante
         // attribuer point au trick score
         // set le trick beginner au dernier gagnant
 
+    }
+
+    private boolean                         evaluateCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        JCoinchePlayer                      winner = null;
+        int                                 score = 0;
+
+        JCoincheUtils.logInfo("before generate value cards");
+        this.generateValueCards(bidInfo, cardsOnTable);
+        JCoincheUtils.logInfo("after generate value cards");
+        if (bidInfo.getBidTrump().ordinal() < 4) /*si jeu normal on envoi le calcul normal */
+            winner = this.generateWinnerTrickNormalGame(bidInfo, cardsOnTable);
+        else if (bidInfo.getBidTrump().ordinal() >= 4) /*si jeu sans atout ou tout atout, on envoi le calcul sans atout */
+            winner = this.generateWinnerTrick(bidInfo, cardsOnTable);
+        if (winner == null) {
+            JCoincheUtils.logInfo("winner is null");
+            return false;
+        }
+        for (JCoincheCard c : cardsOnTable) {
+            score += c.getValue();
+            winner.getTeam().setTrickScore(score);
+        }
+        this.trickBeginner = winner;
+        JCoincheUtils.logInfo("winnerid = %d teamid = %d trickscore = %d ", winner.getId(), winner.getTeam().getId(), winner.getTeam().getTrickScore());
+        for (JCoinchePlayer p : this.players)
+        {
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinTrickMessage(winner.getId(), winner.getTeam().getId(), winner.getTeam().getTrickScore()));
+        }
+        return true;
+    }
+
+
+    private JCoinchePlayer                  generateWinnerTrickNormalGame(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        ArrayList<JCoincheCard>             cardsEval = new ArrayList<>();
+        JCoinchePlayer                      winner = null;
+        int                                 tmpValue;
+
+        JCoincheUtils.logInfo("inside generateWinnerTrickNormalGame");
+        cardsEval = this.findTrumps(cardsEval, bidInfo, cardsOnTable); /* on cherche les atouts sur la table */
+        if (cardsEval.size() == 1) { /*si 1 atout trouvé on set le winner */
+            JCoincheUtils.logInfo("found one trump");
+            winner = cardsEval.get(0).getPlayer();
+        } else if (cardsEval.size() > 1) { /*si plusieurs atout trouvé on prend le plus grand */
+            tmpValue = 0;
+            JCoincheUtils.logInfo("find multiple trumps");
+            for (JCoincheCard c : cardsEval) {
+                if (c.getValue() >= tmpValue) {
+                    tmpValue = c.getValue();
+                    winner = c.getPlayer();
+                }
+            }
+        } else if (cardsEval.size() == 0) {/*si pas d'atout trouvé on envoi l'eval sans atout dans le jeu*/
+            JCoincheUtils.logInfo("trump not find, go inside generateWinnertrick");
+            winner = this.generateWinnerTrick(bidInfo, cardsOnTable);
+        }
+        return winner;
+    }
+
+    private JCoinchePlayer                  generateWinnerTrick(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        ArrayList<JCoincheCard>             cardsEval = new ArrayList<>();
+        JCoinchePlayer                      winner = null;
+        int                                 tmpValue = 0;
+
+        cardsEval = this.findCardsColor(cardsEval, bidInfo, cardsOnTable); /* on cherche les cartes de la couleur de la première carte*/
+        if (cardsEval.size() == 1) { /* si une seule carte => la premiere posée, on set le winner */
+            winner = cardsOnTable.get(0).getPlayer();
+        } else if (cardsEval.size() > 1) { /* si plusieurs carte de la meme couleur que la premiere on cherche la plus forte et on set le winner*/
+            for (JCoincheCard c : cardsEval) {
+                if (c.getValue() >= tmpValue) {
+                    tmpValue = c.getValue();
+                    winner = c.getPlayer();
+                }
+            }
+        }
+        return winner;
+    }
+
+    private ArrayList<JCoincheCard>         findTrumps(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        for (JCoincheCard c : cardsOnTable) {
+            if (c.getColor().ordinal() == bidInfo.getBidTrump().ordinal()) {
+                cardsEval.add(c);
+            }
+        }
+        return cardsEval;
+    }
+
+    private ArrayList<JCoincheCard>         findCardsColor(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        for (JCoincheCard c : cardsOnTable) {
+            if (c.getColor().ordinal() == cardsOnTable.get(0).getColor().ordinal()) {
+                cardsEval.add(c);
+            }
+        }
+        return cardsEval;
+    }
+
+    private void                            generateValueCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+        for (JCoincheCard c : cardsOnTable) {
+            if (bidInfo.getBidTrump().ordinal() < 4) { /*si jeu normal, si atout prend valeur atout, sinon valeur sans atout*/
+                if (c.getColor().ordinal() == bidInfo.getBidTrump().ordinal()) {
+                    c.setValue(c.cardValueTrump[c.getId().ordinal()]);
+                } else {
+                    c.setValue(c.cardValue[c.getId().ordinal()]);
+                }
+            } else if (bidInfo.getBidTrump().ordinal() == 4) { /*si jeu sans atout prend valeur sans atout*/
+                c.setValue(c.cardValue[c.getId().ordinal()]);
+            } else { /*si jeu tout atout, prend valeur tout atout*/
+                c.setValue(c.cardValueTrump[c.getId().ordinal()]);
+            }
+        }
     }
 
     private void                            sendGetCardError(JCoinchePlayer player) {

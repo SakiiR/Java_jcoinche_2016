@@ -211,4 +211,18 @@ public class                                                        MessageForge
                         .setCardColor(cardColor))
         );
     }
+
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSendWinTrickMessage(int playerId, int teamId, int score) {
+        return (JCoincheProtocol
+                .JCoincheMessage
+                .newBuilder()
+                .setType(JCoincheProtocol.JCoincheMessage.Type.SEND_WIN_TRICK)
+                .setSendWinTrickMessage(JCoincheProtocol
+                        .SendWinTrickMessage
+                        .newBuilder()
+                        .setPlayerId(playerId)
+                        .setTeamId(teamId)
+                        .setScore(score))
+        );
+    }
 }
