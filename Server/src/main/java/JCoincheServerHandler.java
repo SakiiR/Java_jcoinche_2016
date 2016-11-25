@@ -22,7 +22,6 @@ public class                            JCoincheServerHandler extends ChannelInb
      */
     public                              JCoincheServerHandler(GameHandle gameHandle) {
         this.gameHandle = gameHandle;
-        this.gameHandle.setChannels(channels);
     }
 
     /**

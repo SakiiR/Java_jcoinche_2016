@@ -21,23 +21,6 @@ public class                            GameHandle {
     }
 
     /**
-     * Is the game running ?
-     * @return
-     */
-    public boolean                      isRunning() {
-        return (GameThread.isRunning);
-    }
-
-    /**
-     * Set the channels object (ChannelGroup)
-     * @param channels
-     * @return GameHandle
-     */
-    public GameHandle                   setChannels(ChannelGroup channels) {
-        return this;
-    }
-
-    /**
      * Stop the game thread
      */
     public void                         stopGame() {

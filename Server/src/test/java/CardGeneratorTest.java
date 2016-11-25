@@ -2,11 +2,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
  * Created by sakiir on 25/11/16.
