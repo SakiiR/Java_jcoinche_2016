@@ -10,6 +10,7 @@ import io.netty.handler.timeout.ReadTimeoutException;
 public class                JCoincheClientHandler extends ChannelInboundHandlerAdapter{
 
     ClientProcess           clientProcess = null;
+    ActivityChecker         activityChecker = null;
 
     public                  JCoincheClientHandler(ClientProcess clientProcess) {
         this.clientProcess = clientProcess;
@@ -24,6 +25,8 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     @Override
     public void             channelActive(ChannelHandlerContext ctx) {
         JCoincheUtils.logInfo(JCoincheConstants.log_client_connected);
+        this.activityChecker = new ActivityChecker(ctx);
+        new Thread(this.activityChecker).start(); // Check for server activity
         new Thread(this.clientProcess).start();
     }
 
@@ -40,10 +43,6 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
 
     @Override
     public void             exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        if (cause instanceof ReadTimeoutException) {
-            JCoincheUtils.logWarning("[-] Server Timeout !");
-            System.exit(84);
-        }
         cause.printStackTrace();
         ctx.close();
     }
