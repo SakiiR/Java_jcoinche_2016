@@ -67,7 +67,7 @@ public class                        JCoincheServer {
                                 p.getChannel().close();
                             }
                         }
-
+                        System.exit(84);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
