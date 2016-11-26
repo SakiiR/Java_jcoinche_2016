@@ -223,7 +223,9 @@ public class                            MessageHandler {
     }
 
     private void                        handleStartTrickMessage(JCoincheProtocol.StartTrickMessage message) {
-        JCoincheUtils.logSuccess("[+] Starting Trick N°%d", message.getTrickNumber());
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", message.getTrickNumber());
+        JCoincheUtils.logSuccess("▓ [+] Starting Trick N°%d   ▓", message.getTrickNumber());
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", message.getTrickNumber());
     }
 
     private void                        handleGetCardMessage(JCoincheProtocol.GetCardMessage message) {
@@ -294,7 +296,6 @@ public class                            MessageHandler {
     }
 
     private void                        handleEndGameMessage(JCoincheProtocol.EndGameMessage message) {
-        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
         if (message.getWinnerTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
             JCoincheUtils.logSuccess("[+] My team (%d) won the game with %dpts", message.getWinnerTeamId(), message.getWinnerScore());
             JCoincheUtils.logSuccess("[+] Other team (%d) loose this game with %dpts", message.getLooserTeamId(), message.getLooserScore());
