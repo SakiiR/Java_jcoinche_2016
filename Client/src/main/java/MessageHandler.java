@@ -312,7 +312,7 @@ public class                            MessageHandler {
      */
     private void                        handleStartTrickMessage(JCoincheProtocol.StartTrickMessage message) {
         JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", message.getTrickNumber());
-        JCoincheUtils.logSuccess("▓ [+] Starting Trick N°%d   ▓", message.getTrickNumber());
+        JCoincheUtils.logSuccess("▓ [+] Starting Trick N°%d    ▓", message.getTrickNumber());
         JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", message.getTrickNumber());
     }
 
