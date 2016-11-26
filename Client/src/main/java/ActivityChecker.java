@@ -16,7 +16,7 @@ public class                    ActivityChecker implements Runnable {
     public void                 run() {
         while (this.isRunning) {
             if (this.ctx.isRemoved()) {
-                JCoincheUtils.logWarning("[!] Server is not responding .. probably OFF :-(");
+                JCoincheUtils.logWarning("[!] You have been disconnected ! May be the game is over ?");
                 ctx.close();
                 System.exit(0);
             }
