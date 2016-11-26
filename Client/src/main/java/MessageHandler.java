@@ -103,7 +103,7 @@ public class                            MessageHandler {
     }
 
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
-        JCoincheUtils.logInfo("[>] The Game Is Starting ! PLAYER(%d) TEAM(%d)", message.getPlayerId(), message.getTeamId());
+        JCoincheUtils.logInfo("[>] The Game Is Starting ! PLAYER(%d) TEAM(%d) UNIQUE_GAME_THREAD_ID(%s)", message.getPlayerId(), message.getTeamId(), message.getUniqueGameThreadId());
         this.clientProcess.getPlayerInformations()
                 .setToken(message.getToken())
                 .setPlayerId(message.getPlayerId())

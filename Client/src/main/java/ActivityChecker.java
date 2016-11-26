@@ -18,7 +18,7 @@ public class                    ActivityChecker implements Runnable {
             if (this.ctx.isRemoved()) {
                 JCoincheUtils.logWarning("[!] Server is not responding .. probably OFF :-(");
                 ctx.close();
-                System.exit(84);
+                System.exit(0);
             }
             try {
                 Thread.sleep(1000);

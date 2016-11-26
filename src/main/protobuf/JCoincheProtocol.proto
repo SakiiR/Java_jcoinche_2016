@@ -64,6 +64,7 @@ message                             GameStartMessage {
     optional int32                  playerId                = 2;
     optional int32                  teamId                  = 3;
     optional int32                  partnerId               = 4;
+    optional string                 uniqueGameThreadId      = 5;
 }
 
 message                             GetCardsMessage {

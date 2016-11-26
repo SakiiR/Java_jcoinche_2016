@@ -2,6 +2,8 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.Channel;
 
 import java.lang.reflect.Array;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,7 @@ public class                            GameThread implements Runnable {
     private JCoinchePlayer              generalBeginner = null;
     private JCoincheRound               round = null;
     private GameHandle                  gameHandle = null;
+    private String                      uniqueId = null;
 
     /**
      * Constructor
@@ -30,6 +33,7 @@ public class                            GameThread implements Runnable {
         for (JCoinchePlayer p : this.allPlayers) {
             p.setGameThread(this);
         }
+        this.uniqueId = new BigInteger(130, new SecureRandom()).toString(32);
     }
 
     public boolean                      isRunning() {

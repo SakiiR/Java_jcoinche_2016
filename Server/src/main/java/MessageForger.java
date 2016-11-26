@@ -21,7 +21,7 @@ public class                                                        MessageForge
                 ));
     }
 
-    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGameStartMessage(String token, int playerId, int teamId, int partnerId) {
+    public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGameStartMessage(String token, int playerId, int teamId, int partnerId, String uniqueGameThreadId) {
         return (JCoincheProtocol
                 .JCoincheMessage
                 .newBuilder()
@@ -35,6 +35,7 @@ public class                                                        MessageForge
                         .setToken(token)
                         .setPartnerId(partnerId)
                         .setTeamId(teamId)
+                        .setUniqueGameThreadId(uniqueGameThreadId)
                         .setPlayerId(playerId)));
     }
 
