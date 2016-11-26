@@ -106,7 +106,9 @@ public class                            MessageHandler {
         while (!validInput) {
             JCoincheUtils.logSuccess(message);
             try {
-                input = s.nextLine().trim();
+                if (s.hasNextLine()) {
+                    input = s.nextLine().trim();
+                }
             } catch (Exception e) {
                 s = new Scanner(System.in);
                 input = "-1";
