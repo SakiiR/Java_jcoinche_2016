@@ -100,15 +100,13 @@ public class                            MessageHandler {
     private int                         promptInt(String message) {
         int                             result = -1;
         boolean                         validInput = false;
-        String                          input = "";
+        String                          input;
         Scanner                         s = new Scanner(System.in);
 
         while (!validInput) {
             JCoincheUtils.logSuccess(message);
             try {
-                if (s.hasNextLine()) {
-                    input = s.nextLine().trim();
-                }
+                input = s.nextLine().trim();
             } catch (Exception e) {
                 s = new Scanner(System.in);
                 input = "-1";
