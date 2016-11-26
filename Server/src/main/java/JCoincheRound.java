@@ -35,7 +35,6 @@ public class                    JCoincheRound {
         if (!this.gameThread.isRunning()) return;
         JCoincheUtils.logInfo("bidderteam tricscore = %d bidvalue = %d", this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
         this.generateScoreTeams();
-        //fin du round, 8 plis accomplis => check du contrat application des points a la team gagnante plus broadcast
     }
 
     private void                generateScoreTeams() {

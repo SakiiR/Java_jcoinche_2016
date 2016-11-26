@@ -56,15 +56,15 @@ message                         JCoincheMessage {
 }
 
 message                             WelcomeMessage {
-    optional string                 message                 = 1;
+    required string                 message                 = 1;
 }
 
 message                             GameStartMessage {
-    optional string                 token                   = 1;
-    optional int32                  playerId                = 2;
-    optional int32                  teamId                  = 3;
-    optional int32                  partnerId               = 4;
-    optional string                 uniqueGameThreadId      = 5;
+    required string                 token                   = 1;
+    required int32                  playerId                = 2;
+    required int32                  teamId                  = 3;
+    required int32                  partnerId               = 4;
+    required string                 uniqueGameThreadId      = 5;
 }
 
 message                             GetCardsMessage {

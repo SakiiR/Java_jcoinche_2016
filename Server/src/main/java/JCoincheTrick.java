@@ -18,11 +18,7 @@ public class                    JCoincheTrick {
         this.teams = teams;
         this.players = players;
         this.gameThread = gameThread;
-       /* if (this.trickBeginner.getId() == 4)
-            this.actualPlayer = this.players.get(0);
-        else
-            this.actualPlayer = this.players.get(this.trickBeginner.getId());*/
-       this.actualPlayer = this.trickBeginner;
+        this.actualPlayer = this.trickBeginner;
         this.bidInformations = bidInformations;
         this.cards = new ArrayList<>();
     }
@@ -52,9 +48,7 @@ public class                    JCoincheTrick {
         JCoinchePlayer                      winner = null;
         int                                 score = 0;
 
-        JCoincheUtils.logInfo("before generate value cards");
         this.generateValueCards(bidInfo, cardsOnTable);
-        JCoincheUtils.logInfo("after generate value cards");
         if (bidInfo.getBidTrump().ordinal() < 4) /*si jeu normal on envoi le calcul normal */
             winner = this.generateWinnerTrickNormalGame(bidInfo, cardsOnTable);
         else if (bidInfo.getBidTrump().ordinal() >= 4) /*si jeu sans atout ou tout atout, on envoi le calcul sans atout */
@@ -237,7 +231,6 @@ public class                    JCoincheTrick {
             }
         }
         if (!this.gameThread.isRunning()) return;
-        //on add la card au tapis et on la retire du jeu du player
         this.addCardtoCards(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner);
         this.sendCardtoPlayers(this.trickBeginner, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
     }
