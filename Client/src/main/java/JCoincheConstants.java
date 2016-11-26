@@ -3,10 +3,13 @@
  */
 
 /**
- * Static const variables like display string and others
+ * This class is only contains static attributes.
+ * They are basic const infos && message relative to the Client Module.
+ *
+ * @see JCoincheClient
  */
 public class                                JCoincheConstants {
-    public static final String              project_name = "JCoincheClient";
+    public static final String              project_name = "JCoincheClient doudoune coinché";
     public static final String              log_message_received = "[>] Message Received : {type : \"%s\"}";
     public static final String              log_client_connected = "[>] Connected to doudoune coinché";
     public static final String              log_checking_last_message = "[>] Reading Last Message ..";

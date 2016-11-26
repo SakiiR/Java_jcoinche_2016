@@ -18,6 +18,11 @@ import io.netty.util.concurrent.FutureListener;
 import java.net.ConnectException;
 
 
+/**
+ * Relative entry-point
+ *
+ * @see JCoincheClient
+ */
 public class            Main {
     public static void  main(String []args){
         int             port;

@@ -1,7 +1,23 @@
 /**
  * Created by sakiir on 21/11/16.
  */
+
+import io.netty.channel.Channel;
+
+/**
+ * This class only contains static method.
+ * Theses methods are forging a JCoincheMessage Google Protocol Buffer
+ * Object wich is given to the JCoincheUtils.writeAndFlush static methods.
+ *
+ * @see JCoincheUtils#writeAndFlush(Channel, Object)
+ */
 public class                                                        MessageForger {
+    /**
+     * Forge a SET_BID Message
+     *
+     * @param token
+     * @return
+     */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetBidMessage(String token) {
         JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
         JCoincheProtocol.SetBidMessage.Builder                      bidBuilder = JCoincheProtocol.SetBidMessage.newBuilder();
@@ -15,6 +31,14 @@ public class                                                        MessageForge
                 .setSetBidMessage(bidBuilder));
     }
 
+    /**
+     * Forge a SET_BID Message with bidValue and trump
+     *
+     * @param token
+     * @param bidValue
+     * @param trump
+     * @return
+     */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetBidMessage(String token,  int bidValue, int trump) {
         JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
         JCoincheProtocol.SetBidMessage.Builder                      bidBuilder = JCoincheProtocol.SetBidMessage.newBuilder();
@@ -29,6 +53,13 @@ public class                                                        MessageForge
                 .setSetBidMessage(bidBuilder));
     }
 
+    /**
+     * Forge a SET_COINCHE Message
+     *
+     * @param token
+     * @param coinche
+     * @return
+     */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCoincheMessage(String token, boolean coinche) {
         return (JCoincheProtocol
                 .JCoincheMessage
@@ -45,6 +76,13 @@ public class                                                        MessageForge
         );
     }
 
+    /**
+     * Forge a SET_SURCOINCHE Message
+     *
+     * @param token
+     * @param surcoinche
+     * @return
+     */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetSurcoincheMessage(String token, boolean surcoinche) {
         return (JCoincheProtocol
                 .JCoincheMessage
@@ -61,6 +99,13 @@ public class                                                        MessageForge
         );
     }
 
+    /**
+     * Forge a SET_CARD Message
+     *
+     * @param token
+     * @param c
+     * @return
+     */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCardMessage(String token, JCoincheCard c) {
      return (JCoincheProtocol
              .JCoincheMessage
