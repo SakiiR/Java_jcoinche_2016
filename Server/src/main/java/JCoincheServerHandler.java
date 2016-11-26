@@ -11,23 +11,32 @@ import java.util.ArrayList;
  * Created by sakiir on 13/11/16.
  */
 
+/**
+ * This class is the ChannelInboundHandlerAdapter implementation.
+ * It permit to handle events triggered by the netty base EventLoop.
+ *
+ * @see ChannelInboundHandlerAdapter
+ * @see JCoincheServer
+ */
 public class                            JCoincheServerHandler extends ChannelInboundHandlerAdapter {
 
     static final private ChannelGroup   channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private GameHandle                  gameHandle = null;
 
     /**
-     * Channel handler constructor : store gameHandle and give it channels list
-     * @param gameHandle
+     * JCoincheServerHandler Constructor
+     *
+     * @param gameHandle The GameHandle base game process handler.
      */
     public                              JCoincheServerHandler(GameHandle gameHandle) {
         this.gameHandle = gameHandle;
     }
 
     /**
-     * A channel has been disconnected
-     * @param ctx
-     * @throws Exception
+     * The callback is triggered when a clien is disconnected.
+     *
+     * @param ctx Channel / Client
+     * @throws Exception if the callback crash.
      */
     @Override
     public void                         channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -43,7 +52,8 @@ public class                            JCoincheServerHandler extends ChannelInb
 
     /**
      * A channel has been connected
-     * @param ctx
+     *
+     * @param ctx Channel / Client
      */
     @Override
     public void                         channelActive(ChannelHandlerContext ctx) {
@@ -55,9 +65,10 @@ public class                            JCoincheServerHandler extends ChannelInb
     }
 
     /**
-     * When an Object is read
-     * @param ctx
-     * @param msg
+     * When an Object is read from the channel
+     *
+     * @param ctx Channel Context
+     * @param msg The Received Message Object.
      */
     @Override
     public void                             channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -78,8 +89,9 @@ public class                            JCoincheServerHandler extends ChannelInb
     }
 
     /**
-     * When a channel finished to read
-     * @param ctx
+     * When a channel finished to read.
+     *
+     * @param ctx Channel Context
      */
     @Override
     public void                 channelReadComplete(ChannelHandlerContext ctx) {
@@ -87,9 +99,10 @@ public class                            JCoincheServerHandler extends ChannelInb
     }
 
     /**
-     * When an exception is caught
-     * @param ctx
-     * @param cause
+     * When an exception is caught by netty.
+     *
+     * @param ctx Channel Context
+     * @param cause The Exception cause object.
      */
     @Override
     public void                 exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
