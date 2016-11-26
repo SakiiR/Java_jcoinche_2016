@@ -17,7 +17,7 @@ public class                            JCoincheServerHandler extends ChannelInb
     private GameHandle                  gameHandle = null;
 
     /**
-     * Channel handler consrcutor : store gameHandle and give it channels list
+     * Channel handler constructor : store gameHandle and give it channels list
      * @param gameHandle
      */
     public                              JCoincheServerHandler(GameHandle gameHandle) {

@@ -51,6 +51,7 @@ public class                JCoincheClient {
                 } catch (Exception e) {
                     if (e instanceof ConnectException) {
                         JCoincheUtils.logStderr("[-] Failed to connect(%s, %d)", host, port);
+                        System.exit(84);
                     }
                 }
 

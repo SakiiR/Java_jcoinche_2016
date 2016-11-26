@@ -16,6 +16,10 @@ public class                                    JCoinchePlayer {
     private JCoincheProtocol.JCoincheMessage    message = null;
     private GameThread                          gameThread = null;
 
+    public JCoinchePlayer                       setToken(String token) {
+        this.token = token;
+        return this;
+    }
 
     public                                      JCoinchePlayer(Channel channel) {
         this.channel = channel;

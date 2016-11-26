@@ -34,6 +34,12 @@ public class            Main {
             JCoincheUtils.logStderr("[-] Failed to parse int : " + args[1]);
             return;
         }
+        JCoincheUtils.logWarning("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+        JCoincheUtils.logWarning("▓                                               ▓");
+        JCoincheUtils.logWarning("▓          By Erwan And Karine Coinché          ▓");
+        JCoincheUtils.logWarning("▓   Welcome to the doudoune coinché client !!   ▓");
+        JCoincheUtils.logWarning("▓                                               ▓");
+        JCoincheUtils.logWarning("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
         new JCoincheClient(host, port).run();
     }
 }

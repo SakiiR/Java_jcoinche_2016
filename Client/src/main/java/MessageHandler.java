@@ -65,6 +65,9 @@ public class                            MessageHandler {
             case SEND_WIN_ROUND:
                 this.handleSendWinRoundMessage(message.getSendWinRoundMessage());
                 break;
+            case END_GAME:
+                this.handleEndGameMessage(message.getEndGameMessage());
+                break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());
                 break;
@@ -275,7 +278,7 @@ public class                            MessageHandler {
     private void                        handleSendWinRoundMessage(JCoincheProtocol.SendWinRoundMessage message) {
         JCoincheUtils.logSuccess(message.getMessage());
 
-        JCoincheUtils.logSuccess("--------------------");
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
         if (message.getBidderTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
             JCoincheUtils.logSuccess("[+] My Team Did %d pts on this round !", message.getBidderTeamRoundScore());
             JCoincheUtils.logSuccess("[+] My Team has %d pts At This Moment !", message.getBidderTeamScore());
@@ -287,6 +290,19 @@ public class                            MessageHandler {
             JCoincheUtils.logSuccess("[+] Other Team Did %d pts on this round !", message.getBidderTeamRoundScore());
             JCoincheUtils.logSuccess("[+] Other Team Has %d pts At This Moment !", message.getBidderTeamScore());
         }
-        JCoincheUtils.logSuccess("--------------------");
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+    }
+
+    private void                        handleEndGameMessage(JCoincheProtocol.EndGameMessage message) {
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+        if (message.getWinnerTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {
+            JCoincheUtils.logSuccess("[+] My team (%d) won the game with %dpts", message.getWinnerTeamId(), message.getWinnerScore());
+            JCoincheUtils.logSuccess("[+] Other team (%d) loose this game with %dpts", message.getLooserTeamId(), message.getLooserScore());
+        } else {
+            JCoincheUtils.logSuccess("[-] Other team (%d) won the game with %dpts", message.getWinnerTeamId(), message.getWinnerScore());
+            JCoincheUtils.logSuccess("[-] My team (%d) loose this game with %dpts", message.getLooserTeamId(), message.getLooserScore());
+        }
+        JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+        JCoincheUtils.logWarning("[!] Game Over ! √ think about THE GAME :þ");
     }
 }

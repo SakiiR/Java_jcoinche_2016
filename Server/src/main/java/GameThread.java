@@ -15,16 +15,18 @@ public class                            GameThread implements Runnable {
     private JCoincheBid                 bid = null;
     private JCoinchePlayer              generalBeginner = null;
     private JCoincheRound               round = null;
+    private GameHandle                  gameHandle = null;
 
     /**
      * Constructor
      * @param players
      */
-    public                              GameThread(ArrayList<JCoinchePlayer> players) {
+    public                              GameThread(ArrayList<JCoinchePlayer> players, GameHandle gameHandle) {
         this.teams = new ArrayList<JCoincheTeam>();
         this.cardGenerator = new CardGenerator();
         this.isRunning = true;
         this.allPlayers = players;
+        this.gameHandle = gameHandle;
         for (JCoinchePlayer p : this.allPlayers) {
             p.setGameThread(this);
         }
@@ -68,6 +70,13 @@ public class                            GameThread implements Runnable {
         }
         if (!this.isRunning) { return; }
         this.sendResultToPlayers();
+        if (this.isRunning) {
+            for (JCoinchePlayer p : this.allPlayers) {
+                p.getChannel().disconnect();
+                p.setChannel(null);
+            }
+            this.gameHandle.removeInnactiveChannels();
+        }
         JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
     }
 
@@ -128,7 +137,7 @@ public class                            GameThread implements Runnable {
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
-        return ((score1 >= 300 || score2 >= 300) && score1 != score2);
+        return ((score1 >= 50 || score2 >= 50) && score1 != score2);
     }
 
     private void                        sendBidToPlayers() {

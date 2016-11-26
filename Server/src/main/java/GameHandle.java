@@ -1,8 +1,4 @@
 import io.netty.channel.Channel;
-import io.netty.channel.group.ChannelGroup;
-import org.jetbrains.annotations.Nullable;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -49,15 +45,12 @@ public class                            GameHandle {
                 JCoincheUtils.logWarning("[!] Before Join " + gameThread.toString());
                 t.join();
                 JCoincheUtils.logWarning("[!] After Join " + gameThread.toString());
-                // clean Game Thread
-                // put gamethread players in the waiting queue
                 for (JCoinchePlayer p : gameThread.getAllPlayers()) {
                     this.getPlayers().remove(p);
                     this.getPlayers().add(p);
                     p.setGameThread(null);
                     JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStoppedMessage());
                 }
-                // removing Thread and gamethread from list
                 this.threads.remove(t);
                 this.gameThreads.remove(gameThread);
             } catch (InterruptedException e) {
@@ -77,7 +70,6 @@ public class                            GameHandle {
      * @see GameThread
      * @see Thread
      */
-    @Nullable
     private Thread                      getThreadByGameThread(GameThread gameThread) {
         int                             i = 0;
 
@@ -99,7 +91,7 @@ public class                            GameHandle {
      * @see Thread
      */
     public void                         startGame(ArrayList<JCoinchePlayer> players) {
-        GameThread                      gT = new GameThread(players);
+        GameThread                      gT = new GameThread(players, this);
         Thread                          t = new Thread(gT);
 
         JCoincheUtils.logWarning("[!] Starting Game With %d players", players.size());
