@@ -1,11 +1,10 @@
 //noinspection GroovyAssignabilityCheck
-
 group 'jcoinche'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: "jacoco"
+apply plugin: 'jacoco'
 
 buildscript {
     repositories {
