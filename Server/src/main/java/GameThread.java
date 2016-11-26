@@ -9,6 +9,13 @@ import java.util.ArrayList;
 /**
  * Created by sakiir on 14/11/16.
  */
+
+/**
+ * This class is the main game handler started as thread
+ * from GameHandle.
+ *
+ *  @see GameHandle
+ */
 public class                            GameThread implements Runnable {
     private boolean                     isRunning = true;
     private ArrayList<JCoincheTeam>     teams = null;
@@ -21,8 +28,9 @@ public class                            GameThread implements Runnable {
     private String                      uniqueId = null;
 
     /**
-     * Constructor
-     * @param players
+     * GameThread Constructor
+     *
+     * @param players The list of 4 players : who are starting a game
      */
     public                              GameThread(ArrayList<JCoinchePlayer> players, GameHandle gameHandle) {
         this.teams = new ArrayList<JCoincheTeam>();
@@ -36,26 +44,50 @@ public class                            GameThread implements Runnable {
         this.uniqueId = new BigInteger(130, new SecureRandom()).toString(32);
     }
 
+    /**
+     * Retreive unique id
+     *
+     * @return unique id
+     */
     public String                       getUniqueId() {
         return uniqueId;
     }
 
+    /**
+     * Set the unique Id
+     *
+     * @param uniqueId The unique Id
+     * @return GameThread instance
+     */
     public GameThread                   setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
         return this;
     }
 
+    /**
+     * Is the game running.
+     *
+     * @return a bool specifying the running status.
+     */
     public boolean                      isRunning() {
         return isRunning;
     }
 
+    /**
+     * Set the running boolean
+     *
+     * @param running boolean value
+     * @return GameThread instance
+     */
     public GameThread                   setRunning(boolean running) {
         isRunning = running;
         return this;
     }
 
     /**
-     * run() method for the game thread
+     * Main GameThread loop
+     *
+     * @see GameHandle
      */
     @Override
     public void                         run() {
@@ -93,6 +125,11 @@ public class                            GameThread implements Runnable {
         JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
     }
 
+    /**
+     * Send the final Game results to players
+     *
+     * @see GameThread#run()
+     */
     private void                        sendResultToPlayers() {
         JCoincheTeam                    winnerTeam;
         JCoincheTeam                    looserTeam;
@@ -110,10 +147,20 @@ public class                            GameThread implements Runnable {
         }
     }
 
+    /**
+     * Retrieve all players playing
+     *
+     * @return the list of players that are playing.
+     */
     public ArrayList<JCoinchePlayer>    getAllPlayers() {
         return allPlayers;
     }
 
+    /**
+     * Initialise the game.
+     *
+     * @see GameThread#run()
+     */
     private void                        initializeTeams() {
         // todo: Be careful with Player ( cross table  1 with 3 && 2 with 4)
         // todo: may you can review this
@@ -145,6 +192,12 @@ public class                            GameThread implements Runnable {
         }
     }
 
+    /**
+     * Check the score of both team to know if the
+     * game is over.
+     *
+     * @return a boolean
+     */
     private boolean                     checkScoreTeams() {
         int                             score1;
         int                             score2;
@@ -154,6 +207,11 @@ public class                            GameThread implements Runnable {
         return ((score1 >= 400 || score2 >= 400) && score1 != score2);
     }
 
+    /**
+     * Send the bid information to all players
+     *
+     * @see GameThread#run()
+     */
     private void                        sendBidToPlayers() {
         for (JCoinchePlayer p : this.allPlayers) {
             JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidInfoMessage(this.bid.getBidInformations()));

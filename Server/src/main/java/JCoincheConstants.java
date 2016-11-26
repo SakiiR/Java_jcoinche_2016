@@ -3,7 +3,11 @@
  */
 
 /**
- * Static const variables like display string and others
+ * This class is only contains static attributes.
+ * They are basic const information and messages to display
+ * relative to the Server Module.
+ *
+ * @see GameThread
  */
 public class                                JCoincheConstants {
     public static final String              project_name = "JCoincheServer";

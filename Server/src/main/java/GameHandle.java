@@ -32,7 +32,7 @@ public class                            GameHandle {
      * and close all concerned clients.
      * It is also sending a protocol GAME_STOPPED Message
      *
-     * @param gameThread
+     * @param gameThread The GameThread to stop
      * @see GameThread
      * @see MessageForger
      */
@@ -64,9 +64,9 @@ public class                            GameHandle {
     /**
      * This method is getting a Thread by specifying his GameThread because
      * in this class, the gameThread array's element are at the same level
-     * of the threads's elems.
+     * of the threads's elements.
      *
-     * @param gameThread
+     * @param gameThread The GameThread to search for thread .. no english sorry
      * @return Thread
      * @see GameThread
      * @see Thread
@@ -131,7 +131,7 @@ public class                            GameHandle {
 
     /**
      * This method is used to check at the clients disconnection
-     * to know if there is enought waiting clients to start a game (4).
+     * to know if there is enough waiting clients to start a game (4).
      *
      * @see GameHandle#startGame(ArrayList)
      * @see GameHandle#countWaitingClients()
@@ -157,11 +157,11 @@ public class                            GameHandle {
 
     /**
      * This method is used to count waiting clients connected
-     * to the server. It is oftently used when a client is disconnected.
+     * to the server. It is often used when a client is disconnected.
      *
      * @see GameThread
      * @see GameHandle#players
-     * @return int
+     * @return the count of waiting client.
      */
     private int                         countWaitingClients() {
         int                             j = 0;
@@ -187,8 +187,7 @@ public class                            GameHandle {
      * This method is used to  add a player to the list of players
      * by specifying an associated channel.
      *
-     * @param channel
-     * @return void
+     * @param channel Channel associated to the connected players
      * @see Channel
      * @see JCoinchePlayer
      */
@@ -201,7 +200,7 @@ public class                            GameHandle {
      * by specifying his associated channel. It is oftenly
      * used at the connection/disconnection of the client.
      *
-     * @param channel
+     * @param channel The channel to retrieve player from
      * @return JCoinchePlayer
      * @see Channel
      * @see JCoinchePlayer
@@ -269,7 +268,7 @@ public class                            GameHandle {
      *
      * @see ArrayList
      * @see JCoinchePlayer
-     * @param players
+     * @param players The players array to set/
      * @return this
      */
     public GameHandle                   setPlayers(ArrayList<JCoinchePlayer> players) {
