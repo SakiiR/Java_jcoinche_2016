@@ -100,6 +100,7 @@ public class                            MessageHandler {
     private int                         promptInt(String message) {
         int                             result = -1;
         boolean                         validInput = false;
+        String                          input;
         Scanner                         s = new Scanner(System.in);
 
         while (!validInput) {
