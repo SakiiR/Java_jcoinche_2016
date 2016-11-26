@@ -36,6 +36,15 @@ public class                            GameThread implements Runnable {
         this.uniqueId = new BigInteger(130, new SecureRandom()).toString(32);
     }
 
+    public String                       getUniqueId() {
+        return uniqueId;
+    }
+
+    public GameThread                   setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+        return this;
+    }
+
     public boolean                      isRunning() {
         return isRunning;
     }
@@ -130,7 +139,8 @@ public class                            GameThread implements Runnable {
                     p.getToken(),
                     p.getId(),
                     p.getTeam().getId(),
-                    p.getPartner().getId())
+                    p.getPartner().getId(),
+                    this.getUniqueId())
             );
         }
     }
