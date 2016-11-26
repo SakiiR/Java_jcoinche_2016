@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 /**
  * This class is used to handle all the threads like a Thread Pool.
- * It is able to launche a thread with 4 player, close a thread by specifying his GameThread.
+ * It is able to launch a thread with 4 player, close a thread by
+ * specifying his GameThread.
  * The Players list and it's initialisation is inside this class
  *
  * @see GameThread
