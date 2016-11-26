@@ -42,8 +42,8 @@ public class                JCoincheCard {
     /**
      * Card Construction
      *
-     * @param color
-     * @param id
+     * @param color Color Id
+     * @param id Card Id
      */
     public                  JCoincheCard(Color color, Id id) {
         this.color = color;
@@ -51,18 +51,18 @@ public class                JCoincheCard {
     }
 
     /**
-     * Retreiving the card color
+     * Retrieving the card color
      *
-     * @return
+     * @return Card Color
      */
     public Color            getColor() {
         return this.color;
     }
 
     /**
-     * Retreiving the card id
+     * Retrieving the card id
      *
-     * @return
+     * @return Card Id
      */
     public Id               getId() {
         return this.id;
@@ -70,10 +70,10 @@ public class                JCoincheCard {
 
     /**
      * equals overloading to know if two cards are the same
-     * by checking it Color && Id
+     * by checking it Color and Id
      *
-     * @param other
-     * @return
+     * @param other The compared Card
+     * @return true if equals, false if not
      */
     public boolean          equals(JCoincheCard other) {
         return (

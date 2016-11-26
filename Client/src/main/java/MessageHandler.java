@@ -17,7 +17,7 @@ public class                            MessageHandler {
     /**
      * MessageHandler constructor
      *
-     * @param clientProcess
+     * @param clientProcess ClientProcess sending messages
      */
     public                              MessageHandler(ClientProcess clientProcess) {
         this.clientProcess = clientProcess;
@@ -27,7 +27,7 @@ public class                            MessageHandler {
      * The big switch case to know what kind of message
      * it is and send it to the right method.
      *
-     * @param message
+     * @param message Message to Handle
      */
     public void                         parseMessage(JCoincheProtocol.JCoincheMessage message) {
         switch (message.getType()) {
@@ -94,8 +94,8 @@ public class                            MessageHandler {
     /**
      * Ask the used for an int in console input.
      *
-     * @param message
-     * @return
+     * @param message Message to Handle
+     * @return int readed
      */
     private int                         promptInt(String message) {
         int                             result = -1;
@@ -124,7 +124,7 @@ public class                            MessageHandler {
     /**
      * WELCOME Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleWelcomeMessage(JCoincheProtocol.WelcomeMessage message) {
         JCoincheUtils.logInfo("[>] WELCOME Message {type : \"WELCOME\", message : \"%s\"}", message.getMessage());
@@ -133,7 +133,7 @@ public class                            MessageHandler {
     /**
      * GAME_START Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGameStartMessage(JCoincheProtocol.GameStartMessage message) {
         JCoincheUtils.logInfo("[>] The Game Is Starting ! PLAYER(%d) TEAM(%d) UNIQUE_GAME_THREAD_ID(%s)", message.getPlayerId(), message.getTeamId(), message.getUniqueGameThreadId());
@@ -146,7 +146,7 @@ public class                            MessageHandler {
     /**
      * GET_CARDS Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGetCardsMessage(JCoincheProtocol.GetCardsMessage message) {
         this.clientProcess.getPlayerInformations().getCards().clear();
@@ -163,7 +163,7 @@ public class                            MessageHandler {
     /**
      * GET_BID Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGetBidMessage(JCoincheProtocol.GetBidMessage message) {
         int                             bidValue = -1;
@@ -196,7 +196,7 @@ public class                            MessageHandler {
     /**
      * ERROR Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleErrorMessage(JCoincheProtocol.ErrorMessage message) {
         JCoincheUtils.logError("[-] Error : %s", message.getMessage());
@@ -205,7 +205,7 @@ public class                            MessageHandler {
     /**
      * SEND_BID Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendBidMessage(JCoincheProtocol.SendBidMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
@@ -221,7 +221,7 @@ public class                            MessageHandler {
     /**
      * GET_COINCHE Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGetCoincheMessage(JCoincheProtocol.GetCoincheMessage message) {
         int                             coincheOrNot = -1;
@@ -240,7 +240,7 @@ public class                            MessageHandler {
     /**
      * SEND_COINCHE Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendCoincheMessage(JCoincheProtocol.SendCoincheMessage message) {
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
@@ -253,7 +253,7 @@ public class                            MessageHandler {
     /**
      * GET_SURCOINCHE Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGetSurcoincheMessage(JCoincheProtocol.GetSurcoincheMessage message) {
         int                             surcoincheOrNot = -1;
@@ -272,7 +272,7 @@ public class                            MessageHandler {
     /**
      * SEND_SURCOINCHE Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendSurcoincheMessage(JCoincheProtocol.SendSurcoincheMessage message) {
         if (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId()) {
@@ -285,7 +285,7 @@ public class                            MessageHandler {
     /**
      * GAME_STOPPED Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGameStoppedMessage(JCoincheProtocol.GameStoppedMessage message) {
         JCoincheUtils.logWarning("[!] Game has been stopped ! waiting for a new player ..");
@@ -294,7 +294,7 @@ public class                            MessageHandler {
     /**
      * SEND_BID_INFO Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendBidInformationsMessage(JCoincheProtocol.SendBidInfoMessage message) {
         String                          value = (message.getValue() == 170 ? "CAPOT" : String.format("%d", message.getValue()));
@@ -308,7 +308,7 @@ public class                            MessageHandler {
     /**
      * START_TRICK Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleStartTrickMessage(JCoincheProtocol.StartTrickMessage message) {
         JCoincheUtils.logSuccess("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓", message.getTrickNumber());
@@ -320,7 +320,7 @@ public class                            MessageHandler {
      * GET_CARD Message Handler : careful with GET_CARDS
      * message which is not the same.
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleGetCardMessage(JCoincheProtocol.GetCardMessage message) {
         int                             cardIndex = -1;
@@ -344,7 +344,7 @@ public class                            MessageHandler {
     /**
      * SEND_CARD Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendCardMessage(JCoincheProtocol.SendCardMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
@@ -371,7 +371,7 @@ public class                            MessageHandler {
     /**
      * SEND_WIN_TRICK Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendWinTrickMessage(JCoincheProtocol.SendWinTrickMessage message) {
         String                          who = (message.getPlayerId() == this.clientProcess.getPlayerInformations().getPlayerId() ? "I" : String.format("Player [%d]", message.getPlayerId()));
@@ -384,7 +384,7 @@ public class                            MessageHandler {
     /**
      * SEND_WIN_ROUND Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleSendWinRoundMessage(JCoincheProtocol.SendWinRoundMessage message) {
         JCoincheUtils.logSuccess(message.getMessage());
@@ -407,7 +407,7 @@ public class                            MessageHandler {
     /**
      * END_GAME Message Handler
      *
-     * @param message
+     * @param message Message to Handle
      */
     private void                        handleEndGameMessage(JCoincheProtocol.EndGameMessage message) {
         if (message.getWinnerTeamId() == this.clientProcess.getPlayerInformations().getTeamId()) {

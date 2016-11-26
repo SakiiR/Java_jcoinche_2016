@@ -4,7 +4,7 @@
 
 /**
  * This class is only contains static attributes.
- * They are basic const infos && message relative to the Client Module.
+ * They are basic const infos and message relative to the Client Module.
  *
  * @see JCoincheClient
  */

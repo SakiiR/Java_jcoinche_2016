@@ -15,8 +15,8 @@ public class                                                        MessageForge
     /**
      * Forge a SET_BID Message
      *
-     * @param token
-     * @return
+     * @param token Player token
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetBidMessage(String token) {
         JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
@@ -34,10 +34,10 @@ public class                                                        MessageForge
     /**
      * Forge a SET_BID Message with bidValue and trump
      *
-     * @param token
-     * @param bidValue
-     * @param trump
-     * @return
+     * @param token Player token
+     * @param bidValue bidValue
+     * @param trump trump
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetBidMessage(String token,  int bidValue, int trump) {
         JCoincheProtocol.JCoincheMessage.Builder                    builder = JCoincheProtocol.JCoincheMessage.newBuilder();
@@ -56,9 +56,9 @@ public class                                                        MessageForge
     /**
      * Forge a SET_COINCHE Message
      *
-     * @param token
-     * @param coinche
-     * @return
+     * @param token Player token
+     * @param coinche coinche or not ?
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCoincheMessage(String token, boolean coinche) {
         return (JCoincheProtocol
@@ -79,9 +79,9 @@ public class                                                        MessageForge
     /**
      * Forge a SET_SURCOINCHE Message
      *
-     * @param token
-     * @param surcoinche
-     * @return
+     * @param token token
+     * @param surcoinche surcoinche
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetSurcoincheMessage(String token, boolean surcoinche) {
         return (JCoincheProtocol
@@ -102,9 +102,9 @@ public class                                                        MessageForge
     /**
      * Forge a SET_CARD Message
      *
-     * @param token
-     * @param c
-     * @return
+     * @param token Player token
+     * @param c Card
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeSetCardMessage(String token, JCoincheCard c) {
      return (JCoincheProtocol

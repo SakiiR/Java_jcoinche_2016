@@ -33,7 +33,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve netty Channel object
      *
-     * @return
+     * @return Channel
      */
     public Channel                  getChannel() {
         return channel;
@@ -42,8 +42,8 @@ public class                        PlayerInformations {
     /**
      * Set the netty Channel object
      *
-     * @param channel
-     * @return
+     * @param channel Server channel
+     * @return PlayerInformations
      */
     public PlayerInformations       setChannel(Channel channel) {
         this.channel = channel;
@@ -51,10 +51,10 @@ public class                        PlayerInformations {
     }
 
     /**
-     * Retreive the player token which
+     * Retrieve the player token which
      * is used to authenticate to the server.
      *
-     * @return
+     * @return String
      */
     public String                   getToken() {
         return this.token;
@@ -63,8 +63,8 @@ public class                        PlayerInformations {
     /**
      * Set the player token
      *
-     * @param token
-     * @return
+     * @param token token string
+     * @return PlayerInformations
      */
     public PlayerInformations       setToken(String token){
         this.token = token;
@@ -74,7 +74,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve the player's team id
      *
-     * @return
+     * @return int team id
      */
     public int                      getTeamId() {
         return this.teamId;
@@ -83,8 +83,8 @@ public class                        PlayerInformations {
     /**
      * Set the team id of the client
      *
-     * @param teamId
-     * @return
+     * @param teamId teamId
+     * @return PlayerInformations
      */
     public PlayerInformations       setTeamId(int teamId) {
         this.teamId = teamId;
@@ -94,7 +94,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve Player Id
      *
-     * @return
+     * @return int player id
      */
     public int                      getPlayerId() {
         return this.playerId;
@@ -103,8 +103,8 @@ public class                        PlayerInformations {
     /**
      * Set de Player Id
      *
-     * @param playerId
-     * @return
+     * @param playerId Player Id
+     * @return PlayerInformations
      */
     public PlayerInformations       setPlayerId(int playerId) {
         this.playerId = playerId;
@@ -114,7 +114,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve the Cards Array
      *
-     * @return
+     * @return cards array
      * @see ArrayList
      */
     public ArrayList<JCoincheCard>  getCards() {
@@ -124,8 +124,8 @@ public class                        PlayerInformations {
     /**
      * Set the player cards array
      *
-     * @param cards
-     * @return
+     * @param cards Cards array
+     * @return PlayerInformation
      * @see ArrayList
      */
     public PlayerInformations       setCards(ArrayList<JCoincheCard> cards) {
@@ -166,7 +166,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve the player bid value
      *
-     * @return
+     * @return String
      */
     public String                   getBidValue() {
         return bidValue;
@@ -175,8 +175,8 @@ public class                        PlayerInformations {
     /**
      * Set the player bid Value
      *
-     * @param bidValue
-     * @return
+     * @param bidValue player bid value
+     * @return PlayerInformations
      */
     public PlayerInformations       setBidValue(String bidValue) {
         this.bidValue = bidValue;
@@ -186,7 +186,7 @@ public class                        PlayerInformations {
     /**
      * Retrieve the Player Bid Trump
      *
-     * @return
+     * @return String
      */
     public String                   getBidTrump() {
         return bidTrump;
@@ -195,8 +195,8 @@ public class                        PlayerInformations {
     /**
      * Set the Player Bid Trump
      *
-     * @param bidTrump
-     * @return
+     * @param bidTrump bid trump
+     * @return PlayerInformation
      */
     public PlayerInformations       setBidTrump(String bidTrump) {
         this.bidTrump = bidTrump;
@@ -206,7 +206,7 @@ public class                        PlayerInformations {
     /**
      * Set the player last played card
      *
-     * @return
+     * @return JCoincheCard last card played by the client
      */
     public JCoincheCard             getLastCardPlayed() {
         return lastCardPlayed;
@@ -215,8 +215,8 @@ public class                        PlayerInformations {
     /**
      * Set the player last played card
      *
-     * @param lastCardPlayed
-     * @return
+     * @param lastCardPlayed last card played by the client
+     * @return this
      */
     public PlayerInformations       setLastCardPlayed(JCoincheCard lastCardPlayed) {
         this.lastCardPlayed = lastCardPlayed;

@@ -25,7 +25,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
      * Handler constructor.
      * ClientProcess as parameters.
      *
-     * @param clientProcess
+     * @param clientProcess ClientProcess Object
      * @see ClientProcess
      */
     public                  JCoincheClientHandler(ClientProcess clientProcess) {
@@ -36,8 +36,8 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
      * This callback is called when the
      * client is disconnected from server.
      *
-     * @param ctx
-     * @throws Exception
+     * @param ctx Channel Context
+     * @throws Exception When disconnection is crashing
      * @see ActivityChecker
      */
     @Override
@@ -52,7 +52,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
      * This is the method where the
      * ClientProcess Thread is started.
      *
-     * @param ctx
+     * @param ctx Channel Context
      * @see ClientProcess
      */
     @Override
@@ -66,8 +66,8 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
     /**
      * This callback is called when a Message Object is received.
      *
-     * @param ctx
-     * @param msg
+     * @param ctx Channel Context
+     * @param msg Message Received
      */
     @Override
     public void             channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -81,7 +81,7 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
      * This callback is called when the client
      * has finished to read on the socket.
      *
-     * @param ctx
+     * @param ctx Channel Context
      */
     @Override
     public void             channelReadComplete(ChannelHandlerContext ctx) { ctx.flush(); }
@@ -90,9 +90,9 @@ public class                JCoincheClientHandler extends ChannelInboundHandlerA
      * This callback is called when a Client
      * relative exception is caught.
      *
-     * @param ctx
-     * @param cause
-     * @throws Exception
+     * @param ctx Channel Context
+     * @param cause The cause object
+     * @throws Exception when netty throws it
      */
     @Override
     public void             exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

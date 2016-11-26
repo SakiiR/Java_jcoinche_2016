@@ -16,16 +16,16 @@ public class                JCoincheUtils {
     /**
      * Write a message on the channel
      *
-     * @param ch
-     * @param obj
+     * @param ch Player Channel
+     * @param obj Message Object to send
      */
     static public void      writeAndFlush(Channel ch, Object obj) { ch.writeAndFlush(obj); }
 
     /**
      * Log a basic message to the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      log(String format, Object ...params) {
         System.out.println(String.format(format, params));
@@ -34,7 +34,7 @@ public class                JCoincheUtils {
     /**
      * Log a basic message to the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      log(String str) {
         System.out.println(str);
@@ -43,8 +43,8 @@ public class                JCoincheUtils {
     /**
      * Log a blue message to the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      logInfo(String format, Object ...params) {
         System.out.println(String.format("\033[34m" + format + "\033[0m", params));
@@ -53,7 +53,7 @@ public class                JCoincheUtils {
     /**
      * Log a blue message to the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      logInfo(String str) {
         System.out.println("\033[34m" + str + "\033[0m");
@@ -62,8 +62,8 @@ public class                JCoincheUtils {
     /**
      * Log a green message to the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      logSuccess(String format, Object ...params) {
         System.out.println(String.format("\033[32m" + format + "\033[0m", params));
@@ -72,7 +72,7 @@ public class                JCoincheUtils {
     /**
      * Log a green message to the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      logSuccess(String str) {
         System.out.println("\033[32m" + str + "\033[0m");
@@ -81,8 +81,8 @@ public class                JCoincheUtils {
     /**
      * Log an orange message to the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      logWarning(String format, Object ...params) {
         System.out.println(String.format("\033[33m" + format + "\033[0m", params));
@@ -91,7 +91,7 @@ public class                JCoincheUtils {
     /**
      * Log an orange message to the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      logWarning(String str) {
         System.out.println("\033[33m" + str + "\033[0m");
@@ -100,8 +100,8 @@ public class                JCoincheUtils {
     /**
      * Log a red message to the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      logError(String format, Object ...params) {
         System.out.println(String.format("\033[31m" + format + "\033[0m", params));
@@ -110,7 +110,7 @@ public class                JCoincheUtils {
     /**
      * Log a red message to the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      logError(String str) {
         System.out.println("\033[31m" + str + "\033[0m");
@@ -119,15 +119,15 @@ public class                JCoincheUtils {
     /**
      * Log a red message to the error output of the console with var_args
      *
-     * @param format
-     * @param params
+     * @param format Format String
+     * @param params var_arg list
      */
     static public void      logStderr(String format, Object ...params) { System.err.println(String.format("\033[31m" + format + "\033[0m", params)); }
 
     /**
      * Log a red message to the error output of the console
      *
-     * @param str
+     * @param str Message string
      */
     static public void      logStderr(String str) {
         System.err.println("\033[31m" + str + "\033[0m");

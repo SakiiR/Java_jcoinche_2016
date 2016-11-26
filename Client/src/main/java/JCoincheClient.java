@@ -32,8 +32,8 @@ public class                JCoincheClient {
     /**
      * JCoincheClient Constructor
      *
-     * @param host
-     * @param port
+     * @param host command line host
+     * @param port command line port
      */
     public                  JCoincheClient(String host, int port) {
         this.port = port;

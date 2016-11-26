@@ -67,8 +67,8 @@ public class                                                    ClientProcess im
      * This method is adding a message to the queue
      *
      * @see ArrayList
-     * @param message
-     * @return
+     * @param message Google Protocol Message
+     * @return ClientProcess this
      */
     public ClientProcess                                        addMessage(JCoincheProtocol.JCoincheMessage message) {
         this.lock.lock();
@@ -79,9 +79,9 @@ public class                                                    ClientProcess im
 
     /**
      * This method return the encapsulated local player
-     * informations object reference.
+     * information object reference.
      *
-     * @return
+     * @return PlayerInformation
      */
     public PlayerInformations                                   getPlayerInformations() {
         return this.playerInformations;

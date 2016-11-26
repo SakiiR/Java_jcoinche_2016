@@ -24,8 +24,8 @@ public class                            EnumUtils {
     /**
      * Return the JCoincheCard color by it index in enum
      *
-     * @param index
-     * @return
+     * @param index index to search for
+     * @return Card Color
      * @see JCoincheCard
      */
     public static JCoincheCard.Color    getColorByIndex(int index) {
@@ -35,8 +35,8 @@ public class                            EnumUtils {
     /**
      * Return the JCoincheCard id by it index in enum
      *
-     * @param index
-     * @return
+     * @param index index to search for
+     * @return Card Id
      * @see JCoincheCard
      */
     public static JCoincheCard.Id       getIdByIndex(int index) {
@@ -46,8 +46,8 @@ public class                            EnumUtils {
     /**
      * Return the Trump by it index in enum
      *
-     * @param index
-     * @return
+     * @param index index to search for
+     * @return Trump
      * @see EnumUtils.Trump
      */
     public static Trump                 getTrumpTypeByIndex(int index) {
