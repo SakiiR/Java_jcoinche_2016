@@ -33,7 +33,7 @@ public class                    JCoincheRound {
             this.trickBeginner = this.tricks.get(this.tricks.size() - 1).getTrickBeginner();
         }
         if (!this.gameThread.isRunning()) return;
-        JCoincheUtils.logInfo("bidderteam tricscore = %d bidvalue = %d", this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
+        JCoincheUtils.logInfo("[>] bidderteam tricscore = %d bidvalue = %d", this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
         this.generateScoreTeams();
     }
 
@@ -74,12 +74,12 @@ public class                    JCoincheRound {
                 tricksTeamBidder++;
             }
         }
-        if (tricksTeamBidder == 8) { // si bidderTeam a annoncé et réalisé son capot ?
+        if (tricksTeamBidder == 8) {
             bidderRoundScore = 500;
             bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
             this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
 
-        } else { //si capot annoncé chuté
+        } else {
             otherRoundScore = 250 + otherTeam.getTrickScore();
             otherTeam.setScore(otherTeam.getScore() + 250 + otherTeam.getTrickScore());
             this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
@@ -90,26 +90,26 @@ public class                    JCoincheRound {
         int                     bidderRoundScore = 0;
         int                     otherRoundScore = 0;
 
-        if (bidderTeam.getTrickScore() >= this.bidInformations.getBidValue()) { //si contrat réalisé
-            if (!this.bidInformations.isSurcoinche()) { //si juste coinche
+        if (bidderTeam.getTrickScore() >= this.bidInformations.getBidValue()) {
+            if (!this.bidInformations.isSurcoinche()) {
                 bidderRoundScore = this.bidInformations.getBidValue() * 2 + bidderTeam.getTrickScore();
                 otherRoundScore = otherTeam.getTrickScore();
                 bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
                 this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
-            } else { //si surcoinche
+            } else {
                 bidderRoundScore = this.bidInformations.getBidValue() * 3 + bidderTeam.getTrickScore();
                 otherRoundScore = otherTeam.getTrickScore();
                 bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
                 this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
             }
-        } else { // si contrat pas réalisé
-            if (!this.bidInformations.isSurcoinche()) { //si juste coinche
+        } else {
+            if (!this.bidInformations.isSurcoinche()) {
                 otherRoundScore = this.bidInformations.getBidValue() * 2 + 160;
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
                 this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
-            } else { // si surcoinche
+            } else {
                 otherRoundScore = this.bidInformations.getBidValue() * 3 + 160;
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
                 this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
@@ -122,16 +122,16 @@ public class                    JCoincheRound {
         int                     bidderRoundScore = 0;
         int                     otherRoundScore = 0;
 
-        JCoincheUtils.logInfo("inside generateScoreTeamsNormal");
-        JCoincheUtils.logInfo("bidderTeam trickScore = %d", bidderTeam.getTrickScore());
-        if (bidderTeam.getTrickScore() >= this.bidInformations.getBidValue()) { //si contrat réalisé sans coinche / surcoinche
-            JCoincheUtils.logInfo("inside contrat réalisé");
+        JCoincheUtils.logInfo("[>] inside generateScoreTeamsNormal");
+        JCoincheUtils.logInfo("[>] bidderTeam trickScore = %d", bidderTeam.getTrickScore());
+        if (bidderTeam.getTrickScore() >= this.bidInformations.getBidValue()) {
+            JCoincheUtils.logInfo("[>] inside contrat réalisé");
             bidderRoundScore = this.bidInformations.getBidValue() + bidderTeam.getTrickScore();
             otherRoundScore = otherTeam.getTrickScore();
             bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
             otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
             this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
-        } else { //si contrat pas rempli
+        } else {
             otherRoundScore = 160 + this.bidInformations.getBidValue();
             otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
             this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");

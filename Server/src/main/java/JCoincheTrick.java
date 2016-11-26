@@ -49,12 +49,12 @@ public class                    JCoincheTrick {
         int                                 score = 0;
 
         this.generateValueCards(bidInfo, cardsOnTable);
-        if (bidInfo.getBidTrump().ordinal() < 4) /*si jeu normal on envoi le calcul normal */
+        if (bidInfo.getBidTrump().ordinal() < 4)
             winner = this.generateWinnerTrickNormalGame(bidInfo, cardsOnTable);
-        else if (bidInfo.getBidTrump().ordinal() >= 4) /*si jeu sans atout ou tout atout, on envoi le calcul sans atout */
+        else if (bidInfo.getBidTrump().ordinal() >= 4)
             winner = this.generateWinnerTrick(bidInfo, cardsOnTable);
         if (winner == null) {
-            JCoincheUtils.logInfo("winner is null");
+            JCoincheUtils.logInfo("[!] winner is null");
             return false;
         }
         for (JCoincheCard c : cardsOnTable) {
@@ -62,10 +62,12 @@ public class                    JCoincheTrick {
         }
         winner.getTeam().setTrickScore(winner.getTeam().getTrickScore() + score);
         this.trickBeginner = winner;
-        JCoincheUtils.logInfo("winnerid = %d teamid = %d trickscore = %d ", winner.getId(), winner.getTeam().getId(), winner.getTeam().getTrickScore());
+        JCoincheUtils.logInfo("[>] winnerid = %d teamid = %d trickscore = %d ", winner.getId(),
+                winner.getTeam().getId(), winner.getTeam().getTrickScore());
         for (JCoinchePlayer p : this.players)
         {
-            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinTrickMessage(winner.getId(), winner.getTeam().getId(), score));
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinTrickMessage(winner.getId(),
+                    winner.getTeam().getId(), score));
         }
         return true;
     }
@@ -76,22 +78,22 @@ public class                    JCoincheTrick {
         JCoinchePlayer                      winner = null;
         int                                 tmpValue;
 
-        JCoincheUtils.logInfo("inside generateWinnerTrickNormalGame");
-        cardsEval = this.findTrumps(cardsEval, bidInfo, cardsOnTable); /* on cherche les atouts sur la table */
-        if (cardsEval.size() == 1) { /*si 1 atout trouvé on set le winner */
-            JCoincheUtils.logInfo("found one trump");
+        JCoincheUtils.logInfo("[>] inside generateWinnerTrickNormalGame");
+        cardsEval = this.findTrumps(cardsEval, bidInfo, cardsOnTable);
+        if (cardsEval.size() == 1) {
+            JCoincheUtils.logInfo("[>] found one trump");
             winner = cardsEval.get(0).getPlayer();
-        } else if (cardsEval.size() > 1) { /*si plusieurs atout trouvé on prend le plus grand */
+        } else if (cardsEval.size() > 1) {
             tmpValue = -1;
-            JCoincheUtils.logInfo("find multiple trumps");
+            JCoincheUtils.logInfo("[>] found multiple trumps");
             for (JCoincheCard c : cardsEval) {
                 if (c.getValue() > tmpValue) {
                     tmpValue = c.getValue();
                     winner = c.getPlayer();
                 }
             }
-        } else if (cardsEval.size() == 0) {/*si pas d'atout trouvé on envoi l'eval sans atout dans le jeu*/
-            JCoincheUtils.logInfo("trump not find, go inside generateWinnertrick");
+        } else if (cardsEval.size() == 0) {
+            JCoincheUtils.logInfo("[>] trump not find, go inside generateWinnertrick");
             winner = this.generateWinnerTrick(bidInfo, cardsOnTable);
         }
         return winner;
@@ -102,10 +104,10 @@ public class                    JCoincheTrick {
         JCoinchePlayer                      winner = null;
         int                                 tmpValue = -1;
 
-        cardsEval = this.findCardsColor(cardsEval, bidInfo, cardsOnTable); /* on cherche les cartes de la couleur de la première carte*/
-        if (cardsEval.size() == 1) { /* si une seule carte => la premiere posée, on set le winner */
+        cardsEval = this.findCardsColor(cardsEval, bidInfo, cardsOnTable);
+        if (cardsEval.size() == 1) {
             winner = cardsOnTable.get(0).getPlayer();
-        } else if (cardsEval.size() > 1) { /* si plusieurs carte de la meme couleur que la premiere on cherche la plus forte et on set le winner*/
+        } else if (cardsEval.size() > 1) {
             for (JCoincheCard c : cardsEval) {
                 if (c.getValue() > tmpValue) {
                     tmpValue = c.getValue();
@@ -116,7 +118,8 @@ public class                    JCoincheTrick {
         return winner;
     }
 
-    private ArrayList<JCoincheCard>         findTrumps(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+    private ArrayList<JCoincheCard>         findTrumps(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo,
+                                                       ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
             if (c.getColor().ordinal() == bidInfo.getBidTrump().ordinal()) {
                 cardsEval.add(c);
@@ -125,7 +128,8 @@ public class                    JCoincheTrick {
         return cardsEval;
     }
 
-    private ArrayList<JCoincheCard>         findCardsColor(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
+    private ArrayList<JCoincheCard>         findCardsColor(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo,
+                                                           ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
             if (c.getColor().ordinal() == cardsOnTable.get(0).getColor().ordinal()) {
                 cardsEval.add(c);
@@ -136,15 +140,15 @@ public class                    JCoincheTrick {
 
     private void                            generateValueCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
-            if (bidInfo.getBidTrump().ordinal() < 4) { /*si jeu normal, si atout prend valeur atout, sinon valeur sans atout*/
+            if (bidInfo.getBidTrump().ordinal() < 4) {
                 if (c.getColor().ordinal() == bidInfo.getBidTrump().ordinal()) {
                     c.setValue(c.cardValueTrump[c.getId().ordinal()]);
                 } else {
                     c.setValue(c.cardValue[c.getId().ordinal()]);
                 }
-            } else if (bidInfo.getBidTrump().ordinal() == 4) { /*si jeu sans atout prend valeur sans atout*/
+            } else if (bidInfo.getBidTrump().ordinal() == 4) {
                 c.setValue(c.cardValue[c.getId().ordinal()]);
-            } else { /*si jeu tout atout, prend valeur tout atout*/
+            } else {
                 c.setValue(c.cardValueTrump[c.getId().ordinal()]);
             }
         }
@@ -167,7 +171,8 @@ public class                    JCoincheTrick {
                 if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD) {
                     this.sendGetCardError(this.actualPlayer);
                 } else {
-                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.actualPlayer)) {
+                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(),
+                            this.actualPlayer)) {
                         this.sendGetCardError(this.actualPlayer);
                     } else {
                         if (!this.checkCardValidity(message.getSetCardMessage().getCardColor(), this.actualPlayer)) {
@@ -214,9 +219,9 @@ public class                    JCoincheTrick {
                 this.trickBeginner.setMessage(null);
                 if (message.getType() != JCoincheProtocol.JCoincheMessage.Type.SET_CARD) {
                     this.sendGetCardError(this.trickBeginner);
-                    //on check si la carte est présente dans le jeu;
                 } else {
-                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(), this.trickBeginner)) {
+                    if (!this.checkCardOfPlayer(message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor(),
+                            this.trickBeginner)) {
                         this.sendGetCardError(this.trickBeginner);
                     } else {
                         valideMessage = true;
