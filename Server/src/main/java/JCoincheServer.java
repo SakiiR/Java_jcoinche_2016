@@ -60,10 +60,7 @@ public class                        JCoincheServer {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
-                            if (future.cause() instanceof BindException) {
-                                JCoincheUtils.logStderr(JCoincheConstants.log_failed_bind, port);
-                                System.exit(84);
-                            }
+                            if (future.cause() instanceof BindException) {  }
                         }
                     }
                 }).sync();

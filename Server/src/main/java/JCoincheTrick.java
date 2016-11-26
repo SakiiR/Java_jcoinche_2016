@@ -88,10 +88,10 @@ public class                    JCoincheTrick {
             JCoincheUtils.logInfo("found one trump");
             winner = cardsEval.get(0).getPlayer();
         } else if (cardsEval.size() > 1) { /*si plusieurs atout trouvé on prend le plus grand */
-            tmpValue = 0;
+            tmpValue = -1;
             JCoincheUtils.logInfo("find multiple trumps");
             for (JCoincheCard c : cardsEval) {
-                if (c.getValue() >= tmpValue) {
+                if (c.getValue() > tmpValue) {
                     tmpValue = c.getValue();
                     winner = c.getPlayer();
                 }
@@ -106,14 +106,14 @@ public class                    JCoincheTrick {
     private JCoinchePlayer                  generateWinnerTrick(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         ArrayList<JCoincheCard>             cardsEval = new ArrayList<>();
         JCoinchePlayer                      winner = null;
-        int                                 tmpValue = 0;
+        int                                 tmpValue = -1;
 
         cardsEval = this.findCardsColor(cardsEval, bidInfo, cardsOnTable); /* on cherche les cartes de la couleur de la première carte*/
         if (cardsEval.size() == 1) { /* si une seule carte => la premiere posée, on set le winner */
             winner = cardsOnTable.get(0).getPlayer();
         } else if (cardsEval.size() > 1) { /* si plusieurs carte de la meme couleur que la premiere on cherche la plus forte et on set le winner*/
             for (JCoincheCard c : cardsEval) {
-                if (c.getValue() >= tmpValue) {
+                if (c.getValue() > tmpValue) {
                     tmpValue = c.getValue();
                     winner = c.getPlayer();
                 }

@@ -1,3 +1,5 @@
+import java.net.BindException;
+
 /**
  * Created by sakiir on 11/11/16.
  */
@@ -25,6 +27,10 @@ public class                Main {
         try {
             server.run();
         } catch (Exception e) {
+            JCoincheUtils.logStderr("[-] Received Exception From Server returned message is : " + e.getMessage());
+            if (e instanceof BindException) {
+                JCoincheUtils.logStderr(JCoincheConstants.log_failed_bind, port);
+            }
             System.exit(84);
         }
     }
