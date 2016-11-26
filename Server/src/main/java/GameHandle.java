@@ -48,7 +48,8 @@ public class                            GameHandle {
                 for (JCoinchePlayer p : gameThread.getAllPlayers()) {
                     this.getPlayers().remove(p);
                     this.getPlayers().add(p);
-                    p.setGameThread(null);
+                    p.setGameThread(null)
+                            .setMessage(null);
                     JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStoppedMessage());
                 }
                 this.threads.remove(t);
