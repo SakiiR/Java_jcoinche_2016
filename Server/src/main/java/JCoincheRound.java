@@ -3,6 +3,12 @@ import java.util.ArrayList;
 /**
  * Created by anakin on 24/11/16.
  */
+
+/**
+ * This class is used to create a new round of game.
+ * A round is composed of several tricks.
+ * It will generate the trickscore for each trick.
+ */
 public class                    JCoincheRound {
     JCoincheBidInformations     bidInformations = null;
     JCoinchePlayer              trickBeginner = null;
@@ -12,7 +18,9 @@ public class                    JCoincheRound {
     ArrayList<JCoincheTrick>    tricks = null;
     GameThread                  gameThread = null;
 
-    public                      JCoincheRound(JCoincheBidInformations bidInfo, JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams, ArrayList<JCoinchePlayer> players, GameThread gameThread) {
+    public                      JCoincheRound(JCoincheBidInformations bidInfo, JCoinchePlayer beginner,
+                                              ArrayList<JCoincheTeam> teams, ArrayList<JCoinchePlayer> players,
+                                              GameThread gameThread) {
         this.bidInformations = bidInfo;
         this.trickBeginner = beginner;
         this.beginner = beginner;
@@ -33,7 +41,8 @@ public class                    JCoincheRound {
             this.trickBeginner = this.tricks.get(this.tricks.size() - 1).getTrickBeginner();
         }
         if (!this.gameThread.isRunning()) return;
-        JCoincheUtils.logInfo("[>] bidderteam tricscore = %d bidvalue = %d", this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
+        JCoincheUtils.logInfo("[>] bidderteam tricscore = %d bidvalue = %d",
+                this.bidInformations.getBiddenPlayer().getTeam().getTrickScore(), this.bidInformations.getBidValue());
         this.generateScoreTeams();
     }
 
@@ -57,9 +66,11 @@ public class                    JCoincheRound {
         }
     }
 
-    private void                sendWinRoundToPlayers(JCoincheTeam bidderTeam, JCoincheTeam otherTeam, int bidderTeamRoundScore, int otherTeamRoundScore, String message) {
+    private void                sendWinRoundToPlayers(JCoincheTeam bidderTeam, JCoincheTeam otherTeam,
+                                                      int bidderTeamRoundScore, int otherTeamRoundScore, String message) {
         for (JCoinchePlayer p : this.players) {
-            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinRoundMessage(bidderTeam.getId(), bidderTeamRoundScore, bidderTeam.getScore(),
+            JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendWinRoundMessage(bidderTeam.getId(),
+                    bidderTeamRoundScore, bidderTeam.getScore(),
                     otherTeam.getId(), otherTeamRoundScore, otherTeam.getScore(), message));
         }
     }
@@ -77,12 +88,14 @@ public class                    JCoincheRound {
         if (tricksTeamBidder == 8) {
             bidderRoundScore = 500;
             bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
-            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
+            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                    otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
 
         } else {
             otherRoundScore = 250 + otherTeam.getTrickScore();
             otherTeam.setScore(otherTeam.getScore() + 250 + otherTeam.getTrickScore());
-            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
+            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                    otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
         }
     }
 
@@ -96,23 +109,27 @@ public class                    JCoincheRound {
                 otherRoundScore = otherTeam.getTrickScore();
                 bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
+                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                        otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
             } else {
                 bidderRoundScore = this.bidInformations.getBidValue() * 3 + bidderTeam.getTrickScore();
                 otherRoundScore = otherTeam.getTrickScore();
                 bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
+                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                        otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
             }
         } else {
             if (!this.bidInformations.isSurcoinche()) {
                 otherRoundScore = this.bidInformations.getBidValue() * 2 + 160;
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
+                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                        otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
             } else {
                 otherRoundScore = this.bidInformations.getBidValue() * 3 + 160;
                 otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
+                this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                        otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
             }
         }
 
@@ -130,11 +147,13 @@ public class                    JCoincheRound {
             otherRoundScore = otherTeam.getTrickScore();
             bidderTeam.setScore(bidderTeam.getScore() + bidderRoundScore);
             otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
+            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                    otherRoundScore, "Team " + bidderTeam.getId() + " make his bid !");
         } else {
             otherRoundScore = 160 + this.bidInformations.getBidValue();
             otherTeam.setScore(otherTeam.getScore() + otherRoundScore);
-            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore, otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
+            this.sendWinRoundToPlayers(bidderTeam, otherTeam, bidderRoundScore,
+                    otherRoundScore, "Team " + bidderTeam.getId() + " loose his bid !");
         }
     }
 
