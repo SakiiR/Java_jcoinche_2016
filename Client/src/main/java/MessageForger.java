@@ -7,7 +7,7 @@ import io.netty.channel.Channel;
 /**
  * This class only contains static method.
  * Theses methods are forging a JCoincheMessage Google Protocol Buffer
- * Object wich is given to the JCoincheUtils.writeAndFlush static methods.
+ * Object which is given to the JCoincheUtils.writeAndFlush static methods.
  *
  * @see JCoincheUtils#writeAndFlush(Channel, Object)
  */

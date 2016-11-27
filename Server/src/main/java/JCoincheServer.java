@@ -16,6 +16,12 @@ import java.net.BindException;
  * Created by sakiir on 12/11/16.
  */
 
+/**
+ * This class is describing the main doudoune coinché netty server.
+ * It is called by the Main Class.
+ *
+ * @see Main
+ */
 public class                        JCoincheServer {
 
     protected int                   port;
@@ -23,7 +29,9 @@ public class                        JCoincheServer {
 
     /**
      * JCoincheServer Constructor
-     * @param port
+     *
+     * @param port the command line port specified in the Main Class.
+     * @see Main
      */
     public JCoincheServer(int port){
         this.port = port;
@@ -31,7 +39,9 @@ public class                        JCoincheServer {
     }
 
     /**
-     * Run Method : for the main Thread
+     * This method is introducing the netty boilerplate TCP server.
+     *
+     * @see Main
      */
     public void                     run() {
         JCoincheUtils.log(JCoincheConstants.log_server_starting);

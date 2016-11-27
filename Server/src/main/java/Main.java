@@ -4,7 +4,20 @@ import java.net.BindException;
  * Created by sakiir on 11/11/16.
  */
 
+/**
+ * This class is the Server main class.
+ * This class is getting command line args to retriever
+ * port.
+ * If the port is not specified it is getting the default one (1337)
+ *
+ * @see JCoincheServer
+ */
 public class                Main {
+    /**
+     * Entry point
+     *
+     * @param args Command line args.
+     */
     public static void      main(String []args) {
         int                 port = 1337;
 
