@@ -51,7 +51,7 @@ public class                                        MessageForgerTest extends Te
         JCoincheUtils.logWarning("[TEST] Asserting ..");
         assert (message.getType() == JCoincheProtocol.JCoincheMessage.Type.SET_SURCOINCHE &&
                 message.getToken() == "prout" &&
-                message.getSetSurcoincheMessage().getSurcoinche() == true);
+                message.getSetSurcoincheMessage().getSurcoinche());
     }
 
     @Test
