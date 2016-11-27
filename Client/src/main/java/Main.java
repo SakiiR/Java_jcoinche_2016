@@ -36,6 +36,7 @@ public class            Main {
             port = Integer.parseInt(args[1]);
             host = args[0];
         } catch (NumberFormatException e) {
+            JCoincheUtils.logInfo("[>] Usage : java -jar jcoinche-client.jar HOST PORT");
             JCoincheUtils.logStderr("[-] Failed to parse int : " + args[1]);
             return;
         }

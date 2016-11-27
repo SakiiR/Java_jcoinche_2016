@@ -11,6 +11,7 @@
  */
 public class                                JCoincheConstants {
     public static final String              project_name = "JCoincheServer";
+    public static final String              project_usage = "[!] Usage : java -jar target/jcoinche-server HOST PORT";
     public static final String              log_game_thread_status = "[>] Game Thread .. with %d clients .. Reading Queue ..";
     public static final String              log_message_found = "[>] Found Message : %s";
     public static final String              log_using_default_port = "[>] No Arguments .. Using Default Port [1337]";

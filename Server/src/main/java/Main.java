@@ -22,6 +22,7 @@ public class                Main {
         int                 port = 1337;
 
         if (args.length < 1) {
+            JCoincheUtils.logWarning(JCoincheConstants.project_usage);
             JCoincheUtils.log(JCoincheConstants.log_using_default_port);
         }
 
@@ -30,7 +31,7 @@ public class                Main {
                 port = Integer.parseInt(args[0]);
             }
         } catch (NumberFormatException e) {
-//            JCoincheUtils.logErr(JCoincheConstants.log_failed_parse_int, args[0]);
+            JCoincheUtils.logWarning(JCoincheConstants.project_usage);
             JCoincheUtils.log(JCoincheConstants.log_using_default_port);
             port = 1337;
         }
