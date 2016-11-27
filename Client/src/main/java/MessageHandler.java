@@ -32,58 +32,58 @@ public class                            MessageHandler {
     public void                         parseMessage(JCoincheProtocol.JCoincheMessage message) {
         switch (message.getType()) {
             case WELCOME:
-                this.handleWelcomeMessage(message.getWelcomeMessage());
+                if (message.hasWelcomeMessage()) this.handleWelcomeMessage(message.getWelcomeMessage());
                 break;
             case GAME_START:
-                this.handleGameStartMessage(message.getGameStartMessage());
+                if (message.hasGameStartMessage()) this.handleGameStartMessage(message.getGameStartMessage());
                 break;
             case GET_CARDS:
-                this.handleGetCardsMessage(message.getGetCardsMessage());
+                if (message.hasGetCardsMessage()) this.handleGetCardsMessage(message.getGetCardsMessage());
                 break;
             case GET_BID:
-                this.handleGetBidMessage(message.getGetBidMessage());
+                if (message.hasGetBidMessage()) this.handleGetBidMessage(message.getGetBidMessage());
                 break;
             case ERROR:
-                this.handleErrorMessage(message.getErrorMessage());
+                if (message.hasErrorMessage()) this.handleErrorMessage(message.getErrorMessage());
                 break;
             case SEND_BID:
-                this.handleSendBidMessage(message.getSendBidMessage());
+                if (message.hasSendBidMessage()) this.handleSendBidMessage(message.getSendBidMessage());
                 break;
             case GET_COINCHE:
-                this.handleGetCoincheMessage(message.getGetCoincheMessage());
+                if (message.hasGetCoincheMessage()) this.handleGetCoincheMessage(message.getGetCoincheMessage());
                 break;
             case SEND_COINCHE:
-                this.handleSendCoincheMessage(message.getSendCoincheMessage());
+                if (message.hasSendCoincheMessage()) this.handleSendCoincheMessage(message.getSendCoincheMessage());
                 break;
             case GET_SURCOINCHE:
-                this.handleGetSurcoincheMessage(message.getGetSurcoincheMessage());
+                if (message.hasGetSurcoincheMessage()) this.handleGetSurcoincheMessage(message.getGetSurcoincheMessage());
                 break;
             case SEND_SURCOINCHE:
-                this.handleSendSurcoincheMessage(message.getSendSurcoincheMessage());
+                if (message.hasSendCoincheMessage()) this.handleSendSurcoincheMessage(message.getSendSurcoincheMessage());
                 break;
             case GAME_STOPPED:
-                this.handleGameStoppedMessage(message.getGameStoppedMessage());
+                if (message.hasGameStoppedMessage()) this.handleGameStoppedMessage(message.getGameStoppedMessage());
                 break;
             case SEND_BID_INFO:
-                this.handleSendBidInformationsMessage(message.getSendBidInfoMessage());
+                if (message.hasSendBidInfoMessage()) this.handleSendBidInformationsMessage(message.getSendBidInfoMessage());
                 break;
             case START_TRICK:
-                this.handleStartTrickMessage(message.getStartTrickMessage());
+                if (message.hasStartTrickMessage()) this.handleStartTrickMessage(message.getStartTrickMessage());
                 break;
             case GET_CARD:
-                this.handleGetCardMessage(message.getGetCardMessage());
+                if (message.hasGetCardMessage()) this.handleGetCardMessage(message.getGetCardMessage());
                 break;
             case SEND_CARD:
-                this.handleSendCardMessage(message.getSendCardMessage());
+                if (message.hasSendCardMessage()) this.handleSendCardMessage(message.getSendCardMessage());
                 break;
             case SEND_WIN_TRICK:
-                this.handleSendWinTrickMessage(message.getSendWinTrickMessage());
+                if (message.hasSendWinTrickMessage()) this.handleSendWinTrickMessage(message.getSendWinTrickMessage());
                 break;
             case SEND_WIN_ROUND:
-                this.handleSendWinRoundMessage(message.getSendWinRoundMessage());
+                if (message.hasSendWinRoundMessage()) this.handleSendWinRoundMessage(message.getSendWinRoundMessage());
                 break;
             case END_GAME:
-                this.handleEndGameMessage(message.getEndGameMessage());
+                if (message.hasEndGameMessage()) this.handleEndGameMessage(message.getEndGameMessage());
                 break;
             default:
                 JCoincheUtils.logInfo("[>] Unknow Message received  [%s] ..", message.getType());

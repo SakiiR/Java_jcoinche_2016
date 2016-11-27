@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class                                                    ClientProcess implements Runnable {
 
-    private boolean                                             isRunning = true;
+    private boolean                                             isRunning;
     private ArrayList<JCoincheProtocol.JCoincheMessage>         messages;
     private MessageHandler                                      messageHandler;
     private PlayerInformations                                  playerInformations;
@@ -33,6 +33,7 @@ public class                                                    ClientProcess im
         this.messageHandler = new MessageHandler(this);
         this.playerInformations = new PlayerInformations();
         this.lock = new ReentrantLock();
+        this.isRunning = true;
     }
 
     /**
@@ -46,7 +47,7 @@ public class                                                    ClientProcess im
      */
     @Override
     public void                                                 run() {
-        while (this.isRunning) {
+        while (this.isRunning || messages.size() != 0) {
             this.lock.lock();
             for (JCoincheProtocol.JCoincheMessage message : this.messages) {
                 this.messageHandler.parseMessage(message);
@@ -75,6 +76,22 @@ public class                                                    ClientProcess im
         this.messages.add(message);
         this.lock.unlock();
         return this;
+    }
+
+    /**
+     * Stop the client process thread
+     */
+    public void                                                 stopThread() {
+        this.isRunning = false;
+    }
+
+    /**
+     * Retrieve the message list.
+     *
+     * @return the message array list
+     */
+    public ArrayList<JCoincheProtocol.JCoincheMessage>          getMessages() {
+        return this.messages;
     }
 
     /**
