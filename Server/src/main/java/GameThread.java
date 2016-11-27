@@ -85,6 +85,23 @@ public class                            GameThread implements Runnable {
     }
 
     /**
+     * Get the card generator
+     * @return a card Generator instance
+     */
+    public CardGenerator                getCardGenerator() {
+        return cardGenerator;
+    }
+
+    /**
+     * Get the general beginner
+
+     * @return the general beginner JCoinchePlayer
+     */
+    public JCoinchePlayer               getGeneralBeginner() {
+        return generalBeginner;
+    }
+
+    /**
      * Main GameThread loop
      *
      * @see GameHandle
@@ -94,7 +111,7 @@ public class                            GameThread implements Runnable {
         JCoincheUtils.logInfo("[!] Entering Main GameThread::run() Method");
         this.initializeTeams();
         this.generalBeginner = this.allPlayers.get(0);
-        this.bid = new JCoincheBid(teams, allPlayers, generalBeginner, cardGenerator, this);
+        this.bid = new JCoincheBid(this);
         while (!this.checkScoreTeams() && this.isRunning) {
             this.bid.setBeginner(this.generalBeginner).runBid();
             if (!this.isRunning) return;
@@ -216,5 +233,13 @@ public class                            GameThread implements Runnable {
         for (JCoinchePlayer p : this.allPlayers) {
             JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendBidInfoMessage(this.bid.getBidInformations()));
         }
+    }
+
+    /**
+     * Get the array teams
+     * @return an array of teams
+     */
+    public ArrayList<JCoincheTeam>      getTeams() {
+        return teams;
     }
 }
