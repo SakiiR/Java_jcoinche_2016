@@ -139,7 +139,6 @@ public class                            GameThread implements Runnable {
             }
             this.gameHandle.removeInnactiveChannels();
         }
-        JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
     }
 
     /**
@@ -221,7 +220,7 @@ public class                            GameThread implements Runnable {
 
         score1 = this.teams.get(0).getScore();
         score2 = this.teams.get(1).getScore();
-        return ((score1 >= 400 || score2 >= 400) && score1 != score2);
+        return ((score1 >= 700 || score2 >= 700) && score1 != score2);
     }
 
     /**

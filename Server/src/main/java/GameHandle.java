@@ -45,12 +45,15 @@ public class                            GameHandle {
                 JCoincheUtils.logWarning("[!] Before Join " + gameThread.toString());
                 t.join();
                 JCoincheUtils.logWarning("[!] After Join " + gameThread.toString());
+                JCoincheUtils.logSuccess("[+] Definitly ending GameThread::run()");
                 for (JCoinchePlayer p : gameThread.getAllPlayers()) {
                     this.getPlayers().remove(p);
                     this.getPlayers().add(p);
+                    if (p.getGameThread() != null) {
+                        JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStoppedMessage());
+                    }
                     p.setGameThread(null)
                             .setMessage(null);
-                    JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeGameStoppedMessage());
                 }
                 this.threads.remove(t);
                 this.gameThreads.remove(gameThread);

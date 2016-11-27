@@ -169,8 +169,8 @@ public class                            MessageHandler {
         int                             bidValue = -1;
         int                             trump = -1;
 
-        while (!((bidValue >= message.getValue() || bidValue == 0 ) && bidValue % 10 == 0)) {
-            bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 -> 10 by 10) or 0 to pass :", message.getValue()));
+        while (!((bidValue >= message.getValue() || bidValue == 0 ) && (bidValue % 10 == 0) && (bidValue <= 170))) {
+            bidValue = this.promptInt(String.format("[>] Please .. Enter Your bid ( Between %d and 170 (CAPOT) -> 10 by 10) or 0 to pass :", message.getValue()));
         }
 
         if (bidValue >= message.getValue()) {
