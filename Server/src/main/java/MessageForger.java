@@ -45,6 +45,7 @@ public class                                                        MessageForge
      * @param partnerId The player's partner player id.
      * @param uniqueGameThreadId The GameThread unique id.
      * @return JCoincheMessageBuilder
+     * @return JCoincheMessageBuilder
      */
     public static final JCoincheProtocol.JCoincheMessage.Builder    forgeGameStartMessage(String token, int playerId, int teamId, int partnerId, String uniqueGameThreadId) {
         return (JCoincheProtocol

@@ -27,7 +27,11 @@ test {
 /**
  * Maybe change rule name
  */
-task "package"(type: Copy, dependsOn: [subprojects.jar]) {
+task "generateproto"(type: Exec) {
+    commandLine './generateProtoFiles.sh'
+}
+
+task "package"(type: Copy, dependsOn: [generateproto, subprojects.jar]) {
     from(subprojects.jar)
     into project.file('./target')
 }
