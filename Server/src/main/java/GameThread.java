@@ -117,7 +117,7 @@ public class                            GameThread implements Runnable {
             if (!this.isRunning) return;
             this.sendBidToPlayers();
             //on entre dans la boucle de plis
-            round = new JCoincheRound(this.bid.getBidInformations(), this.generalBeginner, this.teams, this.allPlayers, this);
+            round = new JCoincheRound(this.bid.getBidInformations(), this);
             round.run();
             //fin de boucle change le beginner général
             if (this.generalBeginner.getId() == 4)

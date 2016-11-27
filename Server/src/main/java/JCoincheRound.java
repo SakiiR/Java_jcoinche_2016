@@ -7,7 +7,8 @@ import java.util.ArrayList;
 /**
  * This class is used to create a new round of game.
  * A round is composed of several tricks.
- * It will generate the trickscore for each trick.
+ * It will generate the trickscore for each trick and
+ * check if the bid has been respected.
  */
 public class                    JCoincheRound {
     JCoincheBidInformations     bidInformations = null;
@@ -18,18 +19,28 @@ public class                    JCoincheRound {
     ArrayList<JCoincheTrick>    tricks = null;
     GameThread                  gameThread = null;
 
-    public                      JCoincheRound(JCoincheBidInformations bidInfo, JCoinchePlayer beginner,
-                                              ArrayList<JCoincheTeam> teams, ArrayList<JCoinchePlayer> players,
-                                              GameThread gameThread) {
+    /**
+     * The constructor of a JCoincheRound
+     *
+     * @param bidInfo the bidInfo from JCoincheBid
+     * @param gameThread the GameThread from GameThread
+     */
+    public                      JCoincheRound(JCoincheBidInformations bidInfo, GameThread gameThread) {
+
         this.bidInformations = bidInfo;
-        this.trickBeginner = beginner;
-        this.beginner = beginner;
-        this.teams = teams;
-        this.players = players;
-        this.tricks = new ArrayList<>();
         this.gameThread = gameThread;
+        this.trickBeginner = this.gameThread.getGeneralBeginner();
+        this.beginner = this.gameThread.getGeneralBeginner();
+        this.teams = this.gameThread.getTeams();
+        this.players = this.gameThread.getAllPlayers();
+        this.tricks = new ArrayList<>();
     }
 
+    /**
+     * The method run will handle 8 tricks.
+     * It will generate the score of the round,
+     * checking if the bid has been respected.
+     */
     public void                 run() {
 
         this.teams.get(0).setTrickScore(0);
@@ -46,6 +57,10 @@ public class                    JCoincheRound {
         this.generateScoreTeams();
     }
 
+    /**
+     * This method will generate the score and
+     * the winner team.
+     */
     private void                generateScoreTeams() {
         JCoincheTeam            bidderTeam = this.bidInformations.getBiddenPlayer().getTeam();
         JCoincheTeam            otherTeam;
@@ -66,6 +81,18 @@ public class                    JCoincheRound {
         }
     }
 
+    /**
+     * This method broadcasts the round result
+     * to all players.
+     * It will send a SEND_WIN_ROUND Google Protocol
+     * Buffer message to all players.
+     *
+     * @param bidderTeam the bidder team
+     * @param otherTeam the other team
+     * @param bidderTeamRoundScore the bidder score team
+     * @param otherTeamRoundScore the other score team
+     * @param message a specific message for SEND_WIN_ROUND
+     */
     private void                sendWinRoundToPlayers(JCoincheTeam bidderTeam, JCoincheTeam otherTeam,
                                                       int bidderTeamRoundScore, int otherTeamRoundScore, String message) {
         for (JCoinchePlayer p : this.players) {
@@ -75,6 +102,13 @@ public class                    JCoincheRound {
         }
     }
 
+    /**
+     * Generate score round if the bid is a Capot.
+     * It will evaluate is the bid has been made.
+     *
+     * @param bidderTeam the bidder team
+     * @param otherTeam the other team
+     */
     private void                generateScoreTeamsCapot(JCoincheTeam bidderTeam, JCoincheTeam otherTeam) {
         int                     tricksTeamBidder = 0;
         int                     bidderRoundScore = 0;
@@ -99,6 +133,15 @@ public class                    JCoincheRound {
         }
     }
 
+    /**
+     * Generate score team if the bid has a Coinche
+     * and/or a surcoinche.
+     * It will evaluate if the bid has been made and
+     * generate the score with a coinche or a surcoinche.
+     *
+     * @param bidderTeam the bidder team
+     * @param otherTeam the other team
+     */
     private void                generateScoreTeamsCoinche(JCoincheTeam bidderTeam, JCoincheTeam otherTeam) {
         int                     bidderRoundScore = 0;
         int                     otherRoundScore = 0;
@@ -135,6 +178,14 @@ public class                    JCoincheRound {
 
     }
 
+    /**
+     * Generate the score team if the bid hasn't
+     * coinche.
+     * It will evaluate if the bid has been made.
+     *
+     * @param bidderTeam the bidder team
+     * @param otherTeam the other team
+     */
     private void                generateScoreTeamsNormal(JCoincheTeam bidderTeam, JCoincheTeam otherTeam) {
         int                     bidderRoundScore = 0;
         int                     otherRoundScore = 0;
@@ -157,6 +208,12 @@ public class                    JCoincheRound {
         }
     }
 
+    /**
+     * Broadcasts a SEND_TRICK Google Protocol Buffer Message
+     * to all players.
+     *
+     * @param nb the trick number
+     */
     private void                sendTrickNbtoPlayers(int nb) {
         for (JCoinchePlayer p : this.players) {
             JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeStartTrickMessage(nb));
