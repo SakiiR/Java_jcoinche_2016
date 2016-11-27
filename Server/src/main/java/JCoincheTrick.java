@@ -3,6 +3,14 @@ import java.util.ArrayList;
 /**
  * Created by anakin on 24/11/16.
  */
+
+/**
+ * This Class defined a unique trick
+ * composed of 4 getting cards.
+ * It will evaluate the winner of the trick
+ * and generate a temporaly trickscore for
+ * each team.
+ */
 public class                    JCoincheTrick {
     JCoinchePlayer              trickBeginner = null;
     JCoinchePlayer              actualPlayer = null;
@@ -12,8 +20,18 @@ public class                    JCoincheTrick {
     JCoincheBidInformations     bidInformations = null;
     GameThread                  gameThread = null;
 
+    /**
+     * The constructor of a JCoincheTrick
+     *
+     * @param beginner the new trick beginner
+     * @param teams the teams
+     * @param players the players
+     * @param bidInformations the bidInformations
+     * @param gameThread the GameThread from GameThread
+     */
     public                      JCoincheTrick(JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams,
-                                              ArrayList<JCoinchePlayer> players, JCoincheBidInformations bidInformations, GameThread gameThread) {
+                                              ArrayList<JCoinchePlayer> players, JCoincheBidInformations bidInformations,
+                                              GameThread gameThread) {
         this.trickBeginner = beginner;
         this.teams = teams;
         this.players = players;
@@ -23,11 +41,24 @@ public class                    JCoincheTrick {
         this.cards = new ArrayList<>();
     }
 
+    /**
+     * A getter for the trickBeginner.
+     *
+     * @return the trickBeginner
+     */
     public JCoinchePlayer       getTrickBeginner() {
         return trickBeginner;
     }
 
 
+    /**
+     * This method run until 4 cards have been set.
+     * It will send a GET_CARD Google Protocol Buffer
+     * message to a player and wait for a SET_CARD Google Protocol
+     * Buffer from the player.
+     * It will call the evaluateCards method to set the
+     * trickScore and the trick winner.
+     */
     public void                  run() {
 
         while(this.cards.size() < 4 && this.gameThread.isRunning()) {
@@ -44,6 +75,19 @@ public class                    JCoincheTrick {
         this.evaluateCards(this.bidInformations, this.cards);
     }
 
+    /**
+     * This method will evaluate the cards.
+     * It will call the generateValueCards then
+     * set the winner trick and the score with the
+     * bidInformations.
+     * It will broadcast a SEND_WIN_TRICK Google Protocol
+     * Buffer message to all players.
+     *
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     * @return a boolean false if an error occur or a true
+     * if everything is ok
+     */
     private boolean                         evaluateCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         JCoinchePlayer                      winner = null;
         int                                 score = 0;
@@ -72,7 +116,14 @@ public class                    JCoincheTrick {
         return true;
     }
 
-
+    /**
+     * This method will generate the winner
+     * for a normal bid with a trump and a value.
+     *
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     * @return the winner of the trick
+     */
     private JCoinchePlayer                  generateWinnerTrickNormalGame(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         ArrayList<JCoincheCard>             cardsEval = new ArrayList<>();
         JCoinchePlayer                      winner = null;
@@ -99,6 +150,14 @@ public class                    JCoincheTrick {
         return winner;
     }
 
+    /**
+     * This method will generate a winner trick
+     * if there is a WT or an AT bid.
+     *
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     * @return the winner trick
+     */
     private JCoinchePlayer                  generateWinnerTrick(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         ArrayList<JCoincheCard>             cardsEval = new ArrayList<>();
         JCoinchePlayer                      winner = null;
@@ -118,6 +177,17 @@ public class                    JCoincheTrick {
         return winner;
     }
 
+    /**
+     * This method will find trumps in an array of cards
+     * depending of the bidTrump from the bidInformations.
+     * It will add the card trump to a cardsEval that is
+     * returned.
+     *
+     * @param cardsEval an array of cardsEval
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     * @return the cardsEval with cardTrump founded
+     */
     private ArrayList<JCoincheCard>         findTrumps(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo,
                                                        ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
@@ -128,6 +198,18 @@ public class                    JCoincheTrick {
         return cardsEval;
     }
 
+    /**
+     * This method will find color cards in an array of
+     * cards depending of the color of the first card in
+     * the array.
+     * It will add the color card to a cardsEval that is
+     * returned.
+     *
+     * @param cardsEval an array of cardsEval
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     * @return the cardsEval with cardColor founded
+     */
     private ArrayList<JCoincheCard>         findCardsColor(ArrayList<JCoincheCard> cardsEval, JCoincheBidInformations bidInfo,
                                                            ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
@@ -138,6 +220,13 @@ public class                    JCoincheTrick {
         return cardsEval;
     }
 
+    /**
+     * This method will generate the value of
+     * each card depending of the bidInformations
+     *
+     * @param bidInfo the bidInformations
+     * @param cardsOnTable an array of 4 cards
+     */
     private void                            generateValueCards(JCoincheBidInformations bidInfo, ArrayList<JCoincheCard> cardsOnTable) {
         for (JCoincheCard c : cardsOnTable) {
             if (bidInfo.getBidTrump().ordinal() < 4) {
@@ -154,11 +243,25 @@ public class                    JCoincheTrick {
         }
     }
 
+    /**
+     * Send an ERROR Google Protocol Buffer message
+     * for a wring card.
+     *
+     * @param player a JCoinchePlayer to send the error
+     */
     private void                            sendGetCardError(JCoinchePlayer player) {
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeError("Wrong card"));
         JCoincheUtils.writeAndFlush(player.getChannel(), MessageForger.forgeGetCardMessage());
     }
 
+    /**
+     * This method will send a GET_CARD Google Protocol
+     * Buffer message to a player.
+     * It will run until a SET_CARD Google Protocol Buffer
+     * message is send from the player to the server.
+     * It will add the card to the cardsOnTable and broadcast
+     * this action to all players.
+     */
     private void                            getCardFromPlayer() {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
@@ -195,6 +298,15 @@ public class                    JCoincheTrick {
         this.sendCardtoPlayers(this.actualPlayer, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
     }
 
+    /**
+     * This method will check if the setting card
+     * is valid depending of the game
+     *
+     * @param colorId the colorId of the card
+     * @param player the JCoinchePlayer who plays this card
+     * @return false if isn't valid, true if is
+     * @see JCoincheCard
+     */
     private boolean                         checkCardValidity(int colorId, JCoinchePlayer player) {
         if (colorId == this.cards.get(0).getColor().ordinal())
             return true;
@@ -208,6 +320,13 @@ public class                    JCoincheTrick {
         return true;
     }
 
+    /**
+     * This method will send a GET_CARD Google Protocol
+     * Buffer message to the first player.
+     * It will run until a SET_CARD Google Protocol Buffer
+     * message is send from the player to the server.
+     * It will broadcast the card to all player.
+     */
     private void                            getCardFromBeginner() {
         boolean                             valideMessage = false;
         JCoincheProtocol.JCoincheMessage    message = null;
@@ -240,6 +359,17 @@ public class                    JCoincheTrick {
         this.sendCardtoPlayers(this.trickBeginner, message.getSetCardMessage().getCardId(), message.getSetCardMessage().getCardColor());
     }
 
+    /**
+     * This method will check if a card is present
+     * in the array of cards of a specific player.
+     *
+     * @param cardId the Id of the card
+     * @param cardColor the color of the card
+     * @param player the player to analyse
+     * @return true if the card exist, false if is not
+     * @see JCoinchePlayer
+     * @see JCoincheCard
+     */
     private boolean                           checkCardOfPlayer(int cardId, int cardColor, JCoinchePlayer player) {
         for (JCoincheCard c : player.getCards()) {
             if (c.getId().ordinal() == cardId && c.getColor().ordinal() == cardColor) {
@@ -249,6 +379,16 @@ public class                    JCoincheTrick {
         return false;
     }
 
+    /**
+     * This method will add a card to an array of cards
+     * and remove it from a player.
+     *
+     * @param cardId the Id card
+     * @param cardColor the color card
+     * @param player the JCoinchePlayer
+     * @see JCoincheCard
+     * @see JCoinchePlayer
+     */
     private void                               addCardtoCards(int cardId, int cardColor, JCoinchePlayer player) {
         for (JCoincheCard c : player.getCards()) {
             if (c.getId().ordinal() == cardId && c.getColor().ordinal() == cardColor) {
@@ -259,6 +399,16 @@ public class                    JCoincheTrick {
         }
     }
 
+    /**
+     * This method will broadcast a SEND_CARD Google
+     * Protocol Buffer message to all players.
+     *
+     * @param player the player who set the card
+     * @param cardId the cardId
+     * @param cardColor the cardColor
+     * @see JCoincheCard
+     * @see JCoinchePlayer
+     */
     private void                                sendCardtoPlayers(JCoinchePlayer player, int cardId, int cardColor) {
         for (JCoinchePlayer p : this.players) {
             JCoincheUtils.writeAndFlush(p.getChannel(), MessageForger.forgeSendCardMessage(player.getId(), cardId, cardColor));
