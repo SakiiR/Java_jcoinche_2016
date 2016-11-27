@@ -39,3 +39,11 @@ task "package"(type: Copy, dependsOn: [generateproto, subprojects.jar]) {
 clean {
     delete './target/'
 }
+
+clean {
+    delete './Server/src/main/java/JCoincheProtocol.java'
+}
+
+clean {
+    delete './Client/src/main/java/JCoincheProtocol.java'
+}

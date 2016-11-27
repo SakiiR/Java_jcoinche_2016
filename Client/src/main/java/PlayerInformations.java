@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 /**
  * This class is containing all the Player informations.
- *
- * @see MessageHandler#handleGameStartMessage(JCoincheProtocol.GameStartMessage)
  */
 public class                        PlayerInformations {
     private String                  token;
@@ -23,8 +21,6 @@ public class                        PlayerInformations {
 
     /**
      * PlayerInformation constructor
-     *
-     * @see MessageHandler#handleGameStartMessage(JCoincheProtocol.GameStartMessage)
      */
     public                          PlayerInformations() {
         this.cards = new ArrayList<>();
