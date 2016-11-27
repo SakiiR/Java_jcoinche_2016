@@ -10,14 +10,14 @@ import java.util.ArrayList;
  * It will generate the trickscore for each trick and
  * check if the bid has been respected.
  */
-public class                    JCoincheRound {
-    JCoincheBidInformations     bidInformations = null;
-    JCoinchePlayer              trickBeginner = null;
-    JCoinchePlayer              beginner = null;
-    ArrayList<JCoincheTeam>     teams = null;
-    ArrayList<JCoinchePlayer>   players = null;
-    ArrayList<JCoincheTrick>    tricks = null;
-    GameThread                  gameThread = null;
+public class                            JCoincheRound {
+    private JCoincheBidInformations     bidInformations = null;
+    private JCoinchePlayer              trickBeginner = null;
+    private JCoinchePlayer              beginner = null;
+    private ArrayList<JCoincheTeam>     teams = null;
+    private ArrayList<JCoinchePlayer>   players = null;
+    private ArrayList<JCoincheTrick>    tricks = null;
+    private GameThread                  gameThread = null;
 
     /**
      * The constructor of a JCoincheRound

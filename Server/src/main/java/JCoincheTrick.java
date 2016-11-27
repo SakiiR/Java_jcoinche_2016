@@ -11,14 +11,14 @@ import java.util.ArrayList;
  * and generate a temporaly trickscore for
  * each team.
  */
-public class                    JCoincheTrick {
-    JCoinchePlayer              trickBeginner = null;
-    JCoinchePlayer              actualPlayer = null;
-    ArrayList<JCoincheCard>     cards = null;
-    ArrayList<JCoincheTeam>     teams = null;
-    ArrayList<JCoinchePlayer>   players = null;
-    JCoincheBidInformations     bidInformations = null;
-    GameThread                  gameThread = null;
+public class                            JCoincheTrick {
+    private JCoinchePlayer              trickBeginner = null;
+    private JCoinchePlayer              actualPlayer = null;
+    private ArrayList<JCoincheCard>     cards = null;
+    private ArrayList<JCoincheTeam>     teams = null;
+    private ArrayList<JCoinchePlayer>   players = null;
+    private JCoincheBidInformations     bidInformations = null;
+    private GameThread                  gameThread = null;
 
     /**
      * The constructor of a JCoincheTrick
@@ -29,7 +29,7 @@ public class                    JCoincheTrick {
      * @param bidInformations the bidInformations
      * @param gameThread the GameThread from GameThread
      */
-    public                      JCoincheTrick(JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams,
+    public                              JCoincheTrick(JCoinchePlayer beginner, ArrayList<JCoincheTeam> teams,
                                               ArrayList<JCoinchePlayer> players, JCoincheBidInformations bidInformations,
                                               GameThread gameThread) {
         this.trickBeginner = beginner;
