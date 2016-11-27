@@ -1,3 +1,4 @@
+# IntelliJ
 .idea/
 .gradle
 build/
@@ -13,6 +14,10 @@ gradlew
 gradlew.bat
 *.class
 
+#Diagram StarUML files
+*.mdj
+
+# Google Protocol Buffers Generated Files
 Client/src/main/java/JCoincheProtocol.java
 Server/src/main/java/JCoincheProtocol.java
 
