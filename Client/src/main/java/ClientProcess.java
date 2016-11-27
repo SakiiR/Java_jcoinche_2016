@@ -103,4 +103,26 @@ public class                                                    ClientProcess im
     public PlayerInformations                                   getPlayerInformations() {
         return this.playerInformations;
     }
+
+    /**
+     * This method set the encapsulated local player
+     * information object reference.
+     *
+     * @param pI The player information struct
+     * @return ClientProcess
+     */
+    public ClientProcess                                        setPlayerInformations(PlayerInformations pI) {
+        this.playerInformations = pI;
+        return this;
+    }
+
+    /**
+     * Retrieve de message handler
+     *
+     * @return th message handler
+     */
+    public MessageHandler                                       getMessageHandler() {
+        return this.messageHandler;
+    }
+
 }

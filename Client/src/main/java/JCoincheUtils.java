@@ -19,7 +19,7 @@ public class                JCoincheUtils {
      * @param ch Player Channel
      * @param obj Message Object to send
      */
-    static public void      writeAndFlush(Channel ch, Object obj) { ch.writeAndFlush(obj); }
+    static public void      writeAndFlush(Channel ch, Object obj) { if (ch != null) ch.writeAndFlush(obj); }
 
     /**
      * Log a basic message to the console with var_args
